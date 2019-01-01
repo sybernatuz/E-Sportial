@@ -1,0 +1,29 @@
+version: '3.2'
+
+services:
+  db:
+    image: postgres:9.6-alpine
+    environment:
+      - POSTGRES_DB=e-sportial
+      - POSTGRES_USER=root
+      - POSTGRES_PASSWORD=root
+    volumes:
+      - /data/postgres:/data/postgres
+    ports:
+      - "5432:5432"
+
+  pgadmin:
+      image: dpage/pgadmin4:latest
+      depends_on:
+        - db
+      environment:
+        PGADMIN_DEFAULT_EMAIL: pgadmin@mail.com
+        PGADMIN_DEFAULT_PASSWORD: pgadmin
+      volumes:
+        - /data/pgadmin:/root/.pgadmin
+      ports:
+        - "5050:5050"
+
+
+volumes:
+  db-data: {}
