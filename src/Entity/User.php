@@ -2,6 +2,7 @@
 
 namespace App\Entity;
 
+use DateTime;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
@@ -60,7 +61,7 @@ class User implements UserInterface
     private $online;
 
     /**
-     * @ORM\Column(type="datetime", options={"default" : "CURRENT_TIMESTAMP"})
+     * @ORM\Column(type="datetime")
      */
     private $createdAt;
 
@@ -81,7 +82,7 @@ class User implements UserInterface
     private $password;
 
     /**
-     * @ORM\ManyToMany(targetEntity="App\Entity\Group", mappedBy="users")
+     * @ORM\ManyToMany(targetEntity="DiscussionGroup", mappedBy="users")
      */
     private $groups;
 
@@ -177,6 +178,8 @@ class User implements UserInterface
         $this->awards = new ArrayCollection();
         $this->files = new ArrayCollection();
         $this->participants = new ArrayCollection();
+
+        $this->createdAt = new DateTime();
     }
 
     public function getId(): ?int
@@ -186,7 +189,7 @@ class User implements UserInterface
 
     public function getUsername(): string
     {
-        return (string) $this->username;
+        return (string)$this->username;
     }
 
     public function setUsername(string $username): self
@@ -220,7 +223,7 @@ class User implements UserInterface
      */
     public function getPassword(): string
     {
-        return (string) $this->password;
+        return (string)$this->password;
     }
 
     public function setPassword(string $password): self
@@ -233,7 +236,9 @@ class User implements UserInterface
     /**
      * @see UserInterface
      */
-    public function getSalt() {}
+    public function getSalt()
+    {
+    }
 
     /**
      * @see UserInterface
@@ -247,7 +252,7 @@ class User implements UserInterface
     /**
      * @return string
      */
-    public function getEmail() : string
+    public function getEmail(): string
     {
         return $this->email;
     }
@@ -256,7 +261,7 @@ class User implements UserInterface
      * @param string $email
      * @return User
      */
-    public function setEmail($email) : self
+    public function setEmail($email): self
     {
         $this->email = $email;
         return $this;
@@ -265,7 +270,7 @@ class User implements UserInterface
     /**
      * @return string
      */
-    public function getLastname() : string
+    public function getLastname(): string
     {
         return $this->lastname;
     }
@@ -274,7 +279,7 @@ class User implements UserInterface
      * @param string $lastname
      * @return User
      */
-    public function setLastname($lastname) : self
+    public function setLastname($lastname): self
     {
         $this->lastname = $lastname;
         return $this;
@@ -283,7 +288,7 @@ class User implements UserInterface
     /**
      * @return string
      */
-    public function getFirstname() : string
+    public function getFirstname(): string
     {
         return $this->firstname;
     }
@@ -292,7 +297,7 @@ class User implements UserInterface
      * @param string $firstname
      * @return User
      */
-    public function setFirstname($firstname) : self
+    public function setFirstname($firstname): self
     {
         $this->firstname = $firstname;
         return $this;
@@ -301,7 +306,7 @@ class User implements UserInterface
     /**
      * @return int
      */
-    public function getAge() : int
+    public function getAge(): int
     {
         return $this->age;
     }
@@ -310,7 +315,7 @@ class User implements UserInterface
      * @param int $age
      * @return User
      */
-    public function setAge($age) : self
+    public function setAge($age): self
     {
         $this->age = $age;
         return $this;
@@ -319,7 +324,7 @@ class User implements UserInterface
     /**
      * @return bool
      */
-    public function getPro() : bool
+    public function getPro(): bool
     {
         return $this->pro;
     }
@@ -328,7 +333,7 @@ class User implements UserInterface
      * @param bool $pro
      * @return User
      */
-    public function setPro($pro) : self
+    public function setPro($pro): self
     {
         $this->pro = $pro;
         return $this;
@@ -407,14 +412,14 @@ class User implements UserInterface
     }
 
     /**
-     * @return Collection|Group[]
+     * @return Collection|DiscussionGroup[]
      */
     public function getGroups(): Collection
     {
         return $this->groups;
     }
 
-    public function addGroup(Group $group): self
+    public function addGroup(DiscussionGroup $group): self
     {
         if (!$this->groups->contains($group)) {
             $this->groups[] = $group;
@@ -424,7 +429,7 @@ class User implements UserInterface
         return $this;
     }
 
-    public function removeGroup(Group $group): self
+    public function removeGroup(DiscussionGroup $group): self
     {
         if ($this->groups->contains($group)) {
             $this->groups->removeElement($group);
@@ -882,12 +887,6 @@ class User implements UserInterface
 
         return $this;
     }
-
-
-
-
-
-
 
 
 }

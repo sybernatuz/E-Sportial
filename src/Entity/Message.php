@@ -60,7 +60,7 @@ class Message
     private $wall;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\Group", inversedBy="messages")
+     * @ORM\ManyToOne(targetEntity="DiscussionGroup", inversedBy="messages")
      */
     private $receiverGroup;
 
@@ -200,12 +200,12 @@ class Message
         return $this;
     }
 
-    public function getReceiverGroup(): ?Group
+    public function getReceiverGroup(): ?DiscussionGroup
     {
         return $this->receiverGroup;
     }
 
-    public function setReceiverGroup(?Group $receiverGroup): self
+    public function setReceiverGroup(?DiscussionGroup $receiverGroup): self
     {
         $this->receiverGroup = $receiverGroup;
 

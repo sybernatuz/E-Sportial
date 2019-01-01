@@ -2,47 +2,61 @@
 
 namespace App\Entity;
 
-use Doctrine\ORM\Mapping as ORM;
+use Doctrine\ORM\Mapping\Column;
+use Doctrine\ORM\Mapping\Entity;
+use Doctrine\ORM\Mapping\GeneratedValue;
+use Doctrine\ORM\Mapping\Id;
+use Doctrine\ORM\Mapping\ManyToOne;
 
 /**
- * @ORM\Entity(repositoryClass="App\Repository\ResultRepository")
+ * @Entity(repositoryClass="App\Repository\ResultRepository")
  */
 class Result
 {
     /**
-     * @ORM\Id()
-     * @ORM\GeneratedValue()
-     * @ORM\Column(type="integer")
+     * @Id()
+     * @GeneratedValue()
+     * @Column(type="integer")
      */
     private $id;
 
     /**
-     * @ORM\Column(type="integer")
+     * @Column(type="integer")
      */
     private $score;
 
     /**
-     * @ORM\Column(type="float", nullable=true)
+     * @Column(type="float", nullable=true)
      */
     private $kills;
 
     /**
-     * @ORM\Column(type="float", nullable=true)
+     * @Column(type="float", nullable=true)
      */
     private $deaths;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\Party", inversedBy="results")
+     * @Column(type="time", nullable=true)
+     */
+    private $duration;
+
+    /**
+     * @Column(type="datetime")
+     */
+    private $date;
+
+    /**
+     * @ManyToOne(targetEntity="App\Entity\Party", inversedBy="results")
      */
     private $party;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\User", inversedBy="results")
+     * @ManyToOne(targetEntity="App\Entity\User", inversedBy="results")
      */
     private $user;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\Roster", inversedBy="results")
+     * @ManyToOne(targetEntity="App\Entity\Roster", inversedBy="results")
      */
     private $roster;
 
@@ -119,6 +133,30 @@ class Result
     public function setRoster(?Roster $roster): self
     {
         $this->roster = $roster;
+
+        return $this;
+    }
+
+    public function getDuration(): ?\DateTimeInterface
+    {
+        return $this->duration;
+    }
+
+    public function setDuration(?\DateTimeInterface $duration): self
+    {
+        $this->duration = $duration;
+
+        return $this;
+    }
+
+    public function getDate(): ?\DateTimeInterface
+    {
+        return $this->date;
+    }
+
+    public function setDate(\DateTimeInterface $date): self
+    {
+        $this->date = $date;
 
         return $this;
     }
