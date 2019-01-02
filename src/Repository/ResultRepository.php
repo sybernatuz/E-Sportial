@@ -19,22 +19,16 @@ class ResultRepository extends ServiceEntityRepository
         parent::__construct($registry, Result::class);
     }
 
-    // /**
-    //  * @return Result[] Returns an array of Result objects
-    //  */
-    /*
-    public function findByExampleField($value)
+    public function findIdsByLastDateGroupByAndLimit($groupBy, $resultsNumber) : array
     {
-        return $this->createQueryBuilder('r')
-            ->andWhere('r.exampleField = :val')
-            ->setParameter('val', $value)
-            ->orderBy('r.id', 'ASC')
-            ->setMaxResults(10)
+        return $this->createQueryBuilder('result')
+            ->select("IDENTITY(result.party) as partyId")
+            ->groupBy("partyId")
+            ->orderBy('result.date', 'DESC')
+            ->setMaxResults($resultsNumber)
             ->getQuery()
-            ->getResult()
-        ;
+            ->getResult();
     }
-    */
 
     /*
     public function findOneBySomeField($value): ?Result

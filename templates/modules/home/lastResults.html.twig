@@ -1,0 +1,12 @@
+<div class="lastResults">
+    {% for gameName,lastParties in lastPartiesGroupByGame %}
+        {{ gameName }}
+        <ul>
+            {% for lastParty in lastParties %}
+                <li>
+                {{ lastParty.results[0].user.username }}|{{ lastParty.results[0].score }} - {{ lastParty.results[1].score }}|{{ lastParty.results[0].user.username }}
+                </li>
+            {% endfor %}
+        </ul>
+    {% endfor %}
+</div>

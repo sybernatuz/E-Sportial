@@ -25,8 +25,9 @@ class ResultFixtures extends Fixture implements DependentFixtureInterface
         $faker = Factory::create();
         $parties = $manager->getRepository(Party::class)->findAll();
         $users = $manager->getRepository(User::class)->findAll();
-        for ($i = 0; $i < 10; $i++) {
-            $game = (new Result())
+        $results = [];
+        for ($i = 0; $i < 20; $i++) {
+            $result = (new Result())
                 ->setDate($faker->dateTime)
                 ->setDeaths($faker->numberBetween(0, 20))
                 ->setKills($faker->numberBetween(0, 20))
@@ -34,8 +35,8 @@ class ResultFixtures extends Fixture implements DependentFixtureInterface
                 ->setScore($faker->randomNumber())
                 ->setParty($faker->randomElement($parties))
                 ->setUser($faker->randomElement($users));
-
-            $manager->persist($game);
+            $this->removePartyWhereTwoResults($results, $result, $parties);
+            $manager->persist($result);
         }
         $manager->flush();
     }
@@ -46,5 +47,18 @@ class ResultFixtures extends Fixture implements DependentFixtureInterface
             PartyFixtures::class,
             UserFixtures::class
         ];
+    }
+
+    public function removePartyWhereTwoResults(array &$results, Result &$currentResult, array &$parties) {
+        foreach ($results as $result) {
+            if ($currentResult->getParty()->getId() == $result->getParty()->getId()) {
+                if (false !== $key = array_search($result->getParty(), $parties)) {
+                    unset($parties[$key]);
+                    $currentResult->setDate($result->getDate());
+                    break;
+                }
+            }
+        }
+        $results[] = $currentResult;
     }
 }
