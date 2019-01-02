@@ -1,10 +1,15 @@
 <div class="lastResults">
+    <h2 class="lastResultsTitle">Last results</h2>
     {% for gameName,lastParties in lastPartiesGroupByGameName %}
-        {{ gameName }}
+        <div class="lastResultsGameName">{{ gameName }}</div>
         <ul>
             {% for lastParty in lastParties %}
                 <li>
-                {{ lastParty.results[0].user.username }}|{{ lastParty.results[0].score }} - {{ lastParty.results[1].score }}|{{ lastParty.results[1].user.username }}
+                    {{ lastParty.results[0].user.username }}
+                    {{ lastParty.results[0].score }}
+                    -
+                    {{ lastParty.results[1].score }}
+                    {{ lastParty.results[1].user.username }}
                 </li>
             {% endfor %}
         </ul>
