@@ -34,7 +34,7 @@ class DiscussionGroup
     private $users;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Message", mappedBy="receiverGroup")
+     * @ORM\OneToMany(targetEntity="App\Entity\Message", mappedBy="discussionGroup")
      */
     private $messages;
 
