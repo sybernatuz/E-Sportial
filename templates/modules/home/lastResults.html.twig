@@ -1,17 +1,19 @@
+<h2 class="lastResultsTitle">Last results</h2>
 <div class="lastResults">
-    <h2 class="lastResultsTitle">Last results</h2>
-    {% for gameName,lastParties in lastPartiesGroupByGameName %}
-        <div class="lastResultsGameName">{{ gameName }}</div>
-        <ul>
+    {% if lastPartiesGroupByGameName is empty %}
+        No Results
+    {% else %}
+        {% for gameName,lastParties in lastPartiesGroupByGameName %}
+            <div class="lastResultsGameName">{{ gameName }}</div>
             {% for lastParty in lastParties %}
-                <li>
+                <div class="lastResultItem">
+                    <img class="logo1" src="{{ lastParty.results[0].user.avatar }}">
                     {{ lastParty.results[0].user.username }}
-                    {{ lastParty.results[0].score }}
-                    -
-                    {{ lastParty.results[1].score }}
+                    <span class="result"> {{ lastParty.results[0].score }} - {{ lastParty.results[1].score }}</span>
                     {{ lastParty.results[1].user.username }}
-                </li>
+                    <img class="logo2" src="{{ lastParty.results[1].user.avatar }}">
+                </div>
             {% endfor %}
-        </ul>
-    {% endfor %}
+        {% endfor %}
+    {% endif %}
 </div>
