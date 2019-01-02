@@ -31,7 +31,7 @@ class LastResultsService
         $lastResultsIds = $this->resultRepository->findIdsByLastDateGroupByAndLimit(self::LAST_RESULTS_NUMBER);
         $lastParties = $this->partyRepository->findByPartiesIds($lastResultsIds);
         $lastPartiesGroupByGameName = $this->groupLastPartiesByGameName($lastParties);
-        $finalDataHolder->put("lastPartiesGroupByGame", $lastPartiesGroupByGameName);
+        $finalDataHolder->put("lastPartiesGroupByGameName", $lastPartiesGroupByGameName);
     }
 
     private function groupLastPartiesByGameName(array $lastParties) : array
