@@ -19,6 +19,10 @@ class PartyRepository extends ServiceEntityRepository
         parent::__construct($registry, Party::class);
     }
 
+    /**
+     * @param $ids int[]
+     * @return Party[]
+     */
     public function findByPartiesIds($ids) : array
     {
         return $this->createQueryBuilder('party')

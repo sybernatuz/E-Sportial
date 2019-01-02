@@ -19,7 +19,7 @@ class ResultRepository extends ServiceEntityRepository
         parent::__construct($registry, Result::class);
     }
 
-    public function findIdsByLastDateGroupByAndLimit($groupBy, $resultsNumber) : array
+    public function findIdsByLastDateGroupByAndLimit($resultsNumber) : array
     {
         return $this->createQueryBuilder('result')
             ->select("IDENTITY(result.party) as partyId")

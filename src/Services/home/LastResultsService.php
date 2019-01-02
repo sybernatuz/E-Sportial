@@ -28,8 +28,14 @@ class LastResultsService
 
     public function process(DataHolder $finalDataHolder) : void
     {
-        $lastResultsIds = $this->resultRepository->findIdsByLastDateGroupByAndLimit("party", self::LAST_RESULTS_NUMBER);
+        $lastResultsIds = $this->resultRepository->findIdsByLastDateGroupByAndLimit(self::LAST_RESULTS_NUMBER);
         $lastParties = $this->partyRepository->findByPartiesIds($lastResultsIds);
+        $lastPartiesGroupByGameName = $this->groupLastPartiesByGameName($lastParties);
+        $finalDataHolder->put("lastPartiesGroupByGame", $lastPartiesGroupByGameName);
+    }
+
+    private function groupLastPartiesByGameName(array $lastParties) : array
+    {
         $lastPartiesGroupByGameName = [];
         foreach ($lastParties as $lastParty) {
             $gameName = $lastParty->getGame()->getName();
@@ -37,6 +43,6 @@ class LastResultsService
                 $lastPartiesGroupByGame[$gameName] = [];
             $lastPartiesGroupByGameName[$gameName][] = $lastParty;
         }
-        $finalDataHolder->put("lastPartiesGroupByGame", $lastPartiesGroupByGameName);
+        return $lastPartiesGroupByGameName;
     }
 }
