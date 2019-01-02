@@ -32,7 +32,7 @@ class ResultFixtures extends Fixture implements DependentFixtureInterface
                 ->setDeaths($faker->numberBetween(0, 20))
                 ->setKills($faker->numberBetween(0, 20))
                 ->setDuration($faker->dateTime)
-                ->setScore($faker->randomNumber())
+                ->setScore($faker->numberBetween(0, 99))
                 ->setParty($faker->randomElement($parties))
                 ->setUser($faker->randomElement($users));
             $this->removePartyWhereTwoResults($results, $result, $parties);

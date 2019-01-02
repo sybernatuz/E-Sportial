@@ -34,9 +34,9 @@ class HomeController extends AbstractController
     }
 
     /**
-     * @Route(name="handleRequest")
+     * @Route(name="index")
      */
-    public function handleRequest()
+    public function index()
     {
         $this->lastResultsService->process($this->finalDataHolder);
         return $this->render("pages/home.html.twig", $this->finalDataHolder->getData());

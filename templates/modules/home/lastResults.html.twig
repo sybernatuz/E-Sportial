@@ -1,19 +1,29 @@
-<h2 class="lastResultsTitle">Last results</h2>
-<div class="lastResults">
-    {% if lastPartiesGroupByGameName is empty %}
-        No Results
-    {% else %}
-        {% for gameName,lastParties in lastPartiesGroupByGameName %}
-            <div class="lastResultsGameName">{{ gameName }}</div>
-            {% for lastParty in lastParties %}
-                <div class="lastResultItem">
-                    <img class="logo1" src="{{ lastParty.results[0].user.avatar }}">
-                    {{ lastParty.results[0].user.username }}
-                    <span class="result"> {{ lastParty.results[0].score }} - {{ lastParty.results[1].score }}</span>
-                    {{ lastParty.results[1].user.username }}
-                    <img class="logo2" src="{{ lastParty.results[1].user.avatar }}">
-                </div>
-            {% endfor %}
-        {% endfor %}
-    {% endif %}
+<div id="lastResults" class="row">
+    <h3>Last results</h3>
+    <div class="col m5">
+        {% if lastPartiesGroupByGameName is empty %}
+            No Results
+        {% else %}
+            <ul class="collection with-header">
+                {% for gameName,lastParties in lastPartiesGroupByGameName %}
+                    <li class="collection-header lastResultsGameName">{{ gameName }}</li>
+                    {% for lastParty in lastParties %}
+                        <li class="collection-item avatar">
+                            <div class="row valign-wrapper">
+                                <div class="left-align col m5">
+                                    <img class="circle" src="{{ lastParty.results[0].user.avatar }}">
+                                    <span class="">{{ lastParty.results[0].user.username }}</span>
+                                </div>
+                                <span class="center-align col m2"> {{ lastParty.results[0].score }} - {{ lastParty.results[1].score }}</span>
+                                <div class="right-align col m5">
+                                    <span class="">{{ lastParty.results[1].user.username }}</span>
+                                    <img class="circle" src="{{ lastParty.results[1].user.avatar }}">
+                                </div>
+                            </div>
+                        </li>
+                    {% endfor %}
+                {% endfor %}
+            </ul>
+        {% endif %}
+    </div>
 </div>
