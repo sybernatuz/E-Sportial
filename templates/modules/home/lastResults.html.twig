@@ -1,6 +1,6 @@
 <div id="lastResults" class="row">
     <h3>Last results</h3>
-    <div class="col m5">
+    <div class="col s12 m6">
         {% if lastPartiesGroupByGameName is empty %}
             No Results
         {% else %}
@@ -14,7 +14,7 @@
                                     <img class="circle" src="{{ lastParty.results[0].user.avatar }}">
                                     <span class="">{{ lastParty.results[0].user.username }}</span>
                                 </div>
-                                <span class="center-align col m2"> {{ lastParty.results[0].score }} - {{ lastParty.results[1].score }}</span>
+                                <span class="center-align col m2 result">{{ lastParty.results[0].score }} - {{ lastParty.results[1].score }}</span>
                                 <div class="right-align col m5">
                                     <span class="">{{ lastParty.results[1].user.username }}</span>
                                     <img class="circle" src="{{ lastParty.results[1].user.avatar }}">

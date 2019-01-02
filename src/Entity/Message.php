@@ -65,7 +65,7 @@ class Message
     private $discussionGroup;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\Party", inversedBy="messages")
+     * @ORM\ManyToOne(targetEntity="App\Entity\Party", inversedBy="comments")
      */
     private $party;
 

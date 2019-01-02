@@ -59,11 +59,6 @@ class Party
      */
     private $rankings;
 
-    /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Message", mappedBy="party")
-     */
-    private $messages;
-
     public function __construct()
     {
         $this->comments = new ArrayCollection();
@@ -71,7 +66,6 @@ class Party
         $this->rosters = new ArrayCollection();
         $this->results = new ArrayCollection();
         $this->rankings = new ArrayCollection();
-        $this->messages = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -254,37 +248,6 @@ class Party
             // set the owning side to null (unless already changed)
             if ($ranking->getParty() === $this) {
                 $ranking->setParty(null);
-            }
-        }
-
-        return $this;
-    }
-
-    /**
-     * @return Collection|Message[]
-     */
-    public function getMessages(): Collection
-    {
-        return $this->messages;
-    }
-
-    public function addMessage(Message $message): self
-    {
-        if (!$this->messages->contains($message)) {
-            $this->messages[] = $message;
-            $message->setParty($this);
-        }
-
-        return $this;
-    }
-
-    public function removeMessage(Message $message): self
-    {
-        if ($this->messages->contains($message)) {
-            $this->messages->removeElement($message);
-            // set the owning side to null (unless already changed)
-            if ($message->getParty() === $this) {
-                $message->setParty(null);
             }
         }
 
