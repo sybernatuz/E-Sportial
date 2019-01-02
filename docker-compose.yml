@@ -1,28 +1,51 @@
-version: '3.2'
+version: '3'
 
 services:
-  postgres:
-    image: postgres:latest
-    hostname: postgres
-    environment:
-      POSTGRES_USER: postgres
-      POSTGRES_PASSWORD: postgres
-      PGDATA: /data/postgres
+  php:
+    build:
+      context: ./
+      dockerfile: .docker/Dockerfile
+    container_name: php
+    depends_on:
+      - postgres
+    env_file:
+      - ./.env
     volumes:
-      - /data/postgres:/data/postgres
-    restart: always
+      - ./:/srv/symfony:rw,cached
+    environment:
+      XDEBUG_CONFIG: "remote_host=docker.for.mac.localhost idekey=IDE_XDEBUG"
+
+  symfony:
+    build:
+      context: ./
+      dockerfile: .docker/nginx/Dockerfile
+    container_name: symfony
+    depends_on:
+      - php
+    ports:
+      - "8080:80"
+    volumes:
+      - ./public:/srv/symfony/public:ro
+
+  postgres:
+    image: postgres:9.6-alpine
+    container_name: postgres
+    environment:
+      - POSTGRES_DB=symfony
+      - POSTGRES_USER=symfony
+      - POSTGRES_PASSWORD=symfony
+      - PGDATA=/var/lib/postgresql/data/db-files/
     ports:
       - "5432:5432"
 
-  pgadmin:
-    image: dpage/pgadmin4:latest
+  adminer:
+    image: adminer
+    container_name: adminer
     depends_on:
       - postgres
-    environment:
-      PGADMIN_DEFAULT_EMAIL: pgadmin@mail.com
-      PGADMIN_DEFAULT_PASSWORD: pgadmin
-    volumes:
-      - /data/pgadmin:/root/.pgadmin
-    ports:
-      - "5050:80"
     restart: always
+    ports:
+      - 2000:8080
+
+volumes:
+  db-data: {}
