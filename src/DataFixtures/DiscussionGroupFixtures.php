@@ -36,6 +36,8 @@ class DiscussionGroupFixtures extends Fixture implements DependentFixtureInterfa
 
     public function getDependencies()
     {
-
+        return [
+            UserFixtures::class
+        ];
     }
 }
