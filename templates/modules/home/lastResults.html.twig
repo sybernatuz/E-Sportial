@@ -1,29 +1,27 @@
-<div id="lastResults" class="row">
+<div id="lastResults" class="col s12 m12 l6">
     <h3>Last results</h3>
-    <div class="col s12 m12 l6">
-        {% if lastPartiesGroupByGameName is empty %}
-            No Results
-        {% else %}
-            <ul class="collection with-header">
-                {% for gameName,lastParties in lastPartiesGroupByGameName %}
-                    <li class="collection-header lastResultsGameName">{{ gameName }}</li>
-                    {% for lastParty in lastParties %}
-                        <li class="collection-item avatar">
-                            <div class="row valign-wrapper">
-                                <div class="left-align col m5">
-                                    <img class="circle" src="{{ lastParty.results[0].user.avatar }}">
-                                    <span class="">{{ lastParty.results[0].user.username }}</span>
-                                </div>
-                                <span class="center-align col m2 result">{{ lastParty.results[0].score }} - {{ lastParty.results[1].score }}</span>
-                                <div class="right-align col m5">
-                                    <span class="">{{ lastParty.results[1].user.username }}</span>
-                                    <img class="circle" src="{{ lastParty.results[1].user.avatar }}">
-                                </div>
+    {% if lastPartiesGroupByGameName is empty %}
+        No Results
+    {% else %}
+        <ul class="collection with-header">
+            {% for gameName,lastParties in lastPartiesGroupByGameName %}
+                <li class="collection-header lastResultsGameName">{{ gameName }}</li>
+                {% for lastParty in lastParties %}
+                    <li class="collection-item avatar">
+                        <div class="row valign-wrapper">
+                            <div class="left-align col m5">
+                                <img class="circle" src="{{ lastParty.results[0].user.avatar }}">
+                                <span class="">{{ lastParty.results[0].user.username }}</span>
                             </div>
-                        </li>
-                    {% endfor %}
+                            <span class="center-align col m2 result">{{ lastParty.results[0].score }} - {{ lastParty.results[1].score }}</span>
+                            <div class="right-align col m5">
+                                <span class="">{{ lastParty.results[1].user.username }}</span>
+                                <img class="circle" src="{{ lastParty.results[1].user.avatar }}">
+                            </div>
+                        </div>
+                    </li>
                 {% endfor %}
-            </ul>
-        {% endif %}
-    </div>
+            {% endfor %}
+        </ul>
+    {% endif %}
 </div>

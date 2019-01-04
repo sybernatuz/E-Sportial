@@ -1,0 +1,24 @@
+<div id="lastRecruitments" class="col s12 m12 l6">
+    <h3>Last recruitments</h3>
+    {% if lastRecruitments is empty %}
+        No recruitments
+    {% else %}
+        <ul class="collection lastRecruitmentItems">
+            {% for lastRecruitment in lastRecruitments %}
+                <li class="collection-item avatar lastRecruitmentItem">
+                    <div class="row valign-wrapper">
+                        <div class="left-align col m3">
+                            <img class="circle" src="{{ lastRecruitment.user.avatar }}">
+                        </div>
+                        <span class="center-align col m6 result">
+                            {{ lastRecruitment.user.username }} joined {{ lastRecruitment.organization.name }}
+                        </span>
+                        <div class="right-align col m3">
+                            <img class="circle" src="{{ lastRecruitment.organization.logoPath }}">
+                        </div>
+                    </div>
+                </li>
+            {% endfor %}
+        </ul>
+    {% endif %}
+</div>

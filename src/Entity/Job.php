@@ -51,6 +51,12 @@ class Job
      */
     private $organization;
 
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\Type", inversedBy="jobs")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $type;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -136,6 +142,18 @@ class Job
     public function setOrganization(?Organization $organization): self
     {
         $this->organization = $organization;
+
+        return $this;
+    }
+
+    public function getType(): ?Type
+    {
+        return $this->type;
+    }
+
+    public function setType(?Type $type): self
+    {
+        $this->type = $type;
 
         return $this;
     }

@@ -49,7 +49,8 @@ class ResultFixtures extends Fixture implements DependentFixtureInterface
         ];
     }
 
-    public function removePartyWhereTwoResults(array &$results, Result &$currentResult, array &$parties) {
+    public function removePartyWhereTwoResults(array &$results, Result &$currentResult, array &$parties)
+    {
         foreach ($results as $result) {
             if ($currentResult->getParty()->getId() == $result->getParty()->getId()) {
                 if (false !== $key = array_search($result->getParty(), $parties)) {

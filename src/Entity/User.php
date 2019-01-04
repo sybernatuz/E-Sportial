@@ -103,9 +103,9 @@ class User implements UserInterface
     private $jobs;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Recrutment", mappedBy="user")
+     * @ORM\OneToMany(targetEntity="App\Entity\Recruitment", mappedBy="user")
      */
-    private $recrutments;
+    private $recruitments;
 
     /**
      * @ORM\OneToMany(targetEntity="App\Entity\Subscription", mappedBy="user")
@@ -172,7 +172,7 @@ class User implements UserInterface
         $this->groups = new ArrayCollection();
         $this->premium = new ArrayCollection();
         $this->jobs = new ArrayCollection();
-        $this->recrutments = new ArrayCollection();
+        $this->recruitments = new ArrayCollection();
         $this->subscriptions = new ArrayCollection();
         $this->subscribed = new ArrayCollection();
         $this->plays = new ArrayCollection();
@@ -529,30 +529,30 @@ class User implements UserInterface
     }
 
     /**
-     * @return Collection|Recrutment[]
+     * @return Collection|Recruitment[]
      */
-    public function getRecrutments(): Collection
+    public function getRecruitments(): Collection
     {
-        return $this->recrutments;
+        return $this->recruitments;
     }
 
-    public function addRecrutment(Recrutment $recrutment): self
+    public function addRecruitment(Recruitment $recruitment): self
     {
-        if (!$this->recrutments->contains($recrutment)) {
-            $this->recrutments[] = $recrutment;
-            $recrutment->setUser($this);
+        if (!$this->recruitments->contains($recruitment)) {
+            $this->recruitments[] = $recruitment;
+            $recruitment->setUser($this);
         }
 
         return $this;
     }
 
-    public function removeRecrutment(Recrutment $recrutment): self
+    public function removeRecruitment(Recruitment $recruitment): self
     {
-        if ($this->recrutments->contains($recrutment)) {
-            $this->recrutments->removeElement($recrutment);
+        if ($this->recruitments->contains($recruitment)) {
+            $this->recruitments->removeElement($recruitment);
             // set the owning side to null (unless already changed)
-            if ($recrutment->getUser() === $this) {
-                $recrutment->setUser(null);
+            if ($recruitment->getUser() === $this) {
+                $recruitment->setUser(null);
             }
         }
 

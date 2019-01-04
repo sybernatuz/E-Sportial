@@ -10,6 +10,7 @@ namespace App\Controller;
 
 
 use App\Objects\DataHolder;
+use App\Services\home\LastRecruitmentsService;
 use App\Services\home\LastResultsService;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
@@ -22,15 +23,17 @@ use Symfony\Component\Routing\Annotation\Route;
 class HomeController extends AbstractController
 {
     private $lastResultsService;
+    private $lastRecruitmentsService;
 
     private $tempDataHolder;
     private $finalDataHolder;
 
-    public function __construct(LastResultsService $lastResultsService)
+    public function __construct(LastResultsService $lastResultsService, LastRecruitmentsService $lastRecruitmentsService)
     {
         $this->tempDataHolder = new DataHolder();
         $this->finalDataHolder = new DataHolder();
         $this->lastResultsService = $lastResultsService;
+        $this->lastRecruitmentsService = $lastRecruitmentsService;
     }
 
     /**
@@ -39,6 +42,7 @@ class HomeController extends AbstractController
     public function index()
     {
         $this->lastResultsService->process($this->finalDataHolder);
+        $this->lastRecruitmentsService->process($this->finalDataHolder);
         return $this->render("pages/home.html.twig", $this->finalDataHolder->getData());
     }
 

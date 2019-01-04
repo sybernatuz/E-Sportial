@@ -10,6 +10,7 @@ namespace App\DataFixtures;
 
 
 use App\Entity\Type;
+use App\Enums\type\JobTypeEnum;
 use App\Enums\type\OrganizationTypeEnum;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Common\Persistence\ObjectManager;
@@ -19,13 +20,17 @@ class TypeFixtures extends Fixture
 
     public function load(ObjectManager $manager)
     {
-        $this->persistType($manager, OrganizationTypeEnum::SPONSOR, OrganizationTypeEnum::ENTITY_NAME);
-        $this->persistType($manager, OrganizationTypeEnum::TEAM, OrganizationTypeEnum::ENTITY_NAME);
+        $this->persistType($manager, OrganizationTypeEnum::ENTITY_NAME, OrganizationTypeEnum::SPONSOR);
+        $this->persistType($manager, OrganizationTypeEnum::ENTITY_NAME, OrganizationTypeEnum::TEAM);
+
+        $this->persistType($manager, JobTypeEnum::ENTITY_NAME, JobTypeEnum::COACHING);
+        $this->persistType($manager, JobTypeEnum::ENTITY_NAME, JobTypeEnum::WORK);
 
         $manager->flush();
     }
 
-    private function persistType(ObjectManager &$manager, string $name, string $entityName) {
+    private function persistType(ObjectManager &$manager, string $entityName, string $name)
+    {
         $type = (new Type())
             ->setName($name)
             ->setEntityName($entityName);

@@ -24,6 +24,11 @@ class Type
     private $name;
 
     /**
+     * @ORM\Column(type="string", length=20)
+     */
+    private $entityName;
+
+    /**
      * @ORM\OneToMany(targetEntity="App\Entity\Organization", mappedBy="type")
      */
     private $organizations;
@@ -34,20 +39,21 @@ class Type
     private $events;
 
     /**
-     * @ORM\Column(type="string", length=20)
-     */
-    private $entityName;
-
-    /**
      * @ORM\OneToMany(targetEntity="App\Entity\File", mappedBy="type")
      */
     private $files;
+
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Job", mappedBy="type")
+     */
+    private $jobs;
 
     public function __construct()
     {
         $this->organizations = new ArrayCollection();
         $this->events = new ArrayCollection();
         $this->files = new ArrayCollection();
+        $this->jobs = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -166,6 +172,37 @@ class Type
             // set the owning side to null (unless already changed)
             if ($file->getType() === $this) {
                 $file->setType(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Job[]
+     */
+    public function getJobs(): Collection
+    {
+        return $this->jobs;
+    }
+
+    public function addJob(Job $job): self
+    {
+        if (!$this->jobs->contains($job)) {
+            $this->jobs[] = $job;
+            $job->setType($this);
+        }
+
+        return $this;
+    }
+
+    public function removeJob(Job $job): self
+    {
+        if ($this->jobs->contains($job)) {
+            $this->jobs->removeElement($job);
+            // set the owning side to null (unless already changed)
+            if ($job->getType() === $this) {
+                $job->setType(null);
             }
         }
 

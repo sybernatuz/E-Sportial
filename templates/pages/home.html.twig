@@ -5,6 +5,8 @@
 {% endblock %}
 
 {% block body %}
-    {% include 'modules/home/lastResults.html.twig' %}
-
+    <div class="row">
+        {% include 'modules/home/lastResults.html.twig' %}
+        {% include 'modules/home/lastRecruitments.html.twig' %}
+    </div>
 {% endblock %}
