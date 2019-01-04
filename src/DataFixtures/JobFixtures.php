@@ -32,7 +32,7 @@ class JobFixtures extends Fixture implements DependentFixtureInterface
         for ($i = 0; $i < 50; $i++) {
             $job = (new Job())
                 ->setDescription($faker->text)
-                ->setTitle($faker->title)
+                ->setTitle($faker->jobTitle)
                 ->setCreatedAt($faker->dateTime)
                 ->setDuration($faker->numberBetween(1, 365))
                 ->setType($faker->randomElement($types))

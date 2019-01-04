@@ -1,0 +1,26 @@
+<div id="lastJobs" class="col s12 m12 l12">
+    <h3>Last jobs</h3>
+    {% if lastJobs is empty %}
+        No Results
+    {% else %}
+        {% for lastJob in lastJobs %}
+            <div class="col s12 m6">
+                <div class="card horizontal">
+                    <div class="card-image">
+                        {% if lastJob.user.avatar is defined and lastJob.user.avatar is not null %}
+                            <img src="{{ lastJob.user.avatar }}">
+                        {% endif %}
+                        {% if lastJob.organization.logoPath is defined and lastJob.organization.logoPath is not null  %}
+                            <img src="{{ lastJob.organization.logoPath }}">
+                        {% endif %}
+                    </div>
+                    <div class="card-stacked">
+                        <div class="card-content">
+                            <p>{{ lastJob.title }}</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+    {% endif %}
+</div>

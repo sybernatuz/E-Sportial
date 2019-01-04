@@ -10,6 +10,7 @@ namespace App\Controller;
 
 
 use App\Objects\DataHolder;
+use App\Services\home\LastJobsService;
 use App\Services\home\LastRecruitmentsService;
 use App\Services\home\LastResultsService;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -24,16 +25,18 @@ class HomeController extends AbstractController
 {
     private $lastResultsService;
     private $lastRecruitmentsService;
+    private $lastJobsService;
 
     private $tempDataHolder;
     private $finalDataHolder;
 
-    public function __construct(LastResultsService $lastResultsService, LastRecruitmentsService $lastRecruitmentsService)
+    public function __construct(LastResultsService $lastResultsService, LastRecruitmentsService $lastRecruitmentsService, LastJobsService $lastJobsService)
     {
         $this->tempDataHolder = new DataHolder();
         $this->finalDataHolder = new DataHolder();
         $this->lastResultsService = $lastResultsService;
         $this->lastRecruitmentsService = $lastRecruitmentsService;
+        $this->lastJobsService = $lastJobsService;
     }
 
     /**
@@ -43,6 +46,7 @@ class HomeController extends AbstractController
     {
         $this->lastResultsService->process($this->finalDataHolder);
         $this->lastRecruitmentsService->process($this->finalDataHolder);
+        $this->lastJobsService->process($this->finalDataHolder);
         return $this->render("pages/home.html.twig", $this->finalDataHolder->getData());
     }
 
