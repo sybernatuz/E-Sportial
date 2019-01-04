@@ -29,18 +29,19 @@ class Country
     private $flagPath;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\Organization", inversedBy="country")
-     */
-    private $organization;
-
-    /**
      * @ORM\OneToMany(targetEntity="App\Entity\Organization", mappedBy="country")
      */
     private $organizations;
 
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\User", mappedBy="country")
+     */
+    private $users;
+
     public function __construct()
     {
         $this->organizations = new ArrayCollection();
+        $this->users = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -72,18 +73,6 @@ class Country
         return $this;
     }
 
-    public function getOrganization(): ?Organization
-    {
-        return $this->organization;
-    }
-
-    public function setOrganization(?Organization $organization): self
-    {
-        $this->organization = $organization;
-
-        return $this;
-    }
-
     /**
      * @return Collection|Organization[]
      */
@@ -109,6 +98,37 @@ class Country
             // set the owning side to null (unless already changed)
             if ($organization->getCountry() === $this) {
                 $organization->setCountry(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|User[]
+     */
+    public function getUsers(): Collection
+    {
+        return $this->users;
+    }
+
+    public function addUser(User $user): self
+    {
+        if (!$this->users->contains($user)) {
+            $this->users[] = $user;
+            $user->setCountry($this);
+        }
+
+        return $this;
+    }
+
+    public function removeUser(User $user): self
+    {
+        if ($this->users->contains($user)) {
+            $this->users->removeElement($user);
+            // set the owning side to null (unless already changed)
+            if ($user->getCountry() === $this) {
+                $user->setCountry(null);
             }
         }
 

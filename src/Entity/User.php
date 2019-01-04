@@ -162,6 +162,11 @@ class User implements UserInterface
      */
     private $participants;
 
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\Country", inversedBy="users")
+     */
+    private $country;
+
     public function __construct()
     {
         $this->groups = new ArrayCollection();
@@ -180,7 +185,10 @@ class User implements UserInterface
         $this->files = new ArrayCollection();
         $this->participants = new ArrayCollection();
 
-        $this->createdAt = new DateTime();
+        try {
+            $this->createdAt = new DateTime();
+        } catch (\Exception $e) {
+        }
     }
 
     public function getId(): ?int
@@ -885,6 +893,18 @@ class User implements UserInterface
                 $participant->setUser(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getCountry(): ?Country
+    {
+        return $this->country;
+    }
+
+    public function setCountry(?Country $country): self
+    {
+        $this->country = $country;
 
         return $this;
     }
