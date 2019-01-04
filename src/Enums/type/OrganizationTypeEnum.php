@@ -6,7 +6,7 @@
  * Time: 15:06
  */
 
-namespace App\Enums;
+namespace App\Enums\type;
 
 
 class OrganizationTypeEnum

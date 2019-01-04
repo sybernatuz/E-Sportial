@@ -10,7 +10,7 @@ namespace App\DataFixtures;
 
 
 use App\Entity\Type;
-use App\Enums\OrganizationTypeEnum;
+use App\Enums\type\OrganizationTypeEnum;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Common\Persistence\ObjectManager;
 
