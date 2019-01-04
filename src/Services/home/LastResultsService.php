@@ -11,25 +11,21 @@ namespace App\Services\home;
 
 use App\Objects\DataHolder;
 use App\Repository\PartyRepository;
-use App\Repository\ResultRepository;
 
 class LastResultsService
 {
     private const LAST_RESULTS_NUMBER = 3;
 
-    private $resultRepository;
     private $partyRepository;
 
-    public function __construct(ResultRepository $resultRepository, PartyRepository $partyRepository)
+    public function __construct(PartyRepository $partyRepository)
     {
-        $this->resultRepository = $resultRepository;
         $this->partyRepository = $partyRepository;
     }
 
     public function process(DataHolder $finalDataHolder) : void
     {
-        $lastResultsIds = $this->resultRepository->findIdsByLastDateGroupByAndLimit(self::LAST_RESULTS_NUMBER);
-        $lastParties = $this->partyRepository->findByPartiesIds($lastResultsIds);
+        $lastParties = $this->partyRepository->findByLastResults(self::LAST_RESULTS_NUMBER);
         $lastPartiesGroupByGameName = $this->groupLastPartiesByGameName($lastParties);
         $finalDataHolder->put("lastPartiesGroupByGameName", $lastPartiesGroupByGameName);
     }

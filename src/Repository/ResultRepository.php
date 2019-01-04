@@ -18,27 +18,4 @@ class ResultRepository extends ServiceEntityRepository
     {
         parent::__construct($registry, Result::class);
     }
-
-    public function findIdsByLastDateGroupByAndLimit($resultsNumber) : array
-    {
-        return $this->createQueryBuilder('result')
-            ->select("IDENTITY(result.party) as partyId")
-            ->groupBy("partyId")
-            ->orderBy('result.date', 'DESC')
-            ->setMaxResults($resultsNumber)
-            ->getQuery()
-            ->getResult();
-    }
-
-    /*
-    public function findOneBySomeField($value): ?Result
-    {
-        return $this->createQueryBuilder('r')
-            ->andWhere('r.exampleField = :val')
-            ->setParameter('val', $value)
-            ->getQuery()
-            ->getOneOrNullResult()
-        ;
-    }
-    */
 }

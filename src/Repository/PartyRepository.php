@@ -20,14 +20,15 @@ class PartyRepository extends ServiceEntityRepository
     }
 
     /**
-     * @param $ids int[]
+     * @param $partiesNumber int
      * @return Party[]
      */
-    public function findByPartiesIds($ids) : array
+    public function findByLastResults($partiesNumber) : array
     {
-        return $this->createQueryBuilder('party')
-            ->andWhere('party.id IN (:ids)')
-            ->setParameter('ids', $ids)
+        return $this->createQueryBuilder('p')
+            ->leftJoin('App\Entity\Result', 'r', \Doctrine\ORM\Query\Expr\Join::WITH, 'r.party = p.id')
+            ->orderBy('r.date', 'DESC')
+            ->setMaxResults($partiesNumber * 2)
             ->getQuery()
             ->getResult();
     }
