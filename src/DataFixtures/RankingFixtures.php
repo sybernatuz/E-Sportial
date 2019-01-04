@@ -22,16 +22,11 @@ class RankingFixtures extends Fixture implements DependentFixtureInterface
 
     public function load(ObjectManager $manager)
     {
-        $faker = Factory::create();
         $parties = $manager->getRepository(Party::class)->findAll();
         $users = $manager->getRepository(User::class)->findAll();
-        for ($i = 0; $i < 20; $i++) {
-            $result = (new Ranking())
-                ->setRank($faker->randomNumber())
-                ->setParty($faker->randomElement($parties))
-                ->setUser($faker->randomElement($users));
-            $manager->persist($result);
-        }
+        foreach ($parties as $party)
+            $this->createRankingsForParty($manager, $party, $users);
+
         $manager->flush();
     }
 
@@ -41,5 +36,24 @@ class RankingFixtures extends Fixture implements DependentFixtureInterface
             PartyFixtures::class,
             UserFixtures::class
         ];
+    }
+
+    private function createRankingsForParty(ObjectManager &$manager, Party $party, array $users) {
+        $faker = Factory::create();
+        $playersNumber = $faker->numberBetween(10, 100);
+        for ($i = 0; $i < $playersNumber; $i++) {
+            $user = $faker->randomElement($users);
+            $result = (new Ranking())
+                ->setRank($i)
+                ->setParty($party)
+                ->setUser($user);
+            $manager->persist($result);
+            $this->removeUsedPlayer($user, $users);
+        }
+    }
+
+    public function removeUsedPlayer(User $user, array &$users) {
+        if (false !== $key = array_search($user, $users))
+            unset($users[$key]);
     }
 }
