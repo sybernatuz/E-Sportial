@@ -1,6 +1,8 @@
 <nav>
     <div class="nav-wrapper">
-        <a href="{{ path('app_home_index') }}" class="brand-logo center">Logo</a>
+        <a href="{{ path('app_home_index') }}" class="brand-logo center">
+            <img class="nav-logo" src="{{ asset('build/images/logo.png') }}">
+        </a>
         <ul id="nav-mobile" class="left hide-on-med-and-down">
             <li><a href="{{ path('app_home_index') }}">Home</a></li>
             <li><a href="">Players</a></li>

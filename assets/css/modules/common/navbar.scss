@@ -1,3 +1,34 @@
+nav {
+  margin-bottom: 3%;
+}
+
 .nav-wrapper {
   background-color: black;
+}
+
+.nav-logo {
+  margin-top: 10%;
+  height: 75%;
+  width: 60%;
+}
+
+.brand-logo {
+  background: #3A3B41;
+  display: inline-block;
+  height: 120%;
+  margin-left: 20px;
+  position: relative;
+  width: 10%;
+}
+
+.brand-logo:before {
+  border-left: 4.95vw solid transparent;
+  border-right: 4.9vw solid transparent;
+  border-top: 50px solid #3A3B41;
+  content: "";
+  height: 0;
+  left: 0;
+  position: absolute;
+  top: 100%;
+  width: 0;
 }
