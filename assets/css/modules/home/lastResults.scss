@@ -1,8 +1,16 @@
-.lastResultsGameName {
-  color: white;
-  background-color: #8959A8 !important;
-}
+.lastResults {
 
-.result {
-  font-weight: bold;
+  .lastResultsGameName {
+    color: white;
+    background-color: #642891 !important;
+  }
+
+  .result {
+    font-weight: 900;
+  }
+
+  .name {
+    font-weight: bold;
+  }
+
 }

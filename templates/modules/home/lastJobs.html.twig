@@ -1,4 +1,4 @@
-<div id="lastJobs" class="col s12 m12 l12">
+<div class="lastJobs col s12 m12 l12">
     <h3>Last jobs</h3>
     {% if lastJobs is empty %}
         No Results
@@ -6,18 +6,30 @@
         {% for lastJob in lastJobs %}
             <div class="col s12 m6">
                 <div class="card horizontal">
-                    <div class="card-image">
+                    <div class="col s2 m2 l2 valign-wrapper">
                         {% if lastJob.user.avatar is defined and lastJob.user.avatar is not null %}
-                            <img src="{{ lastJob.user.avatar }}">
+                            <img class="circle" src="{{ lastJob.user.avatar }}">
                         {% endif %}
                         {% if lastJob.organization.logoPath is defined and lastJob.organization.logoPath is not null  %}
-                            <img src="{{ lastJob.organization.logoPath }}">
+                            <img class="circle" src="{{ lastJob.organization.logoPath }}">
                         {% endif %}
                     </div>
-                    <div class="card-stacked">
+                    <div class="card-stacked col s5 m5 l5">
                         <div class="card-content">
-                            <p>{{ lastJob.title }}</p>
+                            <span class="title">{{ lastJob.title }}</span>
+                            <br>
+                            <span>{{ lastJob.location }}</span>
+                            <br>
+                            {% if lastJob.user.username is defined and lastJob.user.username is not null %}
+                                <span>{{ lastJob.user.username }}</span>
+                            {% endif %}
+                            {% if lastJob.organization.name is defined and lastJob.organization.name is not null  %}
+                                <span>{{ lastJob.organization.name }}</span>
+                            {% endif %}
                         </div>
+                    </div>
+                    <div class="col s3 m3 l3">
+                        <span class="date">{{ lastJob.createdAt|date('Y-m-d') }}</span>
                     </div>
                 </div>
             </div>

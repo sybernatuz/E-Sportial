@@ -53,11 +53,17 @@ class Game
      */
     private $parties;
 
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Job", mappedBy="game")
+     */
+    private $jobs;
+
     public function __construct()
     {
         $this->rosters = new ArrayCollection();
         $this->plays = new ArrayCollection();
         $this->parties = new ArrayCollection();
+        $this->jobs = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -199,6 +205,37 @@ class Game
             // set the owning side to null (unless already changed)
             if ($party->getGame() === $this) {
                 $party->setGame(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Job[]
+     */
+    public function getJobs(): Collection
+    {
+        return $this->jobs;
+    }
+
+    public function addJob(Job $job): self
+    {
+        if (!$this->jobs->contains($job)) {
+            $this->jobs[] = $job;
+            $job->setGame($this);
+        }
+
+        return $this;
+    }
+
+    public function removeJob(Job $job): self
+    {
+        if ($this->jobs->contains($job)) {
+            $this->jobs->removeElement($job);
+            // set the owning side to null (unless already changed)
+            if ($job->getGame() === $this) {
+                $job->setGame(null);
             }
         }
 

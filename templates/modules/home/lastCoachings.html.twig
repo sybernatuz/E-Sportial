@@ -1,0 +1,40 @@
+<div class="lastCoachings">
+    <h3>Last coach offer</h3>
+    {% for lastCoaching in lastCoachings %}
+        <div class="col s12 m6 l3">
+            <div class="card">
+                <div class="card-image">
+                    {% if lastCoaching.user.avatar is defined and lastCoaching.user.avatar is not null %}
+                        <img src="{{ lastCoaching.user.avatar }}">
+                    {% endif %}
+                    {% if lastCoaching.organization.logoPath is defined and lastCoaching.organization.logoPath is not null  %}
+                        <img src="{{ lastCoaching.organization.logoPath }}">
+                    {% endif %}
+                </div>
+                <div class="card-content">
+                    <div class="center-align">
+                        {% if lastCoaching.user.avatar is defined and lastCoaching.user.avatar is not null %}
+                            <span class="name">{{ lastCoaching.user.username }}</span>
+                        {% endif %}
+                        {% if lastCoaching.organization.logoPath is defined and lastCoaching.organization.logoPath is not null  %}
+                            <span class="name">{{ lastCoaching.organization.name }}</span>
+                        {% endif %}
+
+                        <br>
+
+                        <span class="gameName">{{ lastCoaching.game.name is defined ? lastCoaching.game.name }}</span>
+
+
+                    </div>
+
+                    <br>
+
+                    <div class="right-align">
+                        <span class="price">{{ lastCoaching.salary }}$ /h</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    {% endfor %}
+</div>
+

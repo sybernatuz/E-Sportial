@@ -57,6 +57,16 @@ class Job
      */
     private $type;
 
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\Game", inversedBy="jobs")
+     */
+    private $game;
+
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $location;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -154,6 +164,30 @@ class Job
     public function setType(?Type $type): self
     {
         $this->type = $type;
+
+        return $this;
+    }
+
+    public function getGame(): ?Game
+    {
+        return $this->game;
+    }
+
+    public function setGame(?Game $game): self
+    {
+        $this->game = $game;
+
+        return $this;
+    }
+
+    public function getLocation(): ?string
+    {
+        return $this->location;
+    }
+
+    public function setLocation(string $location): self
+    {
+        $this->location = $location;
 
         return $this;
     }

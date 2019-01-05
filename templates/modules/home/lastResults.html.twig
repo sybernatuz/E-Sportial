@@ -1,4 +1,4 @@
-<div id="lastResults" class="col s12 m12 l6">
+<div class="lastResults col s12 m12 l6">
     <h3>Last results</h3>
     {% if lastPartiesGroupByGameName is empty %}
         No Results
@@ -9,13 +9,13 @@
                 {% for lastParty in lastParties %}
                     <li class="collection-item avatar">
                         <div class="row valign-wrapper">
-                            <div class="left-align col m5">
+                            <div class="col s5 m5 l5 left-align">
                                 <img class="circle" src="{{ lastParty.results[0].user.avatar }}">
-                                <span class="">{{ lastParty.results[0].user.username }}</span>
+                                <span class="name">{{ lastParty.results[0].user.username }}</span>
                             </div>
-                            <span class="center-align col m2 result">{{ lastParty.results[0].score }} - {{ lastParty.results[1].score }}</span>
-                            <div class="right-align col m5">
-                                <span class="">{{ lastParty.results[1].user.username }}</span>
+                            <span class="col s2 m2 l2 result center-align">{{ lastParty.results[0].score }} - {{ lastParty.results[1].score }}</span>
+                            <div class="col s5 m5 l5 right-align">
+                                <span class="name">{{ lastParty.results[1].user.username }}</span>
                                 <img class="circle" src="{{ lastParty.results[1].user.avatar }}">
                             </div>
                         </div>

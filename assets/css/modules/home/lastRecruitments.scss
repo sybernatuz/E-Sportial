@@ -1,9 +1,17 @@
-.lastRecruitmentItems {
-  border: 1px solid #8959a8 !important;
-}
+.lastRecruitments {
 
-.lastRecruitmentItem {
-  border-bottom: none !important;
+  .lastRecruitmentItems {
+    border: 1px solid #642891 !important;
+  }
+
+  .lastRecruitmentItem {
+    border-bottom: none !important;
+  }
+
+  .name {
+    font-weight: bold;
+  }
+
 }
 
 
