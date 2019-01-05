@@ -19,22 +19,20 @@ class GameRepository extends ServiceEntityRepository
         parent::__construct($registry, Game::class);
     }
 
-    // /**
-    //  * @return Game[] Returns an array of Game objects
-    //  */
-    /*
-    public function findByExampleField($value)
+    /**
+     * @param int $gamesNumber
+     * @return Game[] Returns an array of Game objects
+     */
+    public function findByMostPopular(int $gamesNumber)
     {
         return $this->createQueryBuilder('g')
-            ->andWhere('g.exampleField = :val')
-            ->setParameter('val', $value)
-            ->orderBy('g.id', 'ASC')
-            ->setMaxResults(10)
+            ->leftJoin('App\Entity\Play', 'p', \Doctrine\ORM\Query\Expr\Join::WITH, 'p.game = g.id')
+            ->groupBy('g.id')
+            ->orderBy('count(p.id)', 'DESC')
+            ->setMaxResults($gamesNumber)
             ->getQuery()
-            ->getResult()
-        ;
+            ->getResult();
     }
-    */
 
     /*
     public function findOneBySomeField($value): ?Game

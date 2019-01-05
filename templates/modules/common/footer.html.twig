@@ -1,0 +1,31 @@
+<footer class="page-footer">
+    <div class="container">
+        <div class="row">
+            <img class="col s1 m1 l1" src="/images/logo.png">
+            <ul class="col s2 m2 l2">
+                <li>More informations</li>
+                <li>About us</li>
+            </ul>
+            <ul class="col s2 m2 l2">
+                <li>Games</li>
+                {% for footerGame in footerGames %}
+                    <li>{{ footerGame.name }}</li>
+                {% endfor %}
+            </ul>
+            <ul class="col s2 m2 l2">
+                <li>Sponsors</li>
+            </ul>
+            <ul class="col s2 m2 l2">
+                <li>Our social media</li>
+                <li>Facebook</li>
+                <li>Instagram</li>
+            </ul>
+        </div>
+    </div>
+    <div class="footer-copyright">
+        <div class="container">
+            © The Lag - 2018 All rights reserved
+            <a class="grey-text text-lighten-4 right" href="">CGU/CGV</a>
+        </div>
+    </div>
+</footer>

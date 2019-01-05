@@ -6,16 +6,12 @@
         <ul class="collection lastRecruitmentItems">
             {% for lastRecruitment in lastRecruitments %}
                 <li class="collection-item avatar lastRecruitmentItem">
-                    <div class="row valign-wrapper">
-                        <div class="left-align col m3">
-                            <img class="circle" src="{{ lastRecruitment.user.avatar }}">
-                        </div>
-                        <span class="center-align col m6">
-                            {{ lastRecruitment.user.username }} joined {{ lastRecruitment.organization.name }}
-                        </span>
-                        <div class="right-align col m3">
-                            <img class="circle" src="{{ lastRecruitment.organization.logoPath }}">
-                        </div>
+                    <div class="center-align col s12 m12">
+                        <img class="circle" src="{{ lastRecruitment.user.avatar }}">
+                    <span>
+                        {{ lastRecruitment.user.username }} joined {{ lastRecruitment.organization.name }}
+                    </span>
+                        <img class="circle" src="{{ lastRecruitment.organization.logoPath }}">
                     </div>
                 </li>
             {% endfor %}

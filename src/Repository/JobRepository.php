@@ -23,9 +23,12 @@ class JobRepository extends ServiceEntityRepository
      * @param int $recruitmentsNumber
      * @return Job[] Returns an array of Recruitment objects
      */
-    public function findByLastDate(int $jobsNumber)
+    public function findByLastDateAndType(int $jobsNumber, string $type)
     {
         return $this->createQueryBuilder('j')
+            ->leftJoin('j.type', 't')
+            ->where('t.name = :type')
+            ->setParameter(':type', $type)
             ->orderBy('j.createdAt', 'DESC')
             ->setMaxResults($jobsNumber)
             ->getQuery()
