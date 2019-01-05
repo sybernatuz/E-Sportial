@@ -1,24 +1,26 @@
 <footer class="page-footer">
     <div class="container">
         <div class="row">
-            <img class="col s1 m1 l1" src="{{ asset('build/images/logo.png') }}">
-            <ul class="col s2 m2 l2">
+            <img class="col s12 m1 l1" src="{{ asset('build/images/logo.png') }}">
+            <ul class="col s3 m2 l2 offset-m2 offset-l2">
                 <li>More informations</li>
                 <li>About us</li>
             </ul>
-            <ul class="col s2 m2 l2">
+            <ul class="col s3 m2 l2">
                 <li>Games</li>
                 {% for footerGame in footerGames %}
                     <li>{{ footerGame.name }}</li>
                 {% endfor %}
             </ul>
-            <ul class="col s2 m2 l2">
+            <ul class="col s3 m2 l2">
                 <li>Sponsors</li>
             </ul>
-            <ul class="col s2 m2 l2">
+            <ul class="col s3 m2 l2">
                 <li>Our social media</li>
-                <li>Facebook</li>
-                <li>Instagram</li>
+                <li>
+                    <i style="font-size:24px" class="fa">&#xf230;</i>
+                    <i style="font-size:24px" class="fa">&#xf16d;</i>
+                </li>
             </ul>
         </div>
     </div>
