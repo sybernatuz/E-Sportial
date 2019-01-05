@@ -13,7 +13,7 @@ use App\Entity\Job;
 use App\Entity\Organization;
 use App\Entity\Type;
 use App\Entity\User;
-use App\Enums\type\JobTypeEnum;
+use App\Enums\type\EntityNameEnum;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Common\DataFixtures\DependentFixtureInterface;
 use Doctrine\Common\Persistence\ObjectManager;
@@ -26,7 +26,7 @@ class JobFixtures extends Fixture implements DependentFixtureInterface
     public function load(ObjectManager $manager)
     {
         $faker = Factory::create();
-        $types = $manager->getRepository(Type::class)->findBy(["entityName" => JobTypeEnum::ENTITY_NAME]);
+        $types = $manager->getRepository(Type::class)->findBy(["entityName" => EntityNameEnum::ENTITY_NAME_JOB]);
         $organizations = $manager->getRepository(Organization::class)->findAll();
         $users = $manager->getRepository(User::class)->findAll();
         for ($i = 0; $i < 50; $i++) {

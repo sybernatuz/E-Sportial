@@ -11,8 +11,6 @@ namespace App\Enums\type;
 
 class OrganizationTypeEnum
 {
-    const ENTITY_NAME = "organization";
-
     const SPONSOR = "sponsor";
     const TEAM = "team";
 }

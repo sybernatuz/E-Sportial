@@ -12,7 +12,7 @@ namespace App\DataFixtures;
 use App\Entity\Country;
 use App\Entity\Organization;
 use App\Entity\Type;
-use App\Enums\type\OrganizationTypeEnum;
+use App\Enums\type\EntityNameEnum;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Common\DataFixtures\DependentFixtureInterface;
 use Doctrine\Common\Persistence\ObjectManager;
@@ -25,7 +25,7 @@ class OrganizationFixtures extends Fixture implements DependentFixtureInterface
     {
         $faker = Factory::create();
         $countries = $manager->getRepository(Country::class)->findAll();
-        $types = $manager->getRepository(Type::class)->findBy(["entityName" => OrganizationTypeEnum::ENTITY_NAME]);
+        $types = $manager->getRepository(Type::class)->findBy(["entityName" => EntityNameEnum::ENTITY_NAME_ORGANIZATION]);
         for ($i = 0; $i < 20; $i++) {
             $result = (new Organization())
                 ->setName($faker->name)

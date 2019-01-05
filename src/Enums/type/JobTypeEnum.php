@@ -11,8 +11,6 @@ namespace App\Enums\type;
 
 class JobTypeEnum
 {
-    const ENTITY_NAME = 'job';
-
     const COACHING = 'coaching';
     const WORK = 'work';
 }

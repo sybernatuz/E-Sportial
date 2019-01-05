@@ -13,3 +13,5 @@
 // any CSS you require will output into a single css file (app.scss in this case)
 
 require('../css/app.scss');
+
+require('../js/images/images');
