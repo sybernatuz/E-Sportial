@@ -31,12 +31,10 @@ class HomeController extends AbstractController
     private $lastCoachingsService;
     private $footerService;
 
-    private $tempDataHolder;
     private $finalDataHolder;
 
     public function __construct(LastResultsService $lastResultsService, LastRecruitmentsService $lastRecruitmentsService, LastJobsService $lastJobsService, LastCoachingsService $lastCoachingsService, FooterService $footerService)
     {
-        $this->tempDataHolder = new DataHolder();
         $this->finalDataHolder = new DataHolder();
         $this->lastResultsService = $lastResultsService;
         $this->lastRecruitmentsService = $lastRecruitmentsService;
