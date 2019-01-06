@@ -1,0 +1,15 @@
+<?php
+/**
+ * Created by PhpStorm.
+ * User: Louis
+ * Date: 06/01/2019
+ * Time: 16:44
+ */
+
+namespace App\Enums\type;
+
+
+class EventTypeEnum
+{
+    const TOURNAMENT = "tournament";
+}

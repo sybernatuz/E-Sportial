@@ -20,7 +20,8 @@ class JobRepository extends ServiceEntityRepository
     }
 
     /**
-     * @param int $recruitmentsNumber
+     * @param int $jobsNumber
+     * @param string $type
      * @return Job[] Returns an array of Recruitment objects
      */
     public function findByLastDateAndType(int $jobsNumber, string $type)

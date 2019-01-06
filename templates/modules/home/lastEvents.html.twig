@@ -1,0 +1,43 @@
+<div class="last-events">
+    <h3>Last events</h3>
+    <div class="card small horizontal">
+        <div class="card-image">
+            <img src="{{ lastEvents[0].organization.logoPath }}">
+        </div>
+        <div class="card-stacked">
+            <div class="card-content">
+                <div class="row">
+                    <div class="col m4">
+                        <span class="title">{{ lastEvents[0].name }}</span>
+                    </div>
+                    <div class="col m4 offset-m4 right-align">
+                        <span>{{ lastEvents[0].startDate|date('Y-m-d') }}</span>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col m12">
+                        <p>{{ lastEvents[0].description }}</p>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col m4">
+                        <i class="fas fa-map-marker-alt"></i>
+                        <span class="">
+                            {{ lastEvents[0].location }}
+                        </span>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col m4 left-align">
+                        <i class="fas fa-users"></i>
+                        {{ lastEvents[0].participants|length }}
+                    </div>
+                    <div class="col m5 offset-m3 right-align">
+                        <i class="far fa-building"></i>
+                        Organized by {{ lastEvents[0].organization.name }}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

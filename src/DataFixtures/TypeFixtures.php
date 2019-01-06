@@ -11,6 +11,7 @@ namespace App\DataFixtures;
 
 use App\Entity\Type;
 use App\Enums\type\EntityNameEnum;
+use App\Enums\type\EventTypeEnum;
 use App\Enums\type\JobTypeEnum;
 use App\Enums\type\OrganizationTypeEnum;
 use Doctrine\Bundle\FixturesBundle\Fixture;
@@ -26,6 +27,8 @@ class TypeFixtures extends Fixture
 
         $this->persistType($manager, EntityNameEnum::ENTITY_NAME_JOB, JobTypeEnum::COACHING);
         $this->persistType($manager, EntityNameEnum::ENTITY_NAME_JOB, JobTypeEnum::WORK);
+
+        $this->persistType($manager, EntityNameEnum::ENTITY_NAME_EVENT, EventTypeEnum::TOURNAMENT);
 
         $manager->flush();
     }

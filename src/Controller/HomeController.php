@@ -12,6 +12,7 @@ namespace App\Controller;
 use App\Objects\DataHolder;
 use App\Services\common\FooterService;
 use App\Services\home\LastCoachingsService;
+use App\Services\home\LastEventsService;
 use App\Services\home\LastJobsService;
 use App\Services\home\LastRecruitmentsService;
 use App\Services\home\LastResultsService;
@@ -25,6 +26,7 @@ use Symfony\Component\Routing\Annotation\Route;
  */
 class HomeController extends AbstractController
 {
+    private $lastEventsService;
     private $lastResultsService;
     private $lastRecruitmentsService;
     private $lastJobsService;
@@ -33,9 +35,10 @@ class HomeController extends AbstractController
 
     private $finalDataHolder;
 
-    public function __construct(LastResultsService $lastResultsService, LastRecruitmentsService $lastRecruitmentsService, LastJobsService $lastJobsService, LastCoachingsService $lastCoachingsService, FooterService $footerService)
+    public function __construct(LastResultsService $lastResultsService, LastRecruitmentsService $lastRecruitmentsService, LastJobsService $lastJobsService, LastCoachingsService $lastCoachingsService, FooterService $footerService, LastEventsService $lastEventsService)
     {
         $this->finalDataHolder = new DataHolder();
+        $this->lastEventsService = $lastEventsService;
         $this->lastResultsService = $lastResultsService;
         $this->lastRecruitmentsService = $lastRecruitmentsService;
         $this->lastJobsService = $lastJobsService;
@@ -48,6 +51,7 @@ class HomeController extends AbstractController
      */
     public function index()
     {
+        $this->lastEventsService->process($this->finalDataHolder);
         $this->lastResultsService->process($this->finalDataHolder);
         $this->lastRecruitmentsService->process($this->finalDataHolder);
         $this->lastJobsService->process($this->finalDataHolder);
