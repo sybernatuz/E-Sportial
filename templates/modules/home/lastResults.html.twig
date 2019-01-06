@@ -7,8 +7,7 @@
             {% for gameName,lastParties in lastPartiesGroupByGameName %}
                 <li class="collection-header last-results-game-name">{{ gameName }}</li>
                 {% for lastParty in lastParties %}
-                    <li class="collection-item avatar">
-                        <div class="row valign-wrapper">
+                    <li class="collection-item avatar valign-wrapper">
                             <div class="col s5 m5 l5 left-align">
                                 <img class="circle" src="{{ lastParty.results[0].user.avatar }}">
                                 <span class="name">{{ lastParty.results[0].user.username }}</span>
@@ -18,7 +17,6 @@
                                 <span class="name">{{ lastParty.results[1].user.username }}</span>
                                 <img class="circle" src="{{ lastParty.results[1].user.avatar }}">
                             </div>
-                        </div>
                     </li>
                 {% endfor %}
             {% endfor %}
