@@ -1,11 +1,11 @@
-<div class="lastRecruitments col s12 m12 l6">
+<div class="last-recruitments col s12 m12 l6">
     <h3>Last recruitments</h3>
     {% if lastRecruitments is empty %}
         No recruitments
     {% else %}
-        <ul class="collection lastRecruitmentItems">
+        <ul class="collection last-recruitment-items">
             {% for lastRecruitment in lastRecruitments %}
-                <li class="collection-item avatar lastRecruitmentItem">
+                <li class="collection-item avatar last-recruitment-item">
                     <div class="col s3 m3 l3 center-align">
                         <img class="circle" src="{{ lastRecruitment.user.avatar }}">
                     </div>

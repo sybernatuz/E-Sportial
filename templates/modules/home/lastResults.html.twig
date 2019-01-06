@@ -1,11 +1,11 @@
-<div class="lastResults col s12 m12 l6">
+<div class="last-results col s12 m12 l6">
     <h3>Last results</h3>
     {% if lastPartiesGroupByGameName is empty %}
         No Results
     {% else %}
         <ul class="collection with-header">
             {% for gameName,lastParties in lastPartiesGroupByGameName %}
-                <li class="collection-header lastResultsGameName">{{ gameName }}</li>
+                <li class="collection-header last-results-game-name">{{ gameName }}</li>
                 {% for lastParty in lastParties %}
                     <li class="collection-item avatar">
                         <div class="row valign-wrapper">
