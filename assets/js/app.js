@@ -4,9 +4,9 @@
  * We recommend including the built version of this JavaScript file
  * (and its CSS file) in your base layout (base.html.twig).
  */
-// const $ = require('jquery');
+const $ = require('jquery');
 
-
+global.$ = global.jQuery = $;
 
 
 // Need jQuery? Install it with "yarn add jquery", then uncomment to require it.

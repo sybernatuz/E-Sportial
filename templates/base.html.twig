@@ -21,10 +21,9 @@
 
         {% include 'modules/common/footer.html.twig' %}
 
+        {{ encore_entry_script_tags('app') }}
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
         {% block javascripts %}
         {% endblock %}
-
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
-        {{ encore_entry_script_tags('app') }}
     </body>
 </html>
