@@ -27,9 +27,8 @@ class PlayersController extends AbstractController
 
     public function __construct(FooterService $footerService)
     {
-        $this->footerService = $footerService;
-
         $this->finalDataHolder = new DataHolder();
+        $this->footerService = $footerService;
     }
 
     /**

@@ -28,7 +28,7 @@ class SubscriptionFixtures extends Fixture implements DependentFixtureInterface
         $organizations = $manager->getRepository(Organization::class)->findAll();
         for ($i = 0; $i < 20; $i++) {
             $subscription = (new Subscription())
-                ->setSubscriber($faker->randomElement());
+                ->setSubscriber($faker->randomElement($users));
             $this->setOneOrganizationOrOneUser($subscription, $faker, $users, $organizations);
             $manager->persist($subscription);
         }
