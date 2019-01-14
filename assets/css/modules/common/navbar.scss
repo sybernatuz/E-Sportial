@@ -13,7 +13,7 @@ nav {
 }
 
 .brand-logo {
-  background: #3A3B41;
+  background: $grey-color;
   display: inline-block;
   height: 120%;
   margin-left: 20px;
@@ -24,7 +24,7 @@ nav {
 .brand-logo:before {
   border-left: 4.95vw solid transparent;
   border-right: 4.9vw solid transparent;
-  border-top: 50px solid #3A3B41;
+  border-top: 50px solid $grey-color;
   content: "";
   height: 0;
   left: 0;
@@ -35,6 +35,6 @@ nav {
 
 .nav-button {
   background-color: transparent;
-  border: 2px solid gray;
+  border: 2px solid $grey-color;
   border-radius: 10px;
 }
