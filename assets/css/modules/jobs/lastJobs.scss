@@ -1,0 +1,17 @@
+.last-jobs {
+
+  .job-title {
+    color: $purple-color;
+    font-weight: bold;
+  }
+
+  .job-infos {
+    color: $grey-color;
+    font-weight: bold;
+  }
+
+  .job-item:hover {
+    border: 1px solid $purple-color;
+    border-radius: 10px;
+  }
+}

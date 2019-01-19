@@ -34,7 +34,7 @@ class JobFixtures extends Fixture implements DependentFixtureInterface
         $games = $manager->getRepository(Game::class)->findAll();
         for ($i = 0; $i < 50; $i++) {
             $job = (new Job())
-                ->setDescription($faker->text)
+                ->setDescription($faker->text(1000))
                 ->setTitle($faker->jobTitle)
                 ->setCreatedAt($faker->dateTime)
                 ->setDuration($faker->numberBetween(1, 365))

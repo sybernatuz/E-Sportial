@@ -20,6 +20,7 @@ Encore
     .addEntry('app', './assets/js/app.js')
     .addEntry('home', './assets/js/pages/home.js')
     .addEntry('players', './assets/js/pages/players.js')
+    .addEntry('jobs', './assets/js/pages/jobs.js')
     //.addEntry('page2', './assets/js/page2.js')
 
     // will require an extra script tag for runtime.js

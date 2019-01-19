@@ -11,6 +11,7 @@ namespace App\Controller\ajax;
 use App\Entity\Job;
 use App\Repository\JobRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Serializer\SerializerInterface;
 
@@ -42,6 +43,37 @@ class JobAjaxController extends AbstractController
 //        return new JsonResponse($this->serializer->normalize($job, 'json', ['groups' => ['one']]));
         return $this->render("modules/jobs/jobDetail.html.twig", [
             'jobDetail' => $job
+        ]);
+    }
+
+    /**
+     * @Route(name="get_last_jobs", path="/get/last/jobs/{jobType}")
+     * @param string $jobType
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
+    public function getLastJobs(string $jobType)
+    {
+        return $this->render("modules/jobs/lastJobs.html.twig", [
+            'lastJobs' => $this->jobRepository->findByLastDateAndType(5, $jobType),
+            'pageNumber' => $this->jobRepository->getPaginationByLastDateAndType(5, $jobType)
+        ]);
+    }
+
+    /**
+     * @Route(name="search", path="/search")
+     * @param Request $request
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
+    public function search(Request $request)
+    {
+        $title = $request->get("title") != null ? $request->get("title") : '';
+        $location = $request->get("location") != null ? $request->get("location") : '';
+        $type = $request->get("type") != null ? $request->get("type") : '';
+        $page = $request->get("page") != null ? $request->get("page") : 1;
+        return $this->render("modules/jobs/lastJobs.html.twig", [
+            'lastJobs' => $this->jobRepository->findByTitleAndLocationAndTypeOrderByLastDate($title, $location, $type, 5, $page),
+            'pageNumber' => $this->jobRepository->getPaginationByTitleAndLocationAndType($title, $location, $type, 5),
+            'activePage' => $page
         ]);
     }
 }

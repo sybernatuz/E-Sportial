@@ -1,0 +1,25 @@
+<div class="job-detail col l8 m8 s8">
+    {% if jobDetail is defined and jobDetail is not null %}
+        <ul class="collection">
+            <li class="collection-item avatar">
+                {% if jobDetail.user.avatar is defined and jobDetail.user.avatar is not null %}
+                    <img class="circle" src="{{ jobDetail.user.avatar }}">
+                {% endif %}
+                {% if jobDetail.organization.logoPath is defined and jobDetail.organization.logoPath is not null  %}
+                    <img class="circle" src="{{ jobDetail.organization.logoPath }}">
+                {% endif %}
+                <span class="title job-detail-title">{{ jobDetail.title }}</span>
+                <p class="job-infos">{{ jobDetail.location }}
+                    <br>
+                    {% if jobDetail.user.username is defined and jobDetail.user.username is not null %}
+                        {{ jobDetail.user.username }}
+                    {% endif %}
+                    {% if jobDetail.organization.name is defined and jobDetail.organization.name is not null  %}
+                        {{ jobDetail.organization.name }}
+                    {% endif %}
+                </p>
+            </li>
+        </ul>
+        {{ jobDetail.description }}
+    {% endif %}
+</div>
