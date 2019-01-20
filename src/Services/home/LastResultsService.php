@@ -9,7 +9,6 @@
 namespace App\Services\home;
 
 
-use App\Objects\DataHolder;
 use App\Repository\PartyRepository;
 
 class LastResultsService
@@ -23,11 +22,11 @@ class LastResultsService
         $this->partyRepository = $partyRepository;
     }
 
-    public function process(DataHolder $finalDataHolder) : void
+    public function process()
     {
         $lastParties = $this->partyRepository->findByLastResults(self::LAST_RESULTS_NUMBER);
         $lastPartiesGroupByGameName = $this->groupLastPartiesByGameName($lastParties);
-        $finalDataHolder->put("lastPartiesGroupByGameName", $lastPartiesGroupByGameName);
+        return ["lastPartiesGroupByGameName" => $lastPartiesGroupByGameName];
     }
 
     private function groupLastPartiesByGameName(array $lastParties) : array

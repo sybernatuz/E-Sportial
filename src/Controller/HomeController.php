@@ -9,12 +9,12 @@
 namespace App\Controller;
 
 
-use App\Objects\DataHolder;
-use App\Services\common\FooterService;
-use App\Services\home\LastCoachingsService;
-use App\Services\home\LastEventsService;
-use App\Services\home\LastJobsService;
-use App\Services\home\LastRecruitmentsService;
+use App\Enums\type\EventTypeEnum;
+use App\Enums\type\JobTypeEnum;
+use App\Repository\EventRepository;
+use App\Repository\JobRepository;
+use App\Repository\RecruitmentRepository;
+use App\Services\layout\FooterService;
 use App\Services\home\LastResultsService;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
@@ -26,23 +26,23 @@ use Symfony\Component\Routing\Annotation\Route;
  */
 class HomeController extends AbstractController
 {
-    private $lastEventsService;
+    private const LAST_EVENTS_NUMBER = 3;
+    private const LAST_RECUITMENTS_NUMBER = 4;
+    private const LAST_JOBS_NUMBER = 4;
+    private const LAST_COACHINGS_NUMBER = 4;
+
+    private $eventRepository;
+    private $recruitmentRepository;
+    private $jobRepository;
     private $lastResultsService;
-    private $lastRecruitmentsService;
-    private $lastJobsService;
-    private $lastCoachingsService;
     private $footerService;
 
-    private $finalDataHolder;
-
-    public function __construct(LastResultsService $lastResultsService, LastRecruitmentsService $lastRecruitmentsService, LastJobsService $lastJobsService, LastCoachingsService $lastCoachingsService, FooterService $footerService, LastEventsService $lastEventsService)
+    public function __construct(EventRepository $eventRepository, RecruitmentRepository $recruitmentRepository, JobRepository $jobRepository, FooterService $footerService, LastResultsService $lastResultsService)
     {
-        $this->finalDataHolder = new DataHolder();
-        $this->lastEventsService = $lastEventsService;
+        $this->eventRepository = $eventRepository;
+        $this->recruitmentRepository = $recruitmentRepository;
+        $this->jobRepository = $jobRepository;
         $this->lastResultsService = $lastResultsService;
-        $this->lastRecruitmentsService = $lastRecruitmentsService;
-        $this->lastJobsService = $lastJobsService;
-        $this->lastCoachingsService = $lastCoachingsService;
         $this->footerService = $footerService;
     }
 
@@ -51,13 +51,13 @@ class HomeController extends AbstractController
      */
     public function index()
     {
-        $this->lastEventsService->process($this->finalDataHolder);
-        $this->lastResultsService->process($this->finalDataHolder);
-        $this->lastRecruitmentsService->process($this->finalDataHolder);
-        $this->lastJobsService->process($this->finalDataHolder);
-        $this->lastCoachingsService->process($this->finalDataHolder);
-        $this->footerService->process($this->finalDataHolder);
-        return $this->render("pages/home.html.twig", $this->finalDataHolder->getData());
+        return $this->render("pages/home.html.twig", [
+            'lastEvents' => $this->eventRepository->findByLastDateAndType(self::LAST_EVENTS_NUMBER, EventTypeEnum::TOURNAMENT),
+            'lastRecruitments' => $this->recruitmentRepository->findByLastDate(self::LAST_RECUITMENTS_NUMBER),
+            'lastJobs' => $this->jobRepository->findByLastDateAndType(self::LAST_JOBS_NUMBER, JobTypeEnum::WORK),
+            'lastCoachings' => $this->jobRepository->findByLastDateAndType(self::LAST_COACHINGS_NUMBER, JobTypeEnum::COACHING)
+        ] + $this->footerService->process()
+          + $this->lastResultsService->process());
     }
 
 }

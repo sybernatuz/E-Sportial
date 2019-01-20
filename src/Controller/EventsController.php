@@ -11,7 +11,7 @@ namespace App\Controller;
 
 use App\Enums\type\EventTypeEnum;
 use App\Repository\EventRepository;
-use App\Repository\GameRepository;
+use App\Services\layout\FooterService;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
 
@@ -23,15 +23,14 @@ use Symfony\Component\Routing\Annotation\Route;
 class EventsController extends AbstractController
 {
     private const EVENTS_NUMBER = 5;
-    private const FOOTER_GAMES_NUMBER = 5;
 
-    private $gameRepository;
     private $eventRepository;
+    private $footerService;
 
-    public function __construct(GameRepository $gameRepository, EventRepository $eventRepository)
+    public function __construct(EventRepository $eventRepository, FooterService $footerService)
     {
-        $this->gameRepository = $gameRepository;
         $this->eventRepository = $eventRepository;
+        $this->footerService = $footerService;
     }
 
     /**
@@ -42,8 +41,7 @@ class EventsController extends AbstractController
         return $this->render("pages/events.html.twig", [
             'eventTypes' => EventTypeEnum::getValues(),
             'lastEvents' => $this->eventRepository->findByLastDateAndType(self::EVENTS_NUMBER, EventTypeEnum::ALL),
-            'pageNumber' => $this->eventRepository->getPaginationByType(self::EVENTS_NUMBER, EventTypeEnum::ALL),
-            'footerGames' => $this->gameRepository->findByMostPopular(self::FOOTER_GAMES_NUMBER)
-        ]);
+            'pageNumber' => $this->eventRepository->getPaginationByType(self::EVENTS_NUMBER, EventTypeEnum::ALL)
+        ] + $this->footerService->process());
     }
 }

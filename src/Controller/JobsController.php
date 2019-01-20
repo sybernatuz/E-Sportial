@@ -10,8 +10,8 @@ namespace App\Controller;
 
 
 use App\Enums\type\JobTypeEnum;
-use App\Repository\GameRepository;
 use App\Repository\JobRepository;
+use App\Services\layout\FooterService;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
 
@@ -23,15 +23,14 @@ use Symfony\Component\Routing\Annotation\Route;
 class JobsController extends AbstractController
 {
     private const JOBS_NUMBER = 5;
-    private const FOOTER_GAMES_NUMBER = 5;
 
     private $jobRepository;
-    private $gameRepository;
+    private $footerService;
 
-    public function __construct(JobRepository $jobRepository, GameRepository $gameRepository)
+    public function __construct(JobRepository $jobRepository, FooterService $footerService)
     {
         $this->jobRepository = $jobRepository;
-        $this->gameRepository = $gameRepository;
+        $this->footerService = $footerService;
     }
 
     /**
@@ -43,8 +42,7 @@ class JobsController extends AbstractController
         return $this->render("pages/jobs.html.twig", [
             'lastJobs' => $lastJobs,
             'jobDetail' => $lastJobs[0] ?? null,
-            'pageNumber' => $this->jobRepository->getPaginationByLastDateAndType(self::JOBS_NUMBER, JobTypeEnum::WORK),
-            'footerGames' => $this->gameRepository->findByMostPopular(self::FOOTER_GAMES_NUMBER)
-        ]);
+            'pageNumber' => $this->jobRepository->getPaginationByLastDateAndType(self::JOBS_NUMBER, JobTypeEnum::WORK)
+        ] + $this->footerService->process());
     }
 }

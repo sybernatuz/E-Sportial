@@ -10,6 +10,7 @@ namespace App\Controller;
 
 
 use App\Repository\GameRepository;
+use App\Services\layout\FooterService;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
 
@@ -21,13 +22,14 @@ use Symfony\Component\Routing\Annotation\Route;
 class GamesController extends AbstractController
 {
     private const GAMES_NUMBER = 12;
-    private const FOOTER_GAMES_NUMBER = 5;
 
     private $gameRepository;
+    private $footerService;
 
-    public function __construct(GameRepository $gameRepository)
+    public function __construct(GameRepository $gameRepository, FooterService $footerService)
     {
         $this->gameRepository = $gameRepository;
+        $this->footerService = $footerService;
     }
 
     /**
@@ -37,8 +39,7 @@ class GamesController extends AbstractController
     {
         return $this->render('pages/games.html.twig', [
             'gamesList' => $this->gameRepository->findByOrderByNameAsc(self::GAMES_NUMBER),
-            'pageNumber' => $this->gameRepository->getPagination(self::GAMES_NUMBER),
-            'footerGames' => $this->gameRepository->findByMostPopular(self::FOOTER_GAMES_NUMBER)
-        ]);
+            'pageNumber' => $this->gameRepository->getPagination(self::GAMES_NUMBER)
+        ] + $this->footerService->process());
     }
 }

@@ -19,22 +19,16 @@ class OrganizationRepository extends ServiceEntityRepository
         parent::__construct($registry, Organization::class);
     }
 
-    // /**
-    //  * @return Organization[] Returns an array of Organization objects
-    //  */
-    /*
-    public function findByExampleField($value)
+    public function findByType(int $organizationsNumber, string $type) : array
     {
         return $this->createQueryBuilder('o')
-            ->andWhere('o.exampleField = :val')
-            ->setParameter('val', $value)
-            ->orderBy('o.id', 'ASC')
-            ->setMaxResults(10)
+            ->leftJoin('j.type', 't')
+            ->where('t.name = :type')
+            ->setParameter('type', $type)
+            ->setMaxResults($organizationsNumber)
             ->getQuery()
-            ->getResult()
-        ;
+            ->getResult();
     }
-    */
 
     /*
     public function findOneBySomeField($value): ?Organization
