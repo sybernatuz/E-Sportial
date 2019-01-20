@@ -13,7 +13,9 @@
         <select id="events-type">
             <option value="">All</option>
             {% for eventType in eventTypes %}
-                <option value="{{ eventType }}">{{ eventType|capitalize }}</option>
+                {% if eventType != '' %}
+                    <option value="{{ eventType }}">{{ eventType|capitalize }}</option>
+                {% endif %}
             {% endfor %}
         </select>
         <label for="events-type">Category</label>

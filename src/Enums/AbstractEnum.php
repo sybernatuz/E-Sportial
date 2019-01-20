@@ -16,7 +16,6 @@ abstract class AbstractEnum
     static function getValues() {
         try {
             $oClass = new ReflectionClass(static::class);
-            dump($oClass);
         } catch (\ReflectionException $e) {
             return [];
         }

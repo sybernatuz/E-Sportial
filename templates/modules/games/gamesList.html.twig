@@ -1,17 +1,21 @@
 <div class="games-list">
-    {% for game in gamesList %}
-        <div class="col s12 m6 l3">
-            <div class="card">
-                <div class="card-image">
-                    <img src="{{ game.posterPath is defined ? game.posterPath }}">
-                </div>
-                <div class="card-content">
-                    <div class="center-align">
-                        <span class="game-name">{{ game.name is defined ? game.name }}</span>
+    <div class="row">
+        {% for game in gamesList %}
+            <div class="col s12 m6 l3">
+                <div class="card">
+                    <div class="card-image">
+                        <img src="{{ game.posterPath is defined ? game.posterPath }}">
+                    </div>
+                    <div class="card-content">
+                        <div class="center-align">
+                            <span class="game-name">{{ game.name is defined ? game.name }}</span>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
-    {% endfor %}
-    {% include 'modules/common/pagination.html.twig' %}
+        {% endfor %}
+    </div>
+    <div class="row">
+        {% include 'modules/common/pagination.html.twig' %}
+    </div>
 </div>

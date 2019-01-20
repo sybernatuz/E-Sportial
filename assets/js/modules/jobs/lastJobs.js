@@ -4,7 +4,7 @@ $(function loadJobDetailOnClick() {
         $.ajax({
                 url: "/ajax/job/get/detail/" + $(this).attr('id'),
                 beforeSend: function() {
-                    $('.job-detail').replaceWith(loading);
+                    $('.job-detail').html(loading);
                 },
                 success: function(result) {
                     $('.job-detail').replaceWith(result);
