@@ -22,7 +22,7 @@ class OrganizationRepository extends ServiceEntityRepository
     public function findByType(int $organizationsNumber, string $type) : array
     {
         return $this->createQueryBuilder('o')
-            ->leftJoin('j.type', 't')
+            ->leftJoin('o.type', 't')
             ->where('t.name = :type')
             ->setParameter('type', $type)
             ->setMaxResults($organizationsNumber)
