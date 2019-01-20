@@ -4,6 +4,7 @@ namespace App\Repository;
 
 use App\Entity\Event;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\ORM\NonUniqueResultException;
 use Symfony\Bridge\Doctrine\RegistryInterface;
 
 /**
@@ -28,12 +29,62 @@ class EventRepository extends ServiceEntityRepository
     {
         return $this->createQueryBuilder('e')
             ->leftJoin('e.type', 't')
-            ->where('t.name = :type')
-            ->setParameter(':type', $type)
+            ->where('t.name LIKE :type')
+            ->setParameter(':type', '%'.$type.'%')
             ->orderBy('e.startDate', 'DESC')
             ->setMaxResults($eventsNumber)
             ->getQuery()
-            ->getResult()
-            ;
+            ->getResult();
+    }
+
+    public function getPaginationByType(int $eventsNumber, string $type)
+    {
+        try {
+            return $this->createQueryBuilder('e')
+                ->select('COUNT(e.id) / '. $eventsNumber)
+                ->leftJoin('e.type', 't')
+                ->where('t.name LIKE :type')
+                ->setParameter(':type', '%'.$type.'%')
+                ->getQuery()
+                ->getSingleScalarResult();
+        } catch (NonUniqueResultException $e) {
+            return null;
+        }
+    }
+
+    public function findByNameAndLocationAndTypeOrderByLastDate(string $name, string $location, string $type, int $eventsNumber, int $page = 1)
+    {
+        return $this->createQueryBuilder('e')
+            ->leftJoin('e.type', 't')
+            ->where('t.name LIKE :type')
+            ->andwhere('LOWER(e.name) LIKE LOWER(:name)')
+            ->andWhere('LOWER(e.location) LIKE LOWER(:location)')
+            ->setParameter(':type', '%'.$type.'%')
+            ->setParameter(':name', '%'.$name.'%')
+            ->setParameter(':location', '%'.$location.'%')
+            ->orderBy('e.createdAt', 'DESC')
+            ->setFirstResult($eventsNumber * $page - $eventsNumber)
+            ->setMaxResults($eventsNumber)
+            ->getQuery()
+            ->getResult();
+    }
+
+    public function getPaginationByNameAndLocationAndType(string $name, string $location, string $type, int $eventsNumber)
+    {
+        try {
+            return $this->createQueryBuilder('e')
+                ->select('COUNT(e.id) / ' . $eventsNumber)
+                ->leftJoin('e.type', 't')
+                ->where('t.name LIKE :type')
+                ->andwhere('LOWER(e.name) LIKE LOWER(:name)')
+                ->andWhere('LOWER(e.location) LIKE LOWER(:location)')
+                ->setParameter(':type', '%'.$type.'%')
+                ->setParameter(':name', '%' . $name . '%')
+                ->setParameter(':location', '%' . $location . '%')
+                ->getQuery()
+                ->getSingleScalarResult();
+        } catch (NonUniqueResultException $e) {
+            return null;
+        }
     }
 }

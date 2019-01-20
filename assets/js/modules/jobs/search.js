@@ -1,39 +1,34 @@
 $(function loadChangeCategory() {
     $('.job-category').click(function () {
+        let type = $(this).attr('id');
         setDisable($(this).attr('id'));
-        $.ajax({
-            url: "/ajax/job/search",
-            data: {
-                title: $('#search-bar-title').val(),
-                location: $('#search-bar-location').val(),
-                type: $(this).attr('id')
-            },
-            success: function (result) {
-                $('.last-jobs').replaceWith(result);
-            }
-        })
+        sendAjax(type);
     });
 });
 
-function setDisable(id) {
-    $('#' + id).addClass('disabled');
-    let otherButtonId = (id === 'work') ? 'coaching' : 'work';
-    $('#' + otherButtonId).removeClass('disabled');
+function setDisable(type) {
+    $('.disabled').removeClass('disabled');
+    $('#' + type).addClass('disabled');
 }
 
 $(function search() {
     $('#search-bar-title, #search-bar-location').change(function () {
-        $.ajax({
-            url: "/ajax/job/search",
-            data: {
-                title: $('#search-bar-title').val(),
-                location: $('#search-bar-location').val(),
-                type: $('.disabled').attr('id')
-            },
-            success: function (result) {
-                $('.last-jobs').replaceWith(result);
-            }
-        })
+        let type = $('.disabled').attr('id');
+        sendAjax(type);
     });
 });
+
+function sendAjax(type) {
+    $.ajax({
+        url: "/ajax/job/search",
+        data: {
+            title: $('#search-bar-title').val(),
+            location: $('#search-bar-location').val(),
+            type: type
+        },
+        success: function (result) {
+            $('.last-jobs').replaceWith(result);
+        }
+    });
+}
 

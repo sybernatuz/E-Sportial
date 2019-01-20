@@ -9,7 +9,9 @@
 namespace App\Enums\type;
 
 
-class OrganizationTypeEnum
+use App\Enums\AbstractEnum;
+
+class OrganizationTypeEnum extends AbstractEnum
 {
     const SPONSOR = "sponsor";
     const TEAM = "team";

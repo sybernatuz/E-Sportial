@@ -1,0 +1,47 @@
+<div class="last-events">
+    {% for lastEvent in lastEvents %}
+        <div class="card small horizontal">
+            <div class="card-image">
+                <img src="{{ lastEvent.organization.logoPath }}" alt="{{ lastEvent.organization.name }}">
+            </div>
+            <div class="card-stacked">
+                <div class="card-content">
+                    <div class="row">
+                        <div class="col m4">
+                            <span class="title">{{ lastEvent.name }}</span>
+                        </div>
+                        <div class="col m4 offset-m4 right-align">
+                            <span>{{ lastEvent.startDate|date('Y-m-d') }}</span>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col m12">
+                            <p>{{ lastEvent.description }}</p>
+                        </div>
+                    </div>
+                    <div class="infos">
+                        <div class="row">
+                            <div class="col m4">
+                                <i class="fas fa-map-marker-alt"></i>
+                                <span class="">
+                                {{ lastEvent.location }}
+                            </span>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col m4 left-align">
+                                <i class="fas fa-users"></i>
+                                {{ lastEvent.participants|length }}
+                            </div>
+                            <div class="col m5 offset-m3 right-align">
+                                <i class="far fa-building"></i>
+                                Organized by {{ lastEvent.organization.name }}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    {% endfor %}
+    {% include 'modules/common/pagination.html.twig' %}
+</div>

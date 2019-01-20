@@ -4,6 +4,7 @@ namespace App\Repository;
 
 use App\Entity\Game;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\ORM\NonUniqueResultException;
 use Symfony\Bridge\Doctrine\RegistryInterface;
 
 /**
@@ -17,6 +18,40 @@ class GameRepository extends ServiceEntityRepository
     public function __construct(RegistryInterface $registry)
     {
         parent::__construct($registry, Game::class);
+    }
+
+    public function findByOrderByNameAsc(int $gamesNumber)
+    {
+        return $this->createQueryBuilder('g')
+            ->orderBy('g.name', 'ASC')
+            ->setMaxResults($gamesNumber)
+            ->getQuery()
+            ->getResult();
+    }
+
+    public function findByName(string $name, int $gamesNumber, int $page = 1)
+    {
+        return $this->createQueryBuilder('g')
+            ->where('g.name LIKE :name')
+            ->setParameter(':name', '%'.$name.'%')
+            ->setFirstResult($gamesNumber * $page - $gamesNumber)
+            ->setMaxResults($gamesNumber)
+            ->getQuery()
+            ->getResult();
+    }
+
+    public function getPaginationByName(string $name, int $gamesNumber)
+    {
+        try {
+            return $this->createQueryBuilder('g')
+                ->select('COUNT(g.id) / ' . $gamesNumber)
+                ->where('LOWER(g.name) LIKE LOWER(:name)')
+                ->setParameter(':name', '%' . $name . '%')
+                ->getQuery()
+                ->getSingleScalarResult();
+        } catch (NonUniqueResultException $e) {
+            return null;
+        }
     }
 
     /**
@@ -34,15 +69,17 @@ class GameRepository extends ServiceEntityRepository
             ->getResult();
     }
 
-    /*
-    public function findOneBySomeField($value): ?Game
+    public function getPagination(int $gamesNumber)
     {
-        return $this->createQueryBuilder('g')
-            ->andWhere('g.exampleField = :val')
-            ->setParameter('val', $value)
-            ->getQuery()
-            ->getOneOrNullResult()
-        ;
+        try {
+            return $this->createQueryBuilder('g')
+                ->select('COUNT(g.id) / ' . $gamesNumber)
+                ->getQuery()
+                ->getSingleScalarResult();
+        } catch (NonUniqueResultException $e) {
+            return null;
+        }
     }
-    */
+
+
 }

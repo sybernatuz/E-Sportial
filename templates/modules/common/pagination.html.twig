@@ -1,12 +1,17 @@
-{% if pageNumber is defined and pageNumber > 0 %}
-    <ul class="pagination">
-        <li class="disabled"><a><i class="material-icons">chevron_left</i></a></li>
+{% if pageNumber is defined %}
+    {% set pageNumber = pageNumber > 0 ? pageNumber : 1 %}
+    <ul class="pagination center">
+        <li class="minus-page waves-effect {{ activePage is not defined or activePage == 1 ? 'disabled'}}">
+            <a><i class="material-icons">chevron_left</i></a>
+        </li>
         {% for i in 1..pageNumber %}
             {% set isActive = activePage is defined and activePage == i or activePage is not defined and i == 1 %}
             <li class="page waves-effect {{ isActive ? 'active'}}" id="{{ i }}">
                 <a>{{ i }}</a>
             </li>
         {% endfor %}
-        <li class="waves-effect"><a><i class="material-icons">chevron_right</i></a></li>
+        <li class="plus-page waves-effect {{ activePage is defined and activePage == pageNumber ? 'disabled' }}">
+            <a><i class="material-icons">chevron_right</i></a>
+        </li>
     </ul>
 {% endif %}

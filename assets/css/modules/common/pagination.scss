@@ -1,5 +1,9 @@
 .pagination {
 
+  .active {
+    background-color: $purple-color !important;
+  }
+
   li:hover {
     border: 1px solid $purple-color;
     border-radius: 10px;

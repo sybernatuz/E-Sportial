@@ -10,7 +10,7 @@ namespace App\DataFixtures;
 
 
 use App\Entity\Type;
-use App\Enums\type\EntityNameEnum;
+use App\Enums\entity\EntityNameEnum;
 use App\Enums\type\EventTypeEnum;
 use App\Enums\type\JobTypeEnum;
 use App\Enums\type\OrganizationTypeEnum;

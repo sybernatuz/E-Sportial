@@ -6,10 +6,12 @@
  * Time: 14:12
  */
 
-namespace App\Enums\type;
+namespace App\Enums\entity;
 
 
-class EntityNameEnum
+use App\Enums\AbstractEnum;
+
+class EntityNameEnum extends AbstractEnum
 {
     const ENTITY_NAME_JOB = "job";
     const ENTITY_NAME_ORGANIZATION = "organization";

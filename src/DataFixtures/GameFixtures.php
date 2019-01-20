@@ -19,7 +19,7 @@ class GameFixtures extends Fixture
     public function load(ObjectManager $manager)
     {
         $faker = Factory::create();
-        for ($i = 0; $i < 10; $i++) {
+        for ($i = 0; $i < 50; $i++) {
             $game = (new Game())
                 ->setApiUrl($faker->url)
                 ->setDescription($faker->text)

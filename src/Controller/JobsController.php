@@ -22,6 +22,9 @@ use Symfony\Component\Routing\Annotation\Route;
  */
 class JobsController extends AbstractController
 {
+    private const JOBS_NUMBER = 5;
+    private const FOOTER_GAMES_NUMBER = 5;
+
     private $jobRepository;
     private $gameRepository;
 
@@ -36,12 +39,12 @@ class JobsController extends AbstractController
      */
     public function index()
     {
-        $lastJobs = $this->jobRepository->findByLastDateAndType(5, JobTypeEnum::WORK);
+        $lastJobs = $this->jobRepository->findByLastDateAndType(self::JOBS_NUMBER, JobTypeEnum::WORK);
         return $this->render("pages/jobs.html.twig", [
-            'footerGames' => $this->gameRepository->findByMostPopular(5),
             'lastJobs' => $lastJobs,
             'jobDetail' => $lastJobs[0] ?? null,
-            'pageNumber' => $this->jobRepository->getPaginationByLastDateAndType(5, JobTypeEnum::WORK)
+            'pageNumber' => $this->jobRepository->getPaginationByLastDateAndType(self::JOBS_NUMBER, JobTypeEnum::WORK),
+            'footerGames' => $this->gameRepository->findByMostPopular(self::FOOTER_GAMES_NUMBER)
         ]);
     }
 }

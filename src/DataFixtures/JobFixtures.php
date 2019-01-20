@@ -14,7 +14,7 @@ use App\Entity\Job;
 use App\Entity\Organization;
 use App\Entity\Type;
 use App\Entity\User;
-use App\Enums\type\EntityNameEnum;
+use App\Enums\entity\EntityNameEnum;
 use App\Enums\type\JobTypeEnum;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Common\DataFixtures\DependentFixtureInterface;

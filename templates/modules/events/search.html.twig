@@ -1,0 +1,21 @@
+<div class="search">
+    <div class="input-field col l5 m5 s5">
+        <i class="material-icons prefix">search</i>
+        <input id="search-bar-name" type="text" class="validate">
+        <label for="search-bar-name">Search</label>
+    </div>
+    <div class="input-field col l5 m5 s5">
+        <i class="material-icons prefix">room</i>
+        <input id="search-bar-location" type="text" class="validate">
+        <label for="search-bar-location">Location</label>
+    </div>
+    <div class="input-field col l2 m2 s2">
+        <select id="events-type">
+            <option value="">All</option>
+            {% for eventType in eventTypes %}
+                <option value="{{ eventType }}">{{ eventType|capitalize }}</option>
+            {% endfor %}
+        </select>
+        <label for="events-type">Category</label>
+    </div>
+</div>

@@ -12,7 +12,7 @@ namespace App\DataFixtures;
 use App\Entity\Event;
 use App\Entity\Organization;
 use App\Entity\Type;
-use App\Enums\type\EntityNameEnum;
+use App\Enums\entity\EntityNameEnum;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Common\DataFixtures\DependentFixtureInterface;
 use Doctrine\Common\Persistence\ObjectManager;

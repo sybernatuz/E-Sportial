@@ -9,7 +9,9 @@
 namespace App\Enums\type;
 
 
-class JobTypeEnum
+use App\Enums\AbstractEnum;
+
+class JobTypeEnum extends AbstractEnum
 {
     const COACHING = 'coaching';
     const WORK = 'work';
