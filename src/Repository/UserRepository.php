@@ -4,6 +4,7 @@ namespace App\Repository;
 
 use App\Entity\User;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\ORM\Tools\Pagination\Paginator;
 use Symfony\Bridge\Doctrine\RegistryInterface;
 
 /**
@@ -19,32 +20,50 @@ class UserRepository extends ServiceEntityRepository
         parent::__construct($registry, User::class);
     }
 
-    // /**
-    //  * @return User[] Returns an array of User objects
-    //  */
-    /*
-    public function findByExampleField($value)
-    {
-        return $this->createQueryBuilder('u')
-            ->andWhere('u.exampleField = :val')
-            ->setParameter('val', $value)
-            ->orderBy('u.id', 'ASC')
-            ->setMaxResults(10)
-            ->getQuery()
-            ->getResult()
-        ;
-    }
-    */
+    public function findAllOrderByPopularity(int $firstResult, int $maxResults) {
+        $qb = $this->createQueryBuilder('u');
+        $qb->select('u')
+           ->setMaxResults($maxResults);
 
-    /*
-    public function findOneBySomeField($value): ?User
-    {
-        return $this->createQueryBuilder('u')
-            ->andWhere('u.exampleField = :val')
-            ->setParameter('val', $value)
-            ->getQuery()
-            ->getOneOrNullResult()
-        ;
+        if($firstResult) {
+            $qb->setFirstResult($firstResult);
+        }
+
+        $paginator = new Paginator($qb);
+        $counter = count($paginator);
+
+        return $paginator;
     }
-    */
+
+    /**
+     * Used for the front authentification
+     * @param string $username
+     * @return User
+     * @throws \Doctrine\ORM\NonUniqueResultException
+     */
+    public function findByUsernameOrEmail(string $username) {
+        return $this->createQueryBuilder('u')
+                    ->where('u.username = :username')
+                    ->orWhere('u.email = :username')
+                    ->setParameter(':username', $username)
+                    ->getQuery()
+                    ->getOneOrNullResult();
+    }
+
+    /**
+     * Used for the back authentification
+     * @param string $username
+     * @return \Doctrine\ORM\QueryBuilder
+     * @throws \Doctrine\ORM\NonUniqueResultException
+     */
+    public function findByUsernameOrEmailAdmin(string $username) {
+        return $this->createQueryBuilder('u')
+            ->where('u.username = :username')
+            ->orWhere('u.email = :username')
+            ->andWhere('u.roles LIKE :role')
+            ->setParameter(':username', $username)
+            ->setParameter('role', '%ROLE_ADMIN%')
+            ->getQuery()
+            ->getOneOrNullResult();
+    }
 }

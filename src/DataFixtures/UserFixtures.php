@@ -14,9 +14,16 @@ use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Common\Persistence\ObjectManager;
 use Faker\Factory;
 use Faker\Generator;
+use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 
 class UserFixtures extends Fixture
 {
+    private $encoder;
+
+    public function __construct(UserPasswordEncoderInterface $encoder)
+    {
+        $this->encoder = $encoder;
+    }
 
     public function load(ObjectManager $manager)
     {
@@ -37,6 +44,33 @@ class UserFixtures extends Fixture
                 ->setRoles(["ROLE_USER"]);
             $manager->persist($user);
         }
+
+        $user = (new User())
+            ->setEmail("gabrieldaoud3112@gmail.com");
+        $user->setPassword($this->encoder->encodePassword($user, "gab"))
+            ->setUsername("gabite")
+            ->setAge($faker->numberBetween(1, 100))
+            ->setOnline($faker->boolean)
+            ->setAvatar($faker->imageUrl())
+            ->setFirstname($faker->firstName)
+            ->setLastname($faker->lastName)
+            ->setPro($faker->boolean)
+            ->setRoles(["ROLE_USER, ROLE_ADMIN"]);
+        $manager->persist($user);
+
+        $user = (new User())
+            ->setEmail("test@gmail.com");
+        $user->setPassword($this->encoder->encodePassword($user, "test"))
+            ->setUsername("test")
+            ->setAge($faker->numberBetween(1, 100))
+            ->setOnline($faker->boolean)
+            ->setAvatar($faker->imageUrl())
+            ->setFirstname($faker->firstName)
+            ->setLastname($faker->lastName)
+            ->setPro($faker->boolean)
+            ->setRoles(["ROLE_USER"]);
+        $manager->persist($user);
+
         $manager->flush();
     }
 
