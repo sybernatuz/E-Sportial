@@ -12,6 +12,7 @@ namespace App\Controller\ajax;
 use App\Repository\EventRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 /**
@@ -33,7 +34,7 @@ class EventAjaxController extends AbstractController
      * @param Request $request
      * @return \Symfony\Component\HttpFoundation\Response
      */
-    public function search(Request $request)
+    public function search(Request $request) : Response
     {
         $name = $request->get("name") != null ? $request->get("name") : '';
         $location = $request->get("location") != null ? $request->get("location") : '';

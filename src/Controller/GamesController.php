@@ -12,6 +12,7 @@ namespace App\Controller;
 use App\Repository\GameRepository;
 use App\Services\layout\FooterService;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 /**
@@ -34,8 +35,9 @@ class GamesController extends AbstractController
 
     /**
      * @Route(name="index")
+     * @return \Symfony\Component\HttpFoundation\Response
      */
-    public function index()
+    public function index() : Response
     {
         return $this->render('pages/games.html.twig', [
             'gamesList' => $this->gameRepository->findByOrderByNameAsc(self::GAMES_NUMBER),

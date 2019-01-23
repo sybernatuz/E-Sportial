@@ -13,6 +13,7 @@ use App\Repository\EventRepository;
 use App\Repository\GameRepository;
 use App\Services\layout\FooterService;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 /**
@@ -39,7 +40,7 @@ class GameController extends AbstractController
      * @param Game $game
      * @return \Symfony\Component\HttpFoundation\Response
      */
-    public function index(Game $game)
+    public function index(Game $game) : Response
     {
         return $this->render('pages/game.html.twig', [
             'game' => $game,

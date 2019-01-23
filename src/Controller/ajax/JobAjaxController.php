@@ -12,8 +12,8 @@ use App\Entity\Job;
 use App\Repository\JobRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Component\Serializer\SerializerInterface;
 
 /**
  * Class JobAjaxController
@@ -24,21 +24,18 @@ class JobAjaxController extends AbstractController
 {
 
     private $jobRepository;
-    private $serializer;
 
-    public function __construct(JobRepository $jobRepository, SerializerInterface $serializer)
+    public function __construct(JobRepository $jobRepository)
     {
-        $this->serializer = $serializer;
         $this->jobRepository = $jobRepository;
     }
 
     /**
-     *
      * @Route(name="get_detail", path="/get/detail/{id}")
      * @param Job $job
      * @return \Symfony\Component\HttpFoundation\Response
      */
-    public function getJob(Job $job)
+    public function getJob(Job $job) : Response
     {
 //        return new JsonResponse($this->serializer->normalize($job, 'json', ['groups' => ['one']]));
         return $this->render("modules/jobs/jobDetail.html.twig", [
@@ -51,7 +48,7 @@ class JobAjaxController extends AbstractController
      * @param string $jobType
      * @return \Symfony\Component\HttpFoundation\Response
      */
-    public function getLastJobs(string $jobType)
+    public function getLastJobs(string $jobType) : Response
     {
         return $this->render("modules/jobs/lastJobs.html.twig", [
             'lastJobs' => $this->jobRepository->findByLastDateAndType(5, $jobType),
@@ -64,7 +61,7 @@ class JobAjaxController extends AbstractController
      * @param Request $request
      * @return \Symfony\Component\HttpFoundation\Response
      */
-    public function search(Request $request)
+    public function search(Request $request) : Response
     {
         $title = $request->get("title") != null ? $request->get("title") : '';
         $location = $request->get("location") != null ? $request->get("location") : '';

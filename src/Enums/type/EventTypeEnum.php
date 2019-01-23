@@ -13,6 +13,5 @@ use App\Enums\AbstractEnum;
 
 class EventTypeEnum extends AbstractEnum
 {
-    const ALL = "";
     const TOURNAMENT = "tournament";
 }

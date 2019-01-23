@@ -22,7 +22,7 @@ class LastResultsService
         $this->partyRepository = $partyRepository;
     }
 
-    public function process()
+    public function process() : array
     {
         $lastParties = $this->partyRepository->findByLastResults(self::LAST_RESULTS_NUMBER);
         $lastPartiesGroupByGameName = $this->groupLastPartiesByGameName($lastParties);

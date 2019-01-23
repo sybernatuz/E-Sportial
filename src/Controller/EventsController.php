@@ -13,6 +13,7 @@ use App\Enums\type\EventTypeEnum;
 use App\Repository\EventRepository;
 use App\Services\layout\FooterService;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 /**
@@ -35,8 +36,9 @@ class EventsController extends AbstractController
 
     /**
      * @Route(name="index")
+     * @return \Symfony\Component\HttpFoundation\Response
      */
-    public function index()
+    public function index() : Response
     {
         return $this->render("pages/events.html.twig", [
             'eventTypes' => EventTypeEnum::getValues(),

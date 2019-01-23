@@ -12,6 +12,7 @@ namespace App\Controller\ajax;
 use App\Repository\GameRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 /**
@@ -34,7 +35,7 @@ class GameAjaxController extends AbstractController
      * @param Request $request
      * @return \Symfony\Component\HttpFoundation\Response
      */
-    public function search(Request $request)
+    public function search(Request $request) : Response
     {
         $name = $request->get("name") != null ? $request->get("name") : '';
         $page = $request->get("page") != null ? $request->get("page") : 1;

@@ -13,6 +13,8 @@ use ReflectionClass;
 
 abstract class AbstractEnum
 {
+    const ALL = "";
+
     static function getValues() {
         try {
             $oClass = new ReflectionClass(static::class);

@@ -17,6 +17,7 @@ use App\Repository\RecruitmentRepository;
 use App\Services\layout\FooterService;
 use App\Services\home\LastResultsService;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 /**
@@ -48,11 +49,12 @@ class HomeController extends AbstractController
 
     /**
      * @Route(name="index")
+     * @return \Symfony\Component\HttpFoundation\Response
      */
-    public function index()
+    public function index() : Response
     {
         return $this->render("pages/home.html.twig", [
-            'lastEvents' => $this->eventRepository->findByLastDateAndType(self::LAST_EVENTS_NUMBER, EventTypeEnum::TOURNAMENT),
+            'lastEvents' => $this->eventRepository->findByLastDateAndType(self::LAST_EVENTS_NUMBER, EventTypeEnum::ALL),
             'lastRecruitments' => $this->recruitmentRepository->findByLastDate(self::LAST_RECUITMENTS_NUMBER),
             'lastJobs' => $this->jobRepository->findByLastDateAndType(self::LAST_JOBS_NUMBER, JobTypeEnum::WORK),
             'lastCoachings' => $this->jobRepository->findByLastDateAndType(self::LAST_COACHINGS_NUMBER, JobTypeEnum::COACHING)

@@ -13,6 +13,7 @@ use App\Enums\type\JobTypeEnum;
 use App\Repository\JobRepository;
 use App\Services\layout\FooterService;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 /**
@@ -35,8 +36,9 @@ class JobsController extends AbstractController
 
     /**
      * @Route(name="index")
+     * @return \Symfony\Component\HttpFoundation\Response
      */
-    public function index()
+    public function index() : Response
     {
         $lastJobs = $this->jobRepository->findByLastDateAndType(self::JOBS_NUMBER, JobTypeEnum::WORK);
         return $this->render("pages/jobs.html.twig", [

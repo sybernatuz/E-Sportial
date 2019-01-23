@@ -27,7 +27,8 @@ class FooterService
         $this->organizationRepository = $organizationRepository;
     }
 
-    public function process() {
+    public function process() : array
+    {
         return [
             'footerGames' => $this->gameRepository->findByMostPopular(self::GAMES_NUMBER),
             'footerSponsors' => $this->organizationRepository->findByType(self::SPONSORS_NUMBER,OrganizationTypeEnum::SPONSOR)
