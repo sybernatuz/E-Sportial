@@ -9,7 +9,7 @@
             <ul class="col s3 m2 l2">
                 <li>Games</li>
                 {% for footerGame in footerGames %}
-                    <li>{{ footerGame.name }}</li>
+                    <li><a href="{{ path('app_game_index', {'slug' : footerGame.slug}) }}">{{ footerGame.name }}</a></li>
                 {% endfor %}
             </ul>
             <ul class="col s3 m2 l2">

@@ -41,7 +41,6 @@ class GameController extends AbstractController
      */
     public function index(Game $game)
     {
-        dump($game);
         return $this->render('pages/game.html.twig', [
             'game' => $game,
             'events' => $this->eventRepository->findByLastDateAndGame($game)
