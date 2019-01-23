@@ -26,7 +26,7 @@ class ResultFixtures extends Fixture implements DependentFixtureInterface
         $parties = $manager->getRepository(Party::class)->findAll();
         $users = $manager->getRepository(User::class)->findAll();
         $results = [];
-        for ($i = 0; $i < 20; $i++) {
+        for ($i = 0; $i < 200; $i++) {
             $result = (new Result())
                 ->setDate($faker->dateTime)
                 ->setDeaths($faker->numberBetween(0, 20))
