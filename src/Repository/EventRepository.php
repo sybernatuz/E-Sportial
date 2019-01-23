@@ -3,6 +3,7 @@
 namespace App\Repository;
 
 use App\Entity\Event;
+use App\Entity\Game;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\ORM\NonUniqueResultException;
 use Symfony\Bridge\Doctrine\RegistryInterface;
@@ -33,6 +34,17 @@ class EventRepository extends ServiceEntityRepository
             ->setParameter(':type', '%'.$type.'%')
             ->orderBy('e.startDate', 'DESC')
             ->setMaxResults($eventsNumber)
+            ->getQuery()
+            ->getResult();
+    }
+
+    public function findByLastDateAndGame(Game $game)
+    {
+        return $this->createQueryBuilder('e')
+            ->leftJoin('App\Entity\Party', 'p', \Doctrine\ORM\Query\Expr\Join::WITH, 'p.event = e.id')
+            ->where('p.game = :game')
+            ->setParameter(':game', $game)
+            ->orderBy('e.startDate', 'DESC')
             ->getQuery()
             ->getResult();
     }

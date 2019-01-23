@@ -9,8 +9,7 @@
 namespace App\Controller;
 
 
-use App\Objects\DataHolder;
-use App\Services\common\FooterService;
+use App\Services\layout\FooterService;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
 
@@ -23,11 +22,9 @@ class PlayersController extends AbstractController
 {
     private $footerService;
 
-    private $finalDataHolder;
 
     public function __construct(FooterService $footerService)
     {
-        $this->finalDataHolder = new DataHolder();
         $this->footerService = $footerService;
     }
 
@@ -36,8 +33,7 @@ class PlayersController extends AbstractController
      */
     public function index()
     {
-        $this->footerService->process($this->finalDataHolder);
-        return $this->render("pages/players.html.twig", $this->finalDataHolder->getData());
+        return $this->render("pages/players.html.twig", $this->footerService->process());
     }
 
 

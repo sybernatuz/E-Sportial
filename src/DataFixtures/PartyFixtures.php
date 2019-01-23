@@ -9,6 +9,7 @@
 namespace App\DataFixtures;
 
 
+use App\Entity\Event;
 use App\Entity\Game;
 use App\Entity\Party;
 use Doctrine\Bundle\FixturesBundle\Fixture;
@@ -23,10 +24,12 @@ class PartyFixtures extends Fixture implements DependentFixtureInterface
     {
         $faker = Factory::create();
         $games = $manager->getRepository(Game::class)->findAll();
-        for ($i = 0; $i < 10; $i++) {
+        $events = $manager->getRepository(Event::class)->findAll();
+        for ($i = 0; $i < 100; $i++) {
             $game = (new Party())
                 ->setDate($faker->dateTime)
-                ->setGame($faker->randomElement($games));
+                ->setGame($faker->randomElement($games))
+                ->setEvent($faker->randomElement($events));
             $manager->persist($game);
         }
         $manager->flush();
@@ -36,7 +39,8 @@ class PartyFixtures extends Fixture implements DependentFixtureInterface
     public function getDependencies()
     {
         return [
-            GameFixtures::class
+            GameFixtures::class,
+            EventFixtures::class
         ];
     }
 }

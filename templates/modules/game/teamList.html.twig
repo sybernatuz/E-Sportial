@@ -1,0 +1,13 @@
+<div class="team-list col l6 m6 s6">
+    <div class="scoll-teams">
+        <ul class="collection with-header">
+            <li class="collection-header center-align"><h5>Teams</h5></li>
+            {% for roster in game.rosters %}
+                <li class="collection-item avatar valign-wrapper">
+                    <img class="circle" src="{{ roster.organization.logoPath }}">
+                    <span class="title">{{ roster.organization.name }}</span>
+                </li>
+            {% endfor %}
+        </ul>
+    </div>
+</div>

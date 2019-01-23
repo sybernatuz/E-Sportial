@@ -1,5 +1,17 @@
-.preloader-wrapper {
-  margin-left: 50%;
-  margin-top: 10%;
-  margin-bottom: 10%;
+.games-list {
+
+  .preloader-wrapper {
+    margin-left: 50%;
+    margin-top: 10%;
+    margin-bottom: 10%;
+  }
+
+  .game-name {
+    font-weight: bold;
+    color: black;
+  }
+
+  .card:hover {
+    background-color: $grey-color;
+  }
 }

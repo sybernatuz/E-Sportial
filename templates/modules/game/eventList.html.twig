@@ -1,0 +1,17 @@
+<div class="event-list col l6 m6 s6">
+    <div class="scoll-events">
+        <ul class="collection with-header">
+            <li class="collection-header center-align"><h5>Events</h5></li>
+            {% for event in events %}
+                <li class="collection-item row">
+                    <div class="left-align col l8 m8 s8">
+                        <span class="title">{{ event.name }}</span>
+                    </div>
+                    <div class="right-align col l4 m4 s4">
+                        <span class="title">{{ event.startDate|date('d/m/y') }}</span>
+                    </div>
+                </li>
+            {% endfor %}
+        </ul>
+    </div>
+</div>
