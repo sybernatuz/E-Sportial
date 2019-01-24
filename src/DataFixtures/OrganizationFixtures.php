@@ -14,11 +14,12 @@ use App\Entity\Organization;
 use App\Entity\Type;
 use App\Enums\entity\EntityNameEnum;
 use Doctrine\Bundle\FixturesBundle\Fixture;
+use Doctrine\Bundle\FixturesBundle\FixtureGroupInterface;
 use Doctrine\Common\DataFixtures\DependentFixtureInterface;
 use Doctrine\Common\Persistence\ObjectManager;
 use Faker\Factory;
 
-class OrganizationFixtures extends Fixture implements DependentFixtureInterface
+class OrganizationFixtures extends Fixture implements DependentFixtureInterface, FixtureGroupInterface
 {
 
     public function load(ObjectManager $manager)
@@ -46,5 +47,16 @@ class OrganizationFixtures extends Fixture implements DependentFixtureInterface
             CountryFixtures::class,
             TypeFixtures::class
         ];
+    }
+
+    /**
+     * This method must return an array of groups
+     * on which the implementing class belongs to
+     *
+     * @return string[]
+     */
+    public static function getGroups(): array
+    {
+        return ['dev'];
     }
 }

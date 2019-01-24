@@ -13,11 +13,12 @@ use App\Entity\Game;
 use App\Entity\Play;
 use App\Entity\User;
 use Doctrine\Bundle\FixturesBundle\Fixture;
+use Doctrine\Bundle\FixturesBundle\FixtureGroupInterface;
 use Doctrine\Common\DataFixtures\DependentFixtureInterface;
 use Doctrine\Common\Persistence\ObjectManager;
 use Faker\Factory;
 
-class PlayFixtures extends Fixture implements DependentFixtureInterface
+class PlayFixtures extends Fixture implements DependentFixtureInterface, FixtureGroupInterface
 {
 
     public function load(ObjectManager $manager)
@@ -41,5 +42,16 @@ class PlayFixtures extends Fixture implements DependentFixtureInterface
             GameFixtures::class,
             UserFixtures::class
         ];
+    }
+
+    /**
+     * This method must return an array of groups
+     * on which the implementing class belongs to
+     *
+     * @return string[]
+     */
+    public static function getGroups(): array
+    {
+        return ['dev'];
     }
 }

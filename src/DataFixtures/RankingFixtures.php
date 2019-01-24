@@ -13,11 +13,12 @@ use App\Entity\Party;
 use App\Entity\Ranking;
 use App\Entity\User;
 use Doctrine\Bundle\FixturesBundle\Fixture;
+use Doctrine\Bundle\FixturesBundle\FixtureGroupInterface;
 use Doctrine\Common\DataFixtures\DependentFixtureInterface;
 use Doctrine\Common\Persistence\ObjectManager;
 use Faker\Factory;
 
-class RankingFixtures extends Fixture implements DependentFixtureInterface
+class RankingFixtures extends Fixture implements DependentFixtureInterface, FixtureGroupInterface
 {
 
     public function load(ObjectManager $manager)
@@ -55,5 +56,16 @@ class RankingFixtures extends Fixture implements DependentFixtureInterface
     public function removeUsedPlayer(User $user, array &$users) {
         if (false !== $key = array_search($user, $users))
             unset($users[$key]);
+    }
+
+    /**
+     * This method must return an array of groups
+     * on which the implementing class belongs to
+     *
+     * @return string[]
+     */
+    public static function getGroups(): array
+    {
+        return ['dev'];
     }
 }

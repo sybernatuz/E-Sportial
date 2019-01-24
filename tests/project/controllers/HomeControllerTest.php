@@ -9,22 +9,19 @@
 namespace App\Tests\controllers;
 
 
-use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
+use App\Tests\project\controllers\AbstractControllerTest;
 
-class HomeControllerTest extends WebTestCase
+class HomeControllerTest extends AbstractControllerTest
 {
-    public function testStatus()
+
+    protected function getControllerUrl(): string
     {
-        $client = static::createClient();
-        $client->request('GET', '/');
-        $this->assertEquals(200, $client->getResponse()->getStatusCode());
+        return "/";
     }
 
-    public function testTemplateInclusions()
+    public function testTemplateInclusions() : void
     {
-        $client = static::createClient();
-        $client->request('GET', '/');
-        $content = $client->getResponse()->getContent();
+        $content = $this->client->getResponse()->getContent();
         $this->assertContains('home.js', $content);
         $this->assertContains('home.css', $content);
     }

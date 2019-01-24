@@ -15,9 +15,10 @@ use App\Enums\type\EventTypeEnum;
 use App\Enums\type\JobTypeEnum;
 use App\Enums\type\OrganizationTypeEnum;
 use Doctrine\Bundle\FixturesBundle\Fixture;
+use Doctrine\Bundle\FixturesBundle\FixtureGroupInterface;
 use Doctrine\Common\Persistence\ObjectManager;
 
-class TypeFixtures extends Fixture
+class TypeFixtures extends Fixture implements FixtureGroupInterface
 {
 
     public function load(ObjectManager $manager)
@@ -39,5 +40,16 @@ class TypeFixtures extends Fixture
             ->setName($name)
             ->setEntityName($entityName);
         $manager->persist($type);
+    }
+
+    /**
+     * This method must return an array of groups
+     * on which the implementing class belongs to
+     *
+     * @return string[]
+     */
+    public static function getGroups(): array
+    {
+        return ['dev'];
     }
 }

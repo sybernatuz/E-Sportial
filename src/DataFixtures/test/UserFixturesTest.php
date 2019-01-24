@@ -28,8 +28,10 @@ class UserFixturesTest extends Fixture implements FixtureGroupInterface
     public function load(ObjectManager $manager)
     {
         UserMock::init();
+
         UserMock::$user1->setPassword($this->encoder->encodePassword(UserMock::$user1, UserMock::$user1->getPassword()));
         $manager->persist(UserMock::$user1);
+
         UserMock::$admin1->setPassword($this->encoder->encodePassword(UserMock::$admin1, UserMock::$admin1->getPassword()));
         $manager->persist(UserMock::$admin1);
 

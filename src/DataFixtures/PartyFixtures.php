@@ -13,11 +13,12 @@ use App\Entity\Event;
 use App\Entity\Game;
 use App\Entity\Party;
 use Doctrine\Bundle\FixturesBundle\Fixture;
+use Doctrine\Bundle\FixturesBundle\FixtureGroupInterface;
 use Doctrine\Common\DataFixtures\DependentFixtureInterface;
 use Doctrine\Common\Persistence\ObjectManager;
 use Faker\Factory;
 
-class PartyFixtures extends Fixture implements DependentFixtureInterface
+class PartyFixtures extends Fixture implements DependentFixtureInterface, FixtureGroupInterface
 {
 
     public function load(ObjectManager $manager)
@@ -42,5 +43,16 @@ class PartyFixtures extends Fixture implements DependentFixtureInterface
             GameFixtures::class,
             EventFixtures::class
         ];
+    }
+
+    /**
+     * This method must return an array of groups
+     * on which the implementing class belongs to
+     *
+     * @return string[]
+     */
+    public static function getGroups(): array
+    {
+        return ['dev'];
     }
 }

@@ -12,11 +12,12 @@ namespace App\DataFixtures;
 use App\Entity\DiscussionGroup;
 use App\Entity\User;
 use Doctrine\Bundle\FixturesBundle\Fixture;
+use Doctrine\Bundle\FixturesBundle\FixtureGroupInterface;
 use Doctrine\Common\DataFixtures\DependentFixtureInterface;
 use Doctrine\Common\Persistence\ObjectManager;
 use Faker\Factory;
 
-class DiscussionGroupFixtures extends Fixture implements DependentFixtureInterface
+class DiscussionGroupFixtures extends Fixture implements DependentFixtureInterface, FixtureGroupInterface
 {
 
     public function load(ObjectManager $manager)
@@ -39,5 +40,16 @@ class DiscussionGroupFixtures extends Fixture implements DependentFixtureInterfa
         return [
             UserFixtures::class
         ];
+    }
+
+    /**
+     * This method must return an array of groups
+     * on which the implementing class belongs to
+     *
+     * @return string[]
+     */
+    public static function getGroups(): array
+    {
+        return ['dev'];
     }
 }

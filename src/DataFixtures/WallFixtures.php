@@ -13,12 +13,13 @@ use App\Entity\Organization;
 use App\Entity\User;
 use App\Entity\Wall;
 use Doctrine\Bundle\FixturesBundle\Fixture;
+use Doctrine\Bundle\FixturesBundle\FixtureGroupInterface;
 use Doctrine\Common\DataFixtures\DependentFixtureInterface;
 use Doctrine\Common\Persistence\ObjectManager;
 use Faker\Factory;
 use Faker\Generator;
 
-class WallFixtures extends Fixture implements DependentFixtureInterface
+class WallFixtures extends Fixture implements DependentFixtureInterface, FixtureGroupInterface
 {
 
     public function load(ObjectManager $manager)
@@ -61,5 +62,16 @@ class WallFixtures extends Fixture implements DependentFixtureInterface
     {
         if (false !== $key = array_search($entity, $array))
             unset($array[$key]);
+    }
+
+    /**
+     * This method must return an array of groups
+     * on which the implementing class belongs to
+     *
+     * @return string[]
+     */
+    public static function getGroups(): array
+    {
+        return ['dev'];
     }
 }

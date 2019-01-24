@@ -17,12 +17,13 @@ use App\Entity\User;
 use App\Enums\entity\EntityNameEnum;
 use App\Enums\type\JobTypeEnum;
 use Doctrine\Bundle\FixturesBundle\Fixture;
+use Doctrine\Bundle\FixturesBundle\FixtureGroupInterface;
 use Doctrine\Common\DataFixtures\DependentFixtureInterface;
 use Doctrine\Common\Persistence\ObjectManager;
 use Faker\Factory;
 use Faker\Generator;
 
-class JobFixtures extends Fixture implements DependentFixtureInterface
+class JobFixtures extends Fixture implements DependentFixtureInterface, FixtureGroupInterface
 {
 
     public function load(ObjectManager $manager)
@@ -72,5 +73,16 @@ class JobFixtures extends Fixture implements DependentFixtureInterface
         $job->setType($type);
         if ($type->getName() == JobTypeEnum::COACHING)
             $job->setGame($faker->randomElement($games));
+    }
+
+    /**
+     * This method must return an array of groups
+     * on which the implementing class belongs to
+     *
+     * @return string[]
+     */
+    public static function getGroups(): array
+    {
+        return ['dev'];
     }
 }
