@@ -41,7 +41,7 @@ class UserRepository extends ServiceEntityRepository
      * @return User
      * @throws \Doctrine\ORM\NonUniqueResultException
      */
-    public function findByUsernameOrEmail(string $username) : User
+    public function findByUsernameOrEmail(string $username) : ?User
     {
         return $this->createQueryBuilder('u')
                     ->where('u.username = :username')
@@ -57,14 +57,13 @@ class UserRepository extends ServiceEntityRepository
      * @return User
      * @throws \Doctrine\ORM\NonUniqueResultException
      */
-    public function findByUsernameOrEmailAdmin(string $username) : User
+    public function findByUsernameOrEmailAdmin(string $username) : ?User
     {
         return $this->createQueryBuilder('u')
             ->where('u.username = :username')
             ->orWhere('u.email = :username')
-            ->andWhere('u.roles LIKE :role')
+            ->andWhere('u.roles LIKE \'%ROLE_ADMIN%\'')
             ->setParameter(':username', $username)
-            ->setParameter('role', '%ROLE_ADMIN%')
             ->getQuery()
             ->getOneOrNullResult();
     }
