@@ -6,7 +6,7 @@
  * Time: 18:21
  */
 
-namespace App\DataFixtures;
+namespace App\DataFixtures\dev;
 
 
 use App\Entity\User;

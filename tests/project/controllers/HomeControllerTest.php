@@ -19,10 +19,9 @@ class HomeControllerTest extends AbstractControllerTest
         return "/";
     }
 
-    public function testTemplateInclusions() : void
+
+    protected function getAssetName(): string
     {
-        $content = $this->client->getResponse()->getContent();
-        $this->assertContains('home.js', $content);
-        $this->assertContains('home.css', $content);
+        return 'home';
     }
 }

@@ -11,11 +11,11 @@ namespace App\Tests\project\repositories;
 
 use App\Entity\User;
 use App\Repository\UserRepository;
+use App\Tests\setup\mock\AbstractMockInitializerTest;
 use App\Tests\setup\mock\UserMock;
 use Doctrine\ORM\NonUniqueResultException;
-use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
 
-class UserRepositoryTest extends KernelTestCase
+class UserRepositoryTest extends AbstractMockInitializerTest
 {
 
     /**
@@ -34,8 +34,8 @@ class UserRepositoryTest extends KernelTestCase
 
     public function testFindByUsernameOrEmail() : void
     {
-        $this->findByUsernameOrEmail(UserMock::USER_1_USERNAME);
-        $this->findByUsernameOrEmail(UserMock::USER_1_EMAIL);
+        $this->findByUsernameOrEmail(UserMock::$user1->getUsername());
+        $this->findByUsernameOrEmail(UserMock::$user1->getEmail());
     }
     private function findByUsernameOrEmail(string $emailOrUsername) : void
     {
@@ -47,14 +47,14 @@ class UserRepositoryTest extends KernelTestCase
         }
         if ($user == null)
             $this->fail('No user found');
-        $this->assertEquals(UserMock::USER_1_USERNAME, $user->getUsername());
-        $this->assertEquals(UserMock::USER_1_ROLE, $user->getRoles());
+        $this->assertEquals(UserMock::$user1->getUsername(), $user->getUsername());
+        $this->assertEquals(UserMock::$user1->getRoles(), $user->getRoles());
     }
 
     public function testFindByUsernameOrEmailAdmin() : void
     {
-        $this->findByUsernameOrEmailAdmin(UserMock::ADMIN_1_USERNAME);
-        $this->findByUsernameOrEmailAdmin(UserMock::ADMIN_1_EMAIL);
+        $this->findByUsernameOrEmailAdmin(UserMock::$admin1->getUsername());
+        $this->findByUsernameOrEmailAdmin(UserMock::$admin1->getEmail());
     }
 
     private function findByUsernameOrEmailAdmin(string $emailOrUsername) : void
@@ -67,7 +67,7 @@ class UserRepositoryTest extends KernelTestCase
         }
         if ($user == null)
             $this->fail('No user found');
-        $this->assertEquals(UserMock::ADMIN_1_USERNAME, $user->getUsername());
-        $this->assertEquals(UserMock::ADMIN_1_ROLE, $user->getRoles());
+        $this->assertEquals(UserMock::$admin1->getUsername(), $user->getUsername());
+        $this->assertEquals(UserMock::$admin1->getRoles(), $user->getRoles());
     }
 }

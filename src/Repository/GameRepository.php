@@ -20,7 +20,11 @@ class GameRepository extends ServiceEntityRepository
         parent::__construct($registry, Game::class);
     }
 
-    public function findByOrderByNameAsc(int $gamesNumber)
+    /**
+     * @param int $gamesNumber
+     * @return Game[]
+     */
+    public function findByOrderByNameAsc(int $gamesNumber) : array
     {
         return $this->createQueryBuilder('g')
             ->orderBy('g.name', 'ASC')
@@ -29,7 +33,13 @@ class GameRepository extends ServiceEntityRepository
             ->getResult();
     }
 
-    public function findByName(string $name, int $gamesNumber, int $page = 1)
+    /**
+     * @param string $name
+     * @param int $gamesNumber
+     * @param int $page
+     * @return Game[]
+     */
+    public function findByName(string $name, int $gamesNumber, int $page = 1) : array
     {
         return $this->createQueryBuilder('g')
             ->where('g.name LIKE :name')

@@ -6,7 +6,7 @@
  * Time: 15:46
  */
 
-namespace App\DataFixtures;
+namespace App\DataFixtures\dev;
 
 
 use App\Entity\Organization;

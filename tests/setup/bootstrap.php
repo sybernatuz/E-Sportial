@@ -8,7 +8,13 @@
 
 
 if (isset($_ENV['BOOTSTRAP_RESET_DATABASE']) && $_ENV['BOOTSTRAP_RESET_DATABASE'] == true) {
-    echo "Resetting test database...";
+    initDatabase();
+}
+require __DIR__ . './../../vendor/autoload.php';
+
+function initDatabase()
+{
+    echo "Resetting test database ...";
     passthru(sprintf(
         'php "%s/../../bin/console" doctrine:schema:drop --env=test --force --no-interaction',
         __DIR__
@@ -21,6 +27,5 @@ if (isset($_ENV['BOOTSTRAP_RESET_DATABASE']) && $_ENV['BOOTSTRAP_RESET_DATABASE'
         'php "%s/../../bin/console" doctrine:fixtures:load --group=test --env=test --no-interaction',
         __DIR__
     ));
-    echo " Done" . PHP_EOL . PHP_EOL;
+    echo "Done" . PHP_EOL . PHP_EOL;
 }
-require __DIR__ . './../../vendor/autoload.php';

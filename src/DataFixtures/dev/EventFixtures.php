@@ -6,7 +6,7 @@
  * Time: 16:40
  */
 
-namespace App\DataFixtures;
+namespace App\DataFixtures\dev;
 
 
 use App\Entity\Event;

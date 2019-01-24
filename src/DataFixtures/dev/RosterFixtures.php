@@ -1,47 +1,48 @@
 <?php
 /**
  * Created by PhpStorm.
- * User: Louis
- * Date: 01/01/2019
- * Time: 22:02
+ * User: ldecultot
+ * Date: 08/01/2019
+ * Time: 15:42
  */
 
-namespace App\DataFixtures;
+namespace App\DataFixtures\dev;
 
 
-use App\Entity\Event;
 use App\Entity\Game;
-use App\Entity\Party;
+use App\Entity\Organization;
+use App\Entity\Roster;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Bundle\FixturesBundle\FixtureGroupInterface;
 use Doctrine\Common\DataFixtures\DependentFixtureInterface;
 use Doctrine\Common\Persistence\ObjectManager;
 use Faker\Factory;
 
-class PartyFixtures extends Fixture implements DependentFixtureInterface, FixtureGroupInterface
+class RosterFixtures extends Fixture implements DependentFixtureInterface, FixtureGroupInterface
 {
 
     public function load(ObjectManager $manager)
     {
         $faker = Factory::create();
         $games = $manager->getRepository(Game::class)->findAll();
-        $events = $manager->getRepository(Event::class)->findAll();
-        for ($i = 0; $i < 100; $i++) {
-            $game = (new Party())
-                ->setDate($faker->dateTime)
+        $organizations = $manager->getRepository(Organization::class)->findAll();
+        for ($i = 0; $i < 20; $i++) {
+            $result = (new Roster())
+                ->setName($faker->name)
+                ->setCreatedAt($faker->dateTime)
+                ->setDescription($faker->text(1000))
                 ->setGame($faker->randomElement($games))
-                ->setEvent($faker->randomElement($events));
-            $manager->persist($game);
+                ->setOrganization($faker->randomElement($organizations));
+            $manager->persist($result);
         }
         $manager->flush();
     }
-
 
     public function getDependencies()
     {
         return [
             GameFixtures::class,
-            EventFixtures::class
+            OrganizationFixtures::class
         ];
     }
 
