@@ -47,9 +47,8 @@ class UserFixtures extends Fixture implements FixtureGroupInterface
         }
 
         $user = (new User())
-            ->setEmail("gabrieldaoud3112@gmail.com");
-        $user->setPassword($this->encoder->encodePassword($user, "gab"))
-            ->setUsername("gabite")
+            ->setEmail("admin@gmail.com")
+            ->setUsername("admin")
             ->setAge($faker->numberBetween(1, 100))
             ->setOnline($faker->boolean)
             ->setAvatar($faker->imageUrl())
@@ -57,12 +56,12 @@ class UserFixtures extends Fixture implements FixtureGroupInterface
             ->setLastname($faker->lastName)
             ->setPro($faker->boolean)
             ->setRoles(["ROLE_USER, ROLE_ADMIN"]);
+        $user->setPassword($this->encoder->encodePassword($user, "admin"));
         $manager->persist($user);
 
         $user = (new User())
-            ->setEmail("test@gmail.com");
-        $user->setPassword($this->encoder->encodePassword($user, "test"))
-            ->setUsername("test")
+            ->setEmail("user@gmail.com")
+            ->setUsername("user")
             ->setAge($faker->numberBetween(1, 100))
             ->setOnline($faker->boolean)
             ->setAvatar($faker->imageUrl())
@@ -70,6 +69,7 @@ class UserFixtures extends Fixture implements FixtureGroupInterface
             ->setLastname($faker->lastName)
             ->setPro($faker->boolean)
             ->setRoles(["ROLE_USER"]);
+        $user->setPassword($this->encoder->encodePassword($user, "user"));
         $manager->persist($user);
 
         $manager->flush();

@@ -13,8 +13,13 @@
         </ul>
         <ul id="nav-mobile" class="right hide-on-med-and-down">
             <li><a href="">Premium</a></li>
-            <li><a href="{{ path('app_security_login') }}">Login</a></li>
-            <li><a href="">Sign in</a></li>
+            {% if not app.user %}
+                <li><a href="{{ path('app_security_login') }}">Login</a></li>
+                <li><a href="">Sign in</a></li>
+            {% else %}
+                <li><a href="{{ path('app_security_logout') }}">Logout</a></li>
+            {% endif %}
+
         </ul>
     </div>
 </nav>

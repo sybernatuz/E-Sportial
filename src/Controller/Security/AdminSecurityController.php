@@ -4,7 +4,6 @@ namespace App\Controller\Security;
 
 use App\Form\LoginType;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\Form\FormFactory;
 use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -21,7 +20,7 @@ class AdminSecurityController extends AbstractController
 
     /**
      * AdminSecurityController constructor.
-     * @param FormFactory $formFactory
+     * @param FormFactoryInterface $formFactory
      */
     public function __construct(FormFactoryInterface $formFactory)
     {
@@ -29,7 +28,7 @@ class AdminSecurityController extends AbstractController
     }
 
     /**
-     * @Route("/login", name="login")
+     * @Route(path="/login", name="login")
      * @param AuthenticationUtils $authenticationUtils
      * @return Response
      */
