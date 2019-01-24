@@ -41,7 +41,8 @@ class UserRepository extends ServiceEntityRepository
      * @return User
      * @throws \Doctrine\ORM\NonUniqueResultException
      */
-    public function findByUsernameOrEmail(string $username) {
+    public function findByUsernameOrEmail(string $username) : User
+    {
         return $this->createQueryBuilder('u')
                     ->where('u.username = :username')
                     ->orWhere('u.email = :username')
@@ -53,10 +54,11 @@ class UserRepository extends ServiceEntityRepository
     /**
      * Used for the back authentification
      * @param string $username
-     * @return \Doctrine\ORM\QueryBuilder
+     * @return User
      * @throws \Doctrine\ORM\NonUniqueResultException
      */
-    public function findByUsernameOrEmailAdmin(string $username) {
+    public function findByUsernameOrEmailAdmin(string $username) : User
+    {
         return $this->createQueryBuilder('u')
             ->where('u.username = :username')
             ->orWhere('u.email = :username')

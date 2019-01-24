@@ -19,4 +19,13 @@ class HomeControllerTest extends WebTestCase
         $client->request('GET', '/');
         $this->assertEquals(200, $client->getResponse()->getStatusCode());
     }
+
+    public function testTemplateInclusions()
+    {
+        $client = static::createClient();
+        $client->request('GET', '/');
+        $content = $client->getResponse()->getContent();
+        $this->assertContains('home.js', $content);
+        $this->assertContains('home.css', $content);
+    }
 }
