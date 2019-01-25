@@ -8,15 +8,39 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Contracts\Translation\TranslatorInterface;
 
 class LoginType extends AbstractType
 {
+
+    private $translator;
+
+    public function __construct(TranslatorInterface $translator)
+    {
+        $this->translator = $translator;
+    }
+
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add($options['username_parameter'], TextType::class)
-            ->add($options['password_parameter'], PasswordType::class)
-            ->add('sign_in', SubmitType::class)
+            ->add($options['username_parameter'], TextType::class, [
+                'label' => $this->translator->trans('E-mail or username'),
+                'attr' => [
+                    'placeholder' => $this->translator->trans('E-mail or username')
+                ]
+            ])
+            ->add($options['password_parameter'], PasswordType::class, [
+                'label' => $this->translator->trans('Password'),
+                'attr' => [
+                    'placeholder' => $this->translator->trans('Password')
+                ]
+            ])
+            ->add('login', SubmitType::class, [
+                'label' => $this->translator->trans('Login'),
+                'attr' => [
+                    'class' => 'waves-effect waves-light btn'
+                ]
+            ])
         ;
     }
 

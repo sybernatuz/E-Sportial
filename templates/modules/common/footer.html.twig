@@ -3,23 +3,25 @@
         <div class="row">
             <img class="col s12 m1 l1" src="{{ asset('build/images/logo.png') }}">
             <ul class="col s3 m2 l2 offset-m2 offset-l2">
-                <li class="footer-category">More informations</li>
-                <li>About us</li>
+                <li class="footer-category">
+                    {% trans %}More informations{% endtrans %}
+                </li>
+                <li>{% trans %}About us{% endtrans %}</li>
             </ul>
             <ul class="col s3 m2 l2">
-                <li class="footer-category">Games</li>
+                <li class="footer-category">{% trans %}Games{% endtrans %}</li>
                 {% for footerGame in footerGames %}
                     <li><a href="{{ path('app_game_index', {'slug' : footerGame.slug}) }}">{{ footerGame.name }}</a></li>
                 {% endfor %}
             </ul>
             <ul class="col s3 m2 l2">
-                <li class="footer-category">Sponsors</li>
+                <li class="footer-category">{% trans %}Sponsors{% endtrans %}</li>
                 {% for footerSponsor in footerSponsors %}
                     <li>{{ footerSponsor.name }}</li>
                 {% endfor %}
             </ul>
             <ul class="col s3 m2 l2">
-                <li class="footer-category">Our social media</li>
+                <li class="footer-category">{% trans %}Our social media{% endtrans %}</li>
                 <li>
                     <a href="https://www.facebook.com"><i style="font-size:24px" class="fab fa-facebook"></i></a>
                     <a href="https://www.instagram.com"><i style="font-size:24px" class="fab fa-instagram"></i></a>

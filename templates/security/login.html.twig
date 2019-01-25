@@ -15,23 +15,23 @@
         {{ form_start(form) }}
             <div class="row">
                 <div class="input-field col s6 m6 l6 xl6">
-                    {{ form_label(form._login_username, 'E-mail or username') }}
+                    {{ form_label(form._login_username) }}
                     {{ form_errors(form._login_username) }}
-                    {{ form_widget(form._login_username, { attr: { placeholder: 'E-mail or username' } }) }}
+                    {{ form_widget(form._login_username) }}
                 </div>
             </div>
 
             <div class="row">
                 <div class="input-field col s6 m6 l6 xl6">
-                    {{ form_label(form._login_password, 'Password') }}
+                    {{ form_label(form._login_password) }}
                     {{ form_errors(form._login_password) }}
-                    {{ form_widget(form._login_password, { attr: { placeholder: 'Password' } }) }}
+                    {{ form_widget(form._login_password) }}
                 </div>
             </div>
 
             <div class="row">
                 <div class="input-field col s6 m6 l6 xl6">
-                    {{ form_widget(form.sign_in, { attr: { class: 'waves-effect waves-light btn' } }) }}
+                    {{ form_widget(form.login) }}
                 </div>
             </div>
 
