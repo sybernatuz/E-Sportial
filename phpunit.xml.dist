@@ -19,4 +19,23 @@
             <directory>tests/</directory>
         </testsuite>
     </testsuites>
+
+    <logging>
+        <log type="coverage-clover" target="tests/logs/clover.xml"/>
+        <log type="coverage-xml" target="tests/logs/coverage.xml"/>
+        <log type="junit" target="tests/logs/junit.xml"/>
+    </logging>
+
+    <filter>
+        <whitelist>
+            <directory suffix=".php">./src</directory>
+            <exclude>
+                <directory>./src/*/*Bundle/Resources</directory>
+                <directory>./src/*/*Bundle/Tests</directory>
+                <directory>./src/*/Bundle/*Bundle/Resources</directory>
+                <directory>./src/*/Bundle/*Bundle/Tests</directory>
+                <file>./src/Kernel.php</file>
+            </exclude>
+        </whitelist>
+    </filter>
 </phpunit>

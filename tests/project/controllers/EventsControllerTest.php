@@ -8,7 +8,11 @@
 
 namespace App\Tests\project\controllers;
 
-
+/**
+ * Class EventsControllerTest
+ * @package App\Tests\project\controllers
+ * @group Controller
+ */
 class EventsControllerTest extends AbstractControllerTest
 {
 

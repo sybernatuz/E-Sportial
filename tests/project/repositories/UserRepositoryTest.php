@@ -15,6 +15,11 @@ use App\Tests\setup\mock\AbstractMockInitializerTest;
 use App\Tests\setup\mock\UserMock;
 use Doctrine\ORM\NonUniqueResultException;
 
+/**
+ * Class UserRepositoryTest
+ * @package App\Tests\project\repositories
+ * @group Repository
+ */
 class UserRepositoryTest extends AbstractMockInitializerTest
 {
 

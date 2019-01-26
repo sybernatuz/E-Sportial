@@ -2,12 +2,10 @@
 
 namespace App\Controller\Security;
 
-use App\Form\LoginType;
+use App\Services\FormService;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 
 /**
  * Class SecurityController
@@ -16,33 +14,20 @@ use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
  */
 class AdminSecurityController extends AbstractController
 {
-    private $formFactory;
+    private $formService;
 
-    /**
-     * AdminSecurityController constructor.
-     * @param FormFactoryInterface $formFactory
-     */
-    public function __construct(FormFactoryInterface $formFactory)
+    public function __construct(FormService $formService)
     {
-        $this->formFactory = $formFactory;
+        $this->formService = $formService;
     }
 
     /**
      * @Route(path="/login", name="login")
-     * @param AuthenticationUtils $authenticationUtils
      * @return Response
      */
-    public function loginAdmin(AuthenticationUtils $authenticationUtils): Response
+    public function loginAdmin(): Response
     {
-        // create login form
-        $form = $this->formFactory->createNamed('', LoginType::class, [
-            '_login_username' => $authenticationUtils->getLastUsername(),
-        ]);
-
-        return $this->render('security/admin_login.html.twig', [
-                'error' => $authenticationUtils->getLastAuthenticationError(),
-                'form' => $form->createView()
-            ]);
+        return $this->render('security/admin_login.html.twig', $this->formService->createLoginForm());
     }
 
     /**

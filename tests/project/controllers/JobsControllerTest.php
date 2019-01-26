@@ -8,7 +8,11 @@
 
 namespace App\Tests\project\controllers;
 
-
+/**
+ * Class JobsControllerTest
+ * @package App\Tests\project\controllers
+ * @group Controller
+ */
 class JobsControllerTest extends AbstractControllerTest
 {
 

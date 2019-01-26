@@ -14,6 +14,11 @@ use App\Repository\GameRepository;
 use App\Tests\setup\mock\AbstractMockInitializerTest;
 use App\Tests\setup\mock\GameMock;
 
+/**
+ * Class GameRepositoryTest
+ * @package App\Tests\project\repositories
+ * @group Repository
+ */
 class GameRepositoryTest extends AbstractMockInitializerTest
 {
     /**

@@ -2,13 +2,11 @@
 
 namespace App\Controller\Security;
 
-use App\Form\LoginType;
+use App\Services\FormService;
 use App\Services\layout\FooterService;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 
 /**
  * Class SecurityController
@@ -18,39 +16,26 @@ use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 class SecurityController extends AbstractController
 {
     private $footerService;
-    private $formFactory;
+    private $formService;
 
-    /**
-     * SecurityController constructor.
-     * @param FooterService $footerService
-     * @param FormFactoryInterface $formFactory
-     */
-    public function __construct(FooterService $footerService, FormFactoryInterface $formFactory)
+    public function __construct(FooterService $footerService, FormService $formService)
     {
         $this->footerService = $footerService;
-        $this->formFactory = $formFactory;
+        $this->formService = $formService;
     }
 
     /**
      * @Route(path="/login", name="login")
-     * @param AuthenticationUtils $authenticationUtils
      * @return Response
      */
-    public function login(AuthenticationUtils $authenticationUtils): Response
+    public function login(): Response
     {
-        if ($this->getUser()) {
+        if ($this->getUser())
             return $this->redirectToRoute('app_home_index');
-        }
 
-        // create login form
-        $form = $this->formFactory->createNamed('', LoginType::class, [
-            '_login_username' => $authenticationUtils->getLastUsername(),
-        ]);
-
-        return $this->render('security/login.html.twig', [
-            'error' => $authenticationUtils->getLastAuthenticationError(),
-            'form' => $form->createView()
-            ] + $this->footerService->process());
+        return $this->render('security/login.html.twig',
+            $this->formService->createLoginForm() +
+            $this->footerService->process());
     }
 
     /**
