@@ -4,20 +4,20 @@
             <img class="nav-logo" src="{{ asset('build/images/logo.png') }}">
         </a>
         <ul id="nav-mobile" class="left hide-on-med-and-down">
-            <li><a href="{{ path('app_home_index') }}">Home</a></li>
-            <li><a href="{{ path('app_players_index') }}">Players</a></li>
-            <li><a href="{{ path('app_jobs_index') }}">Jobs</a></li>
-            <li><a href="{{ path('app_events_index') }}">Events</a></li>
-            <li><a href="{{ path('app_games_index') }}">Games</a></li>
-            <li><a href="">Recruitment</a></li>
+            <li><a href="{{ path('app_home_index') }}">{% trans %}Home{% endtrans %}</a></li>
+            <li><a href="{{ path('app_players_index') }}">{% trans %}Players{% endtrans %}</a></li>
+            <li><a href="{{ path('app_jobs_index') }}">{% trans %}Jobs{% endtrans %}</a></li>
+            <li><a href="{{ path('app_events_index') }}">{% trans %}Events{% endtrans %}</a></li>
+            <li><a href="{{ path('app_games_index') }}">{% trans %}Games{% endtrans %}</a></li>
+            <li><a href="">{% trans %}Recruitment{% endtrans %}</a></li>
         </ul>
         <ul id="nav-mobile" class="right hide-on-med-and-down">
             <li><a href="">Premium</a></li>
             {% if not app.user %}
-                <li><a href="{{ path('app_security_login') }}">Login</a></li>
-                <li><a href="">Sign in</a></li>
+                <li><a href="{{ path('app_security_login') }}">{% trans %}Login{% endtrans %}</a></li>
+                <li><a href="">{% trans %}Sign in{% endtrans %}</a></li>
             {% else %}
-                <li><a href="{{ path('app_security_logout') }}">Logout</a></li>
+                <li><a href="{{ path('app_security_logout') }}">{% trans %}Logout{% endtrans %}</a></li>
             {% endif %}
 
         </ul>

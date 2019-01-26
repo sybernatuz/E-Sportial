@@ -40,8 +40,7 @@ class LoginType extends AbstractType
                 'attr' => [
                     'class' => 'waves-effect waves-light btn'
                 ]
-            ])
-        ;
+            ]);
     }
 
     public function configureOptions(OptionsResolver $resolver)
@@ -55,7 +54,6 @@ class LoginType extends AbstractType
             'attr' => ['class' => 'col s10 m8 l8 xl8 offset-s1 offset-m2 offset-l2 offset-xl2']
         ])
             ->setAllowedTypes('username_parameter', 'string')
-            ->setAllowedTypes('password_parameter', 'string')
-        ;
+            ->setAllowedTypes('password_parameter', 'string');
     }
 }

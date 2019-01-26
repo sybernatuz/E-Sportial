@@ -111,7 +111,7 @@ class DiscussionGroup
     {
         if (!$this->messages->contains($message)) {
             $this->messages[] = $message;
-            $message->setReceiverGroup($this);
+            $message->setDiscussionGroup($this);
         }
 
         return $this;
@@ -122,8 +122,8 @@ class DiscussionGroup
         if ($this->messages->contains($message)) {
             $this->messages->removeElement($message);
             // set the owning side to null (unless already changed)
-            if ($message->getReceiverGroup() === $this) {
-                $message->setReceiverGroup(null);
+            if ($message->getDiscussionGroup() === $this) {
+                $message->setDiscussionGroup(null);
             }
         }
 

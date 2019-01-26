@@ -1,11 +1,22 @@
-#Login form
+#Login
 E-mail or username: E-mail ou pseudo
 Password: Mot de passe
 Login: Connexion
+Sign in: Inscription
+Logout: Deconnexion
+
+#Game
+Games: Jeux
 
 #Footer
 More informations: Plus d'informations
 About us: A propos de nous
-Games: Jeux
 Sponsors: Sponsors
 Our social media: Nos reseaux sociaux
+
+#Navbar
+Home: Acceuil
+Players: Joueurs
+Jobs: Offres
+Events: Evenements
+Recruitment: Recrutements

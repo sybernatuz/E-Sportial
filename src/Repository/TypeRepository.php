@@ -19,9 +19,10 @@ class TypeRepository extends ServiceEntityRepository
         parent::__construct($registry, Type::class);
     }
 
-     /**
-      * @return Type[] Returns an array of Type objects
-      */
+    /**
+     * @param $entityName
+     * @return Type[] Returns an array of Type objects
+     */
     public function findByEntityName($entityName)
     {
         return $this->createQueryBuilder('t')
