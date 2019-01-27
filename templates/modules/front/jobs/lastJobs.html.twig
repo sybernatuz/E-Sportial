@@ -1,0 +1,26 @@
+<div class="last-jobs col l4 m4 s4">
+    <ul class="collection">
+        {% for lastJob in lastJobs %}
+            <li class="collection-item avatar job-item" id="{{ lastJob.id }}">
+                {% if lastJob.user.avatar is defined and lastJob.user.avatar is not null %}
+                    <img class="circle" src="{{ lastJob.user.avatar }}">
+                {% endif %}
+                {% if lastJob.organization.logoPath is defined and lastJob.organization.logoPath is not null  %}
+                    <img class="circle" src="{{ lastJob.organization.logoPath }}">
+                {% endif %}
+                <span class="title job-title">{{ lastJob.title }}</span>
+                <p class="job-infos">{{ lastJob.location }}
+                    <br>
+                    {% if lastJob.user.username is defined and lastJob.user.username is not null %}
+                        {{ lastJob.user.username }}
+                    {% endif %}
+                    {% if lastJob.organization.name is defined and lastJob.organization.name is not null  %}
+                        {{ lastJob.organization.name }}
+                    {% endif %}
+                </p>
+            </li>
+        {% endfor %}
+    </ul>
+
+    {% include 'modules/front/common/pagination.html.twig' %}
+</div>

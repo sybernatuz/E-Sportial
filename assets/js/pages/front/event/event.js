@@ -1,0 +1,1 @@
+require('../../../../css/pages/front/event/event.scss');

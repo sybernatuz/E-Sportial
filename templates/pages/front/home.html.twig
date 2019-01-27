@@ -1,0 +1,25 @@
+{% extends 'base.html.twig' %}
+
+{% block stylesheets %}
+    {{ encore_entry_link_tags('home') }}
+{% endblock %}
+
+{% block body %}
+    <div class="row">
+        {% include 'modules/front/home/lastEvents.html.twig' %}
+    </div>
+    <div class="row">
+        {% include 'modules/front/home/lastResults.html.twig' %}
+        {% include 'modules/front/home/lastRecruitments.html.twig' %}
+    </div>
+    <div class="row">
+        {% include 'modules/front/home/lastJobs.html.twig' %}
+    </div>
+    <div class="row">
+        {% include 'modules/front/home/lastCoachings.html.twig' %}
+    </div>
+{% endblock %}
+
+{% block javascripts %}
+    {{ encore_entry_script_tags('home') }}
+{% endblock %}

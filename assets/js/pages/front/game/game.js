@@ -1,0 +1,1 @@
+require('../../../../css/pages/front/game/game.scss');

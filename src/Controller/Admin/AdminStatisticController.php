@@ -17,7 +17,7 @@ class AdminStatisticController extends AbstractController
      */
     public function index()
     {
-        return $this->render('admin_statistic/index.html.twig', [
+        return $this->render('pages/back/home.html.twig', [
             'controller_name' => 'AdminStatisticController',
         ]);
     }

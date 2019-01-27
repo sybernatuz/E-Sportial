@@ -1,13 +1,11 @@
 var Encore = require('@symfony/webpack-encore');
-
 Encore
-    // directory where compiled assets will be stored
+// directory where compiled assets will be stored
     .setOutputPath('public/build/')
     // public path used by the web server to access the output path
     .setPublicPath('/build')
     // only needed for CDN's or sub-directory deploy
     //.setManifestKeyPrefix('build/')
-
     /*
      * ENTRY CONFIG
      *
@@ -18,12 +16,13 @@ Encore
      * and one CSS file (e.g. app.scss) if you JavaScript imports CSS.
      */
     .addEntry('app', './assets/js/app.js')
-    .addEntry('home', './assets/js/pages/home.js')
+    .addEntry('home', './assets/js/pages/front/home.js')
     .addEntry('players', './assets/js/pages/players.js')
-    .addEntry('jobs', './assets/js/pages/jobs.js')
-    .addEntry('events', './assets/js/pages/events.js')
-    .addEntry('games', './assets/js/pages/games.js')
-    .addEntry('game', './assets/js/pages/game.js')
+    .addEntry('jobs', './assets/js/pages/front/jobs.js')
+    .addEntry('events', './assets/js/pages/front/event/events.js')
+    .addEntry('event', './assets/js/pages/front/event/event.js')
+    .addEntry('games', './assets/js/pages/front/game/games.js')
+    .addEntry('game', './assets/js/pages/front/game/game.js')
 
     // will require an extra script tag for runtime.js
     // but, you probably want this, unless you're building a single-page app
@@ -51,9 +50,11 @@ Encore
     // uncomment if you're having problems with a jQuery plugin
     .autoProvidejQuery()
 
-    // uncomment if you use API Platform Admin (composer req api-admin)
-    //.enableReactPreset()
-    //.addEntry('admin', './assets/js/admin.js')
+// uncomment if you use API Platform Admin (composer req api-admin)
+//.enableReactPreset()
+//.addEntry('admin', './assets/js/admin.js')
 ;
+
+
 
 module.exports = Encore.getWebpackConfig();

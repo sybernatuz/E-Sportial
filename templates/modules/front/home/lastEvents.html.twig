@@ -1,0 +1,62 @@
+<div class="last-events">
+    <h3>Last events</h3>
+    <div class="carousel carousel-slider">
+        <div class="middle-indicator">
+            <div class="left">
+                <a href="" class="movePrevCarousel middle-indicator-text waves-effect waves-light content-indicator"><i class="fas fa-chevron-left"></i></a>
+            </div>
+
+            <div class="right">
+                <a href="" class="moveNextCarousel middle-indicator-text waves-effect waves-light content-indicator"><i class="fas fa-chevron-right"></i></a>
+            </div>
+        </div>
+        {% for lastEvent in lastEvents %}
+            <a href="{{ path('app_event_index', {'slug' : lastEvent.slug}) }}">
+                <div class="carousel-item">
+                    <div class="card small horizontal">
+                        <div class="card-image">
+                            <img src="{{ lastEvent.organization.logoPath }}" alt="{{ lastEvent.organization.name }}">
+                        </div>
+                        <div class="card-stacked">
+                            <div class="card-content">
+                                <div class="row">
+                                    <div class="col m4">
+                                        <span class="title">{{ lastEvent.name }}</span>
+                                    </div>
+                                    <div class="col m4 offset-m4 right-align">
+                                        <span>{{ lastEvent.startDate|date('Y-m-d') }}</span>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col m12">
+                                        <p>{{ lastEvent.description }}</p>
+                                    </div>
+                                </div>
+                                <div class="infos">
+                                    <div class="row">
+                                        <div class="col m4">
+                                            <i class="fas fa-map-marker-alt"></i>
+                                            <span class="">
+                                            {{ lastEvent.location }}
+                                        </span>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col m4 left-align">
+                                            <i class="fas fa-users"></i>
+                                            {{ lastEvent.participants|length }}
+                                        </div>
+                                        <div class="col m5 offset-m3 right-align">
+                                            <i class="far fa-building"></i>
+                                            Organized by {{ lastEvent.organization.name }}
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </a>
+        {% endfor %}
+    </div>
+</div>

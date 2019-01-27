@@ -1,0 +1,43 @@
+.last-events {
+
+  .title {
+    font-weight: bold;
+  }
+
+  .middle-indicator{
+    position:absolute;
+    top:118px;
+    width: 100%;
+
+    .right {
+      text-align: right;
+    }
+  }
+
+  .middle-indicator-text{
+    font-size: 4.2rem;
+  }
+
+  a {
+    color: black;
+  }
+
+  .content-indicator{
+    width: 100px;
+    height: 100px;
+    background: none;
+    -moz-border-radius: 50px;
+    -webkit-border-radius: 50px;
+    border-radius: 50px;
+  }
+
+  .indicators{
+    visibility: hidden;
+  }
+
+  .infos {
+    bottom: 0;
+    position: absolute;
+    width: 95%;
+  }
+}
