@@ -24,6 +24,8 @@ Encore
     .addEntry('games', './assets/js/pages/front/game/games.js')
     .addEntry('game', './assets/js/pages/front/game/game.js')
 
+    .addEntry('form', './assets/js/modules/common/form.js')
+
     // will require an extra script tag for runtime.js
     // but, you probably want this, unless you're building a single-page app
     .enableSingleRuntimeChunk()

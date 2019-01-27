@@ -24,6 +24,7 @@ security:
             logout:
                 path:   app_security_admin_logout
                 target: app_home_index
+                handlers: [App\Listener\LogoutListener]
 
         main:
             anonymous: true
@@ -33,6 +34,7 @@ security:
             logout:
                 path:   app_security_logout
                 target: app_home_index
+                handlers: [App\Listener\LogoutListener]
 
 
             # activate different ways to authenticate

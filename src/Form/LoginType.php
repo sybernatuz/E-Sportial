@@ -25,15 +25,9 @@ class LoginType extends AbstractType
         $builder
             ->add($options['username_parameter'], TextType::class, [
                 'label' => $this->translator->trans('E-mail or username'),
-                'attr' => [
-                    'placeholder' => $this->translator->trans('E-mail or username')
-                ]
             ])
             ->add($options['password_parameter'], PasswordType::class, [
                 'label' => $this->translator->trans('Password'),
-                'attr' => [
-                    'placeholder' => $this->translator->trans('Password')
-                ]
             ])
             ->add('login', SubmitType::class, [
                 'label' => $this->translator->trans('Login'),
@@ -51,7 +45,6 @@ class LoginType extends AbstractType
             'password_parameter' => '_login_password',
             'csrf_field_name' => '_csrf_token',
             'csrf_token_id' => 'authenticate',
-            'attr' => ['class' => 'col s10 m8 l8 xl8 offset-s1 offset-m2 offset-l2 offset-xl2']
         ])
             ->setAllowedTypes('username_parameter', 'string')
             ->setAllowedTypes('password_parameter', 'string');

@@ -6,11 +6,15 @@ use DateTime;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\UserRepository")
  * @ORM\Table(name="`user`")
+ * @UniqueEntity(fields="username", message="There is already an account with this username")
+ * @UniqueEntity(fields="email", message="There is already an account with this email")
  */
 class User implements UserInterface
 {
@@ -28,6 +32,7 @@ class User implements UserInterface
 
     /**
      * @ORM\Column(type="string", unique=true)
+     * @Assert\Email
      */
     private $email;
 
@@ -57,7 +62,7 @@ class User implements UserInterface
     private $description;
 
     /**
-     * @ORM\Column(type="boolean")
+     * @ORM\Column(type="boolean", options={"default": false})
      */
     private $online;
 
@@ -67,7 +72,7 @@ class User implements UserInterface
     private $createdAt;
 
     /**
-     * @ORM\Column(type="string")
+     * @ORM\Column(type="string", nullable=true)
      */
     private $avatar;
 
@@ -185,6 +190,7 @@ class User implements UserInterface
         $this->files = new ArrayCollection();
         $this->participants = new ArrayCollection();
 
+        $this->online = false;
         try {
             $this->createdAt = new DateTime();
         } catch (\Exception $e) {
@@ -196,7 +202,7 @@ class User implements UserInterface
         return $this->id;
     }
 
-    public function getUsername(): string
+    public function getUsername(): ?string
     {
         return (string)$this->username;
     }
@@ -261,7 +267,7 @@ class User implements UserInterface
     /**
      * @return string
      */
-    public function getEmail(): string
+    public function getEmail(): ?string
     {
         return $this->email;
     }
@@ -279,7 +285,7 @@ class User implements UserInterface
     /**
      * @return string
      */
-    public function getLastname(): string
+    public function getLastname(): ?string
     {
         return $this->lastname;
     }
@@ -297,7 +303,7 @@ class User implements UserInterface
     /**
      * @return string
      */
-    public function getFirstname(): string
+    public function getFirstname(): ?string
     {
         return $this->firstname;
     }
@@ -315,7 +321,7 @@ class User implements UserInterface
     /**
      * @return int
      */
-    public function getAge(): int
+    public function getAge(): ?int
     {
         return $this->age;
     }
@@ -333,7 +339,7 @@ class User implements UserInterface
     /**
      * @return bool
      */
-    public function getPro(): bool
+    public function getPro(): ?bool
     {
         return $this->pro;
     }
