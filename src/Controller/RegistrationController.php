@@ -31,6 +31,12 @@ class RegistrationController extends AbstractController
 
     /**
      * @Route("/register", name="register")
+     * @param Request $request
+     * @param UserPasswordEncoderInterface $passwordEncoder
+     * @param GuardAuthenticatorHandler $guardHandler
+     * @param FrontLoginAuthenticator $authenticator
+     * @param EntityManagerInterface $entityManager
+     * @return Response
      */
     public function register(Request $request, UserPasswordEncoderInterface $passwordEncoder, GuardAuthenticatorHandler $guardHandler, FrontLoginAuthenticator $authenticator, EntityManagerInterface $entityManager): Response
     {
@@ -39,7 +45,6 @@ class RegistrationController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            // encode the plain password
             $user->setPassword(
                 $passwordEncoder->encodePassword(
                     $user,

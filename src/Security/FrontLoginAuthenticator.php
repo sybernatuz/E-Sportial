@@ -17,6 +17,7 @@ use Symfony\Component\Routing\RouterInterface;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Security\Csrf\CsrfTokenManagerInterface;
+use Symfony\Contracts\Translation\TranslatorInterface;
 
 class FrontLoginAuthenticator extends LoginAuthenticator
 {
@@ -28,11 +29,18 @@ class FrontLoginAuthenticator extends LoginAuthenticator
      * @param RouterInterface $router
      * @param CsrfTokenManagerInterface $csrfTokenManager
      * @param UserPasswordEncoderInterface $passwordEncoder
+     * @param TranslatorInterface $translator
      * @param UserRepository $userRepository
      */
-    public function __construct(EntityManagerInterface $entityManager, RouterInterface $router, CsrfTokenManagerInterface $csrfTokenManager, UserPasswordEncoderInterface $passwordEncoder, UserRepository $userRepository)
+    public function __construct(
+        EntityManagerInterface $entityManager,
+        RouterInterface $router,
+        CsrfTokenManagerInterface $csrfTokenManager,
+        UserPasswordEncoderInterface $passwordEncoder,
+        TranslatorInterface $translator,
+        UserRepository $userRepository)
     {
-        parent::__construct($entityManager, $router, $csrfTokenManager, $passwordEncoder);
+        parent::__construct($entityManager, $router, $csrfTokenManager, $passwordEncoder, $translator);
         $this->userRepository = $userRepository;
     }
 

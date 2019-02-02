@@ -17,6 +17,7 @@ use Symfony\Component\Security\Csrf\CsrfToken;
 use Symfony\Component\Security\Csrf\CsrfTokenManagerInterface;
 use Symfony\Component\Security\Guard\Authenticator\AbstractFormLoginAuthenticator;
 use Symfony\Component\Security\Http\Util\TargetPathTrait;
+use Symfony\Contracts\Translation\TranslatorInterface;
 
 abstract class LoginAuthenticator extends AbstractFormLoginAuthenticator
 {
@@ -27,6 +28,7 @@ abstract class LoginAuthenticator extends AbstractFormLoginAuthenticator
     protected $passwordEncoder;
 
     private $csrfTokenManager;
+    private $translator;
 
     /**
      * LoginAuthenticator constructor.
@@ -34,13 +36,21 @@ abstract class LoginAuthenticator extends AbstractFormLoginAuthenticator
      * @param RouterInterface $router
      * @param CsrfTokenManagerInterface $csrfTokenManager
      * @param UserPasswordEncoderInterface $passwordEncoder
+     * @param TranslatorInterface $translator
      */
-    public function __construct(EntityManagerInterface $entityManager, RouterInterface $router, CsrfTokenManagerInterface $csrfTokenManager, UserPasswordEncoderInterface $passwordEncoder)
+    public function __construct(
+        EntityManagerInterface $entityManager,
+        RouterInterface $router,
+        CsrfTokenManagerInterface $csrfTokenManager,
+        UserPasswordEncoderInterface $passwordEncoder,
+        TranslatorInterface $translator
+    )
     {
         $this->entityManager = $entityManager;
         $this->router = $router;
         $this->csrfTokenManager = $csrfTokenManager;
         $this->passwordEncoder = $passwordEncoder;
+        $this->translator = $translator;
     }
 
     /**
@@ -88,7 +98,7 @@ abstract class LoginAuthenticator extends AbstractFormLoginAuthenticator
 
         if (!$user) {
             // fail authentication with a custom error
-            throw new CustomUserMessageAuthenticationException('Username or email could not be found.');
+            throw new CustomUserMessageAuthenticationException($this->translator->trans('user.retrieve_by_email_or_username.error'));
         }
 
         return $user;

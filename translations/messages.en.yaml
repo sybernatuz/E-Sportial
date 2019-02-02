@@ -20,3 +20,14 @@ Players: Players
 Jobs: Jobs
 Events: Events
 Recruitment: Recruitment
+
+#mail
+##resetPassword
+mail.reset_password.subject: Set up a new password
+
+#user
+user.retrieve_by_email.error: No user registered under this email address
+user.retrieve_by_email_or_username.error: No user registered under this email address or username
+user.send_mail.success: An email was sent to you
+user.send_mail.error: An error was encountered when sending an email
+user.reset_password_token.incorrect: No available reset password token
