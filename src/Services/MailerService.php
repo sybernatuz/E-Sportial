@@ -43,8 +43,10 @@ class MailerService
      * @param string $htmlTemplate
      * @param array $params
      * @param string|null $txtTemplate
+     * @return int
      */
-    public function sendMail(string $subject, string $from, string $to, string $htmlTemplate, array $params, string $txtTemplate = null) {
+    public function sendMail(string $subject, string $from, string $to, string $htmlTemplate, array $params, string $txtTemplate = null) : int
+    {
         $message = (new \Swift_Message($subject));
 
         $logo = ['logo' => $message->embed(\Swift_Image::fromPath( $this->kernel->getProjectDir() . '/public' . $this->assetManager->getUrl('build/images/logo.png')))];
@@ -58,7 +60,7 @@ class MailerService
             $this->addTxtPart($message,$txtTemplate, $params);
         }
 
-        $this->mailer->send($message);
+        return $this->mailer->send($message);
     }
 
     /**

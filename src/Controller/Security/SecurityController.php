@@ -6,9 +6,9 @@ use App\Entity\User;
 use App\Form\ResetPasswordType;
 use App\Form\RetrieveForgotPasswordType;
 use App\Handler\Security\ResetPasswordHandler;
+use App\Repository\UserRepository;
 use App\Services\FormService;
 use App\Services\layout\FooterService;
-use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -24,31 +24,31 @@ class SecurityController extends AbstractController
 {
     private $footerService;
     private $formService;
-    private $entityManager;
     private $resetPasswordHandler;
     private $translator;
+    private $userRepository;
 
     /**
      * SecurityController constructor.
      * @param FooterService $footerService
      * @param FormService $formService
-     * @param EntityManagerInterface $entityManager
      * @param ResetPasswordHandler $resetPasswordHandler
      * @param TranslatorInterface $translator
+     * @param UserRepository $userRepository
      */
     public function __construct(
-        FooterService $footerService,
-        FormService $formService,
-        EntityManagerInterface $entityManager,
-        ResetPasswordHandler $resetPasswordHandler,
-        TranslatorInterface $translator
-    )
+            FooterService $footerService,
+            FormService $formService,
+            ResetPasswordHandler $resetPasswordHandler,
+            TranslatorInterface $translator,
+            UserRepository $userRepository
+        )
     {
-        $this->entityManager = $entityManager;
         $this->footerService = $footerService;
         $this->formService = $formService;
         $this->resetPasswordHandler = $resetPasswordHandler;
         $this->translator = $translator;
+        $this->userRepository = $userRepository;
     }
 
     /**
@@ -79,28 +79,19 @@ class SecurityController extends AbstractController
     {
         $form = $this->createForm(RetrieveForgotPasswordType::class);
         $form->handleRequest($request);
-
+        $sendResponse = null;
         if ($form->isSubmitted() && $form->isValid()) {
             $email = $form->get('email')->getData();
-
-            if (!$user = $this->entityManager->getRepository(User::class)->findOneBy(['email' => $email])) {
-                $this->addFlash('error', $this->translator->trans('user.retrieve_by_email.error'));
-                return $this->redirectToRoute('app_security_forgot_password');
+            if (!$user = $this->userRepository->findOneBy(['email' => $email])) {
+                $sendResponse = $this->translator->trans('user.retrieve_by_email.error');
+            } else {
+                $sendResponse = $this->resetPasswordHandler->sendEmail($user);
             }
-
-            try {
-                $this->resetPasswordHandler->sendEmail($user);
-            } catch (\Exception $e) {
-                $this->addFlash('error', $this->translator->trans('user.send_mail.error'));
-            }
-
-            $this->addFlash('success', $this->translator->trans('user.send_mail.success'));
-            return $this->redirectToRoute('app_security_forgot_password');
         }
-
-       return $this->render('security/forgot_password.html.twig', [
-            'form' => $form->createView(),
-        ] + $this->footerService->process());
+        return $this->render('security/forgot_password.html.twig', [
+               'sendResponse' => $sendResponse,
+               'form' => $form->createView()
+           ] + $this->footerService->process());
     }
 
     /**
