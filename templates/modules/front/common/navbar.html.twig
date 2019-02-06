@@ -1,3 +1,9 @@
+
+<ul id="dropdown1" class="dropdown-content">
+    <li><a href="#!"> My profile </a></li>
+    <li><a href="{{ path('app_security_logout') }}">{% trans %}Logout{% endtrans %}</a></li>
+</ul>
+
 <nav>
     <div class="nav-wrapper">
         <a href="{{ path('app_home_index') }}" class="brand-logo center">
@@ -10,15 +16,20 @@
             <li><a href="{{ path('app_events_index') }}">{% trans %}Events{% endtrans %}</a></li>
             <li><a href="{{ path('app_games_index') }}">{% trans %}Games{% endtrans %}</a></li>
             <li><a href="">{% trans %}Recruitment{% endtrans %}</a></li>
+
         </ul>
+
         <ul id="nav-mobile" class="right hide-on-med-and-down">
             <li><a href="">Premium</a></li>
             {% if not app.user %}
                 <li><a href="{{ path('app_security_login') }}">{% trans %}Login{% endtrans %}</a></li>
                 <li><a href="{{ path('app_registration_register') }}">{% trans %}Sign in{% endtrans %}</a></li>
             {% else %}
-                <li><a href="{{ path('app_security_logout') }}">{% trans %}Logout{% endtrans %}</a></li>
+                {#<li><a href="{{ path('app_security_logout') }}" class="dropdown-trigger" href="#!" data-target="dropdown1">{% trans %}Logout{% endtrans %}</a></li>#}
+                <li  class="dropdown-trigger"  data-target="dropdown1"><a href="#!">{{app.user.username}}</a></li>
+
             {% endif %}
+
 
         </ul>
     </div>

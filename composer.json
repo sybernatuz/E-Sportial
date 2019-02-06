@@ -22,11 +22,12 @@
         "symfony/serializer": "4.2.*",
         "symfony/serializer-pack": "*",
         "symfony/swiftmailer-bundle": "^3.1",
+        "symfony/templating": "4.2.*",
         "symfony/translation": "*",
         "symfony/twig-bundle": "*",
         "symfony/validator": "*",
         "symfony/web-link": "*",
-        "symfony/webpack-encore-bundle": "^1.0",
+        "symfony/webpack-encore-bundle": "^1.1",
         "symfony/yaml": "*"
     },
     "require-dev": {
