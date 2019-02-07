@@ -79,17 +79,22 @@ class SecurityController extends AbstractController
     {
         $form = $this->createForm(RetrieveForgotPasswordType::class);
         $form->handleRequest($request);
-        $sendResponse = null;
+
         if ($form->isSubmitted() && $form->isValid()) {
+
             $email = $form->get('email')->getData();
+
             if (!$user = $this->userRepository->findOneBy(['email' => $email])) {
-                $sendResponse = $this->translator->trans('user.retrieve_by_email.error');
+                $this->addFlash('error', $this->translator->trans('user.retrieve_by_email.error'));
             } else {
-                $sendResponse = $this->resetPasswordHandler->sendEmail($user);
+                ($this->resetPasswordHandler->handle($user)) ?
+                    $this->addFlash('success', $this->translator->trans('user.send_mail.success')) :
+                    $this->addFlash('error', $this->translator->trans('user.send_mail.error'));
             }
+
         }
+
         return $this->render('security/forgot_password.html.twig', [
-               'sendResponse' => $sendResponse,
                'form' => $form->createView()
            ] + $this->footerService->process());
     }

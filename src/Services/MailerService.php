@@ -12,46 +12,50 @@ namespace App\Services;
 
 use Symfony\Bundle\FrameworkBundle\Templating\EngineInterface;
 use Symfony\Component\Asset\Packages;
-use Symfony\Component\HttpKernel\KernelInterface;
+use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
 
 class MailerService
 {
     private $mailer;
     private $templating;
     private $assetManager;
-    private $kernel;
+    private $params;
 
     /**
      * MailerService constructor.
      * @param \Swift_Mailer $mailer
      * @param EngineInterface $templating
      * @param Packages $assetsManager
-     * @param KernelInterface $kernel
+     * @param ParameterBagInterface $params
      */
-    public function __construct(\Swift_Mailer $mailer, EngineInterface $templating, Packages $assetsManager, KernelInterface $kernel)
+    public function __construct(
+        \Swift_Mailer $mailer,
+        EngineInterface $templating,
+        Packages $assetsManager,
+        ParameterBagInterface $params
+    )
     {
         $this->mailer = $mailer;
         $this->templating = $templating;
         $this->assetManager = $assetsManager;
-        $this->kernel = $kernel;
+        $this->params = $params;
     }
 
     /**
      * @param string $subject
-     * @param string $from
      * @param string $to
      * @param string $htmlTemplate
      * @param array $params
      * @param string|null $txtTemplate
      * @return int
      */
-    public function sendMail(string $subject, string $from, string $to, string $htmlTemplate, array $params, string $txtTemplate = null) : int
+    public function sendMail(string $subject, string $to, string $htmlTemplate, array $params, string $txtTemplate = null) : int
     {
         $message = (new \Swift_Message($subject));
 
-        $logo = ['logo' => $message->embed(\Swift_Image::fromPath( $this->kernel->getProjectDir() . '/public' . $this->assetManager->getUrl('build/images/logo.png')))];
+        $logo = ['logo' => $message->embed(\Swift_Image::fromPath( $this->params->get('project_dir') . '/public' . $this->assetManager->getUrl('build/images/logo.png')))];
 
-        $message->setFrom($from)
+        $message->setFrom($this->params->get('mailer_username'))
                 ->setTo($to);
 
         $this->addHtmlPart($message, $htmlTemplate, $params + $logo);

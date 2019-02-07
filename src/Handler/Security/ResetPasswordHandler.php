@@ -48,14 +48,14 @@ class ResetPasswordHandler
      * @param User $user
      * @return string
      */
-    public function sendEmail(User $user) : string
+    public function handle(User $user) : bool
     {
-        $resetPasswordToken = null;
         try {
             $resetPasswordToken = $user->generateResetToken(new DateInterval('P' . 1 . 'D'));
         } catch (Exception $e) {
-
+            return $this->translator->trans('user.send_mail.error');
         }
+
         $params = [
             'name' => $user->getLastName(),
             'resetPasswordToken' => $resetPasswordToken,
@@ -64,8 +64,7 @@ class ResetPasswordHandler
 
         $this->entityManager->flush();
 
-        $result = $this->mailerService->sendMail($this->translator->trans('mail.reset_password.subject'), 'gabriel.pro.d3@gmail.com', $user->getEmail(), 'mail/reset_password.html.twig' , $params);
-        return $this->getResultMessage($result);
+        return $this->mailerService->sendMail($this->translator->trans('mail.reset_password.subject'), $user->getEmail(), 'mail/reset_password.html.twig' , $params);
     }
 
     /**
@@ -82,12 +81,5 @@ class ResetPasswordHandler
 
         $user->clearResetToken();
         $this->entityManager->flush();
-    }
-
-    private function getResultMessage(int $result) : string
-    {
-        if ($result === 0)
-            return $this->translator->trans('user.send_mail.error');
-        return $this->translator->trans('user.send_mail.success');
     }
 }

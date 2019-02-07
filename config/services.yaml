@@ -5,6 +5,8 @@
 # https://symfony.com/doc/current/best_practices/configuration.html#application-related-configuration
 parameters:
     locale: 'en'
+    mailer_username: '%env(MAILER_USERNAME)%'
+    project_dir: '%kernel.project_dir%'
 
 services:
     # default configuration for services in *this* file
