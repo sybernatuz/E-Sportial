@@ -46,14 +46,14 @@ class ResetPasswordHandler
 
     /**
      * @param User $user
-     * @return string
+     * @return int
      */
-    public function handle(User $user) : bool
+    public function handle(User $user) : int
     {
         try {
             $resetPasswordToken = $user->generateResetToken(new DateInterval('P' . 1 . 'D'));
         } catch (Exception $e) {
-            return $this->translator->trans('user.send_mail.error');
+            return 0;
         }
 
         $params = [
