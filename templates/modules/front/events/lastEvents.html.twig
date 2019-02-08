@@ -1,7 +1,7 @@
 <div class="last-events">
     <div class="row">
         {% for lastEvent in lastEvents %}
-            <a href="{{ path('app_event_index', {'slug' : lastEvent.slug}) }}">
+            <a href="{{ path('app_event_one', {'slug' : lastEvent.slug}) }}">
                 <div class="card small horizontal">
                     <div class="card-image">
                         <img src="{{ lastEvent.organization.logoPath }}" alt="{{ lastEvent.organization.name }}">
