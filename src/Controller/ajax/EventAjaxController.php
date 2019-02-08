@@ -40,7 +40,7 @@ class EventAjaxController extends AbstractController
         $location = $request->get("location") != null ? $request->get("location") : '';
         $type = $request->get("type") != null ? $request->get("type") : '';
         $page = $request->get("page") != null ? $request->get("page") : 1;
-        return $this->render("modules/events/lastEvents.html.twig", [
+        return $this->render("modules/front/events/lastEvents.html.twig", [
             'lastEvents' => $this->eventRepository->findByNameAndLocationAndTypeOrderByLastDate($name, $location, $type, 5, $page),
             'pageNumber' => $this->eventRepository->getPaginationByNameAndLocationAndType($name, $location, $type, 5),
             'activePage' => $page

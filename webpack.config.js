@@ -23,8 +23,8 @@ Encore
     .addEntry('event', './assets/js/pages/front/event/event.js')
     .addEntry('games', './assets/js/pages/front/game/games.js')
     .addEntry('game', './assets/js/pages/front/game/game.js')
+    .addEntry('register', './assets/js/pages/front/security/register.js')
 
-    .addEntry('form', './assets/js/modules/common/form.js')
 
     // will require an extra script tag for runtime.js
     // but, you probably want this, unless you're building a single-page app

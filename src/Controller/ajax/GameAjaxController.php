@@ -39,7 +39,7 @@ class GameAjaxController extends AbstractController
     {
         $name = $request->get("name") != null ? $request->get("name") : '';
         $page = $request->get("page") != null ? $request->get("page") : 1;
-        return $this->render("modules/games/gamesList.html.twig", [
+        return $this->render("modules/front//games/gamesList.html.twig", [
             'gamesList' => $this->gameRepository->findByName($name, 12, $page),
             'pageNumber' => $this->gameRepository->getPaginationByName($name, 12),
             'activePage' => $page

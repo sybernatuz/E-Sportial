@@ -38,7 +38,7 @@ class JobAjaxController extends AbstractController
     public function getJob(Job $job) : Response
     {
 //        return new JsonResponse($this->serializer->normalize($job, 'json', ['groups' => ['one']]));
-        return $this->render("modules/jobs/jobDetail.html.twig", [
+        return $this->render("modules/front/jobs/jobDetail.html.twig", [
             'jobDetail' => $job
         ]);
     }
@@ -50,7 +50,7 @@ class JobAjaxController extends AbstractController
      */
     public function getLastJobs(string $jobType) : Response
     {
-        return $this->render("modules/jobs/lastJobs.html.twig", [
+        return $this->render("modules/front/jobs/lastJobs.html.twig", [
             'lastJobs' => $this->jobRepository->findByLastDateAndType(5, $jobType),
             'pageNumber' => $this->jobRepository->getPaginationByLastDateAndType(5, $jobType)
         ]);
@@ -67,7 +67,7 @@ class JobAjaxController extends AbstractController
         $location = $request->get("location") != null ? $request->get("location") : '';
         $type = $request->get("type") != null ? $request->get("type") : '';
         $page = $request->get("page") != null ? $request->get("page") : 1;
-        return $this->render("modules/jobs/lastJobs.html.twig", [
+        return $this->render("modules/front/jobs/lastJobs.html.twig", [
             'lastJobs' => $this->jobRepository->findByTitleAndLocationAndTypeOrderByLastDate($title, $location, $type, 5, $page),
             'pageNumber' => $this->jobRepository->getPaginationByTitleAndLocationAndType($title, $location, $type, 5),
             'activePage' => $page
