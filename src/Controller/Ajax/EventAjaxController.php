@@ -6,7 +6,7 @@
  * Time: 21:14
  */
 
-namespace App\Controller\ajax;
+namespace App\Controller\Ajax;
 
 
 use App\Repository\EventRepository;

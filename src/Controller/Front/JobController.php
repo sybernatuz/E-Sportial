@@ -6,7 +6,7 @@
  * Time: 17:41
  */
 
-namespace App\Controller\front;
+namespace App\Controller\Front;
 
 
 use App\Enums\type\JobTypeEnum;
@@ -19,9 +19,9 @@ use Symfony\Component\Routing\Annotation\Route;
 /**
  * Class JobsController
  * @package App\Controller
- * @Route(name="app_jobs_", path="/jobs")
+ * @Route(name="app_job_")
  */
-class JobsController extends AbstractController
+class JobController extends AbstractController
 {
     private const JOBS_NUMBER = 5;
 
@@ -35,10 +35,10 @@ class JobsController extends AbstractController
     }
 
     /**
-     * @Route(name="index")
+     * @Route(name="list", path="/jobs")
      * @return \Symfony\Component\HttpFoundation\Response
      */
-    public function index() : Response
+    public function list() : Response
     {
         $lastJobs = $this->jobRepository->findByLastDateAndType(self::JOBS_NUMBER, JobTypeEnum::WORK);
         return $this->render("pages/front/jobs.html.twig", [

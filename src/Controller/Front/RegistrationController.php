@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Controller;
+namespace App\Controller\Front;
 
 use App\Entity\User;
 use App\Form\RegistrationFormType;
@@ -17,7 +17,7 @@ use Symfony\Component\Security\Guard\GuardAuthenticatorHandler;
 /**
  * Class RegistrationController
  * @package App\Controller
- * @Route(name="app_registration_")
+ * @Route(name="app_registration_", path="/register")
  */
 class RegistrationController extends AbstractController
 {
@@ -30,7 +30,7 @@ class RegistrationController extends AbstractController
     }
 
     /**
-     * @Route("/register", name="register")
+     * @Route(name="register")
      * @param Request $request
      * @param UserPasswordEncoderInterface $passwordEncoder
      * @param GuardAuthenticatorHandler $guardHandler

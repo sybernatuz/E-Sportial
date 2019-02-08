@@ -6,7 +6,7 @@
  * Time: 13:51
  */
 
-namespace App\Controller\front\game;
+namespace App\Controller\Front;
 
 use App\Entity\Game;
 use App\Repository\EventRepository;
@@ -19,10 +19,12 @@ use Symfony\Component\Routing\Annotation\Route;
 /**
  * Class GameController
  * @package App\Controller
- * @Route(name="app_game_", path="/game")
+ * @Route(name="app_game_")
  */
 class GameController extends AbstractController
 {
+
+    private const GAMES_NUMBER = 12;
 
     private $gameRepository;
     private $eventRepository;
@@ -36,7 +38,7 @@ class GameController extends AbstractController
     }
 
     /**
-     * @Route(name="index", path="/{slug}")
+     * @Route(name="one", path="/game/{slug}")
      * @param Game $game
      * @return \Symfony\Component\HttpFoundation\Response
      */
@@ -46,5 +48,17 @@ class GameController extends AbstractController
             'game' => $game,
             'events' => $this->eventRepository->findByLastDateAndGame($game)
         ] + $this->footerService->process());
+    }
+
+    /**
+     * @Route(name="list", path="/games")
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
+    public function list() : Response
+    {
+        return $this->render('pages/front/game/games.html.twig', [
+                'gamesList' => $this->gameRepository->findByOrderByNameAsc(self::GAMES_NUMBER),
+                'pageNumber' => $this->gameRepository->getPagination(self::GAMES_NUMBER)
+            ] + $this->footerService->process());
     }
 }

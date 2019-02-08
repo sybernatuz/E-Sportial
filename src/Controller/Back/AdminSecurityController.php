@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Controller\Security;
+namespace App\Controller\Back;
 
 use App\Services\FormService;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;

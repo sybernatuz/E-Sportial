@@ -6,7 +6,7 @@
  * Time: 01:13
  */
 
-namespace App\Controller\ajax;
+namespace App\Controller\Ajax;
 
 
 use App\Repository\GameRepository;

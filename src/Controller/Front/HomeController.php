@@ -6,7 +6,7 @@
  * Time: 19:10
  */
 
-namespace App\Controller\front;
+namespace App\Controller\Front;
 
 
 use App\Enums\type\EventTypeEnum;

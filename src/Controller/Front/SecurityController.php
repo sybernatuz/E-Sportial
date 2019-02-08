@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Controller\Security;
+namespace App\Controller\Front;
 
 use App\Entity\User;
 use App\Form\ResetPasswordType;

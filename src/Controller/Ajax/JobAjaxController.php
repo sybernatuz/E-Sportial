@@ -6,7 +6,7 @@
  * Time: 10:27
  */
 
-namespace App\Controller\ajax;
+namespace App\Controller\Ajax;
 
 use App\Entity\Job;
 use App\Repository\JobRepository;
