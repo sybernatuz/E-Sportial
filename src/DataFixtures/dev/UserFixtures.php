@@ -55,7 +55,7 @@ class UserFixtures extends Fixture implements FixtureGroupInterface
             ->setFirstname($faker->firstName)
             ->setLastname($faker->lastName)
             ->setPro($faker->boolean)
-            ->setRoles(["ROLE_USER, ROLE_ADMIN"]);
+            ->setRoles(["ROLE_USER", "ROLE_ADMIN"]);
         $user->setPassword($this->encoder->encodePassword($user, "admin"));
         $manager->persist($user);
 
