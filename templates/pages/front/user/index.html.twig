@@ -1,0 +1,26 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Users list{% endblock %}
+
+{% block stylesheets %}
+    {{ encore_entry_link_tags('users') }}
+{% endblock %}
+
+{% block body %}
+    <div class="row">
+        {% for user in users %}
+        <div class="col s4 m4 l4 xl4">
+            {% include "modules/front/user/user.html.twig" %}
+        </div>
+        {% endfor %}
+    </div>
+
+    <div class="row">
+        {{ knp_pagination_render(users) }}
+    </div>
+{% endblock %}
+
+{% block javascripts %}
+    {{ encore_entry_script_tags('users') }}
+{% endblock %}
+

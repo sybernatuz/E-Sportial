@@ -1,0 +1,27 @@
+<a href="{{ path("app_user_show", { "slug": user.slug }) }}" class="card-link">
+    <div class="card horizontal hoverable">
+        <div class="card-image">
+            <img alt="Avatar" src="{{ asset(user.avatar) }}">
+        </div>
+        <div class="card-stacked">
+            <div class="card-content">
+                <div class="row">
+                    <div class="col s12 m12 l12 xl12">
+                        <span><strong>{{ user.username }}</strong></span>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col s12 m12 l12 xl12">
+                        <img alt="Flag image" class="flag-image" src="{{ asset(user.flagPath) }}">
+                        <span>{{ asset(user.flagName) }}</span>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col s12 m12 l12 xl12">
+                        <span>{{ user.followers }} {% trans %}followers{% endtrans %}</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</a>

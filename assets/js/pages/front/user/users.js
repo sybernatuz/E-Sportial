@@ -1,0 +1,1 @@
+require('../../../../css/pages/front/user/users.scss');

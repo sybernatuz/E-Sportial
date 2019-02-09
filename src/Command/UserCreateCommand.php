@@ -4,7 +4,7 @@ namespace App\Command;
 
 use App\Entity\User;
 use App\Repository\UserRepository;
-use Doctrine\Common\Persistence\ObjectManager;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
@@ -25,12 +25,12 @@ class UserCreateCommand extends Command
     /**
      * UserCreateCommand constructor.
      * @param UserRepository $userRepository
-     * @param ObjectManager $objectManager
+     * @param EntityManagerInterface $objectManager
      * @param UserPasswordEncoderInterface $passwordEncoder
      */
     public function __construct(
         UserRepository $userRepository,
-        ObjectManager $objectManager,
+        EntityManagerInterface $objectManager,
         UserPasswordEncoderInterface $passwordEncoder
     )
     {
@@ -86,9 +86,8 @@ class UserCreateCommand extends Command
         });
 
         $age = $this->io->ask('age ', 18, function ($input) {
-            if(!is_numeric($input)) {
+            if(!is_numeric($input))
                 throw new \RuntimeException("$input is not numeric");
-            }
             return (int) $input;
         });
 
@@ -102,8 +101,9 @@ class UserCreateCommand extends Command
             return explode(',', $input);
         });
 
-        $password = $this->io->askHidden('password of the user ', function ($password) {
-            return (string) $password;
+        $password = $this->io->askHidden('password of the user ', function ($input) {
+            $this->validate(new Assert\Length(['min' => 6]), $input);
+            return (string) $input;
         });
 
         $params = [

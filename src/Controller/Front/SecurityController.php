@@ -60,7 +60,7 @@ class SecurityController extends AbstractController
         if ($this->getUser())
             return $this->redirectToRoute('app_home_index');
 
-        return $this->render('security/login.html.twig',
+        return $this->render('pages/front/security/login.html.twig',
             $this->formService->createLoginForm() +
             $this->footerService->process());
     }
@@ -94,7 +94,7 @@ class SecurityController extends AbstractController
 
         }
 
-        return $this->render('security/forgot_password.html.twig', [
+        return $this->render('pages/front/security/forgot_password.html.twig', [
                'form' => $form->createView()
            ] + $this->footerService->process());
     }
@@ -123,7 +123,7 @@ class SecurityController extends AbstractController
             return $this->redirectToRoute('app_security_login');
         }
 
-        return $this->render('security/reset_password.html.twig', [
+        return $this->render('pages/front/security/reset_password.html.twig', [
                 'form' => $form->createView(),
             ] + $this->footerService->process());
     }

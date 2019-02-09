@@ -4,7 +4,7 @@ namespace App\Repository;
 
 use App\Entity\User;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
-use Doctrine\ORM\Tools\Pagination\Paginator;
+use Doctrine\ORM\Query;
 use Symfony\Bridge\Doctrine\RegistryInterface;
 
 /**
@@ -20,19 +20,18 @@ class UserRepository extends ServiceEntityRepository
         parent::__construct($registry, User::class);
     }
 
-    public function findAllOrderByPopularity(int $firstResult, int $maxResults) {
-        $qb = $this->createQueryBuilder('u');
-        $qb->select('u')
-           ->setMaxResults($maxResults);
-
-        if($firstResult) {
-            $qb->setFirstResult($firstResult);
-        }
-
-        $paginator = new Paginator($qb);
-        $counter = count($paginator);
-
-        return $paginator;
+    /**
+     * Used for pagination
+     * @return Query
+     */
+    public function findAllOrderedBySubscriptionsQuery() : Query {
+        return $this->createQueryBuilder('u')
+                    ->select('u.slug, u.username, u.avatar, c.flagPath, c.name as flagName, count(s) as followers')
+                    ->innerJoin('u.country', 'c')
+                    ->leftJoin('u.subscriptions', 's')
+                    ->groupBy('u.id, c.id')
+                    ->orderBy('followers', 'DESC')
+                    ->getQuery();
     }
 
     /**

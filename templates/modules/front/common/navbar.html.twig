@@ -8,16 +8,15 @@
 <nav>
     <div class="nav-wrapper">
         <a href="{{ path('app_home_index') }}" class="brand-logo center">
-            <img class="nav-logo" src="{{ asset('build/images/logo.png') }}">
+            <img alt="Logo E-Sportial" class="nav-logo" src="{{ asset('build/images/logo.png') }}">
         </a>
         <ul id="nav-mobile" class="left hide-on-med-and-down">
             <li><a href="{{ path('app_home_index') }}">{% trans %}Home{% endtrans %}</a></li>
-            <li><a href="{{ path('app_players_index') }}">{% trans %}Players{% endtrans %}</a></li>
+            <li><a class="dropdown-trigger" data-target="dropdown-members">Members<i class="material-icons right">arrow_drop_down</i></a></li>
             <li><a href="{{ path('app_job_list') }}">{% trans %}Jobs{% endtrans %}</a></li>
             <li><a href="{{ path('app_event_list') }}">{% trans %}Events{% endtrans %}</a></li>
             <li><a href="{{ path('app_game_list') }}">{% trans %}Games{% endtrans %}</a></li>
             <li><a href="">{% trans %}Recruitment{% endtrans %}</a></li>
-
         </ul>
 
         <ul id="nav-mobile" class="right hide-on-med-and-down">
@@ -28,8 +27,14 @@
             {% else %}
                 <li  class="dropdown-trigger"  data-target="dropdown1"><a>{{app.user.username}}</a></li>
             {% endif %}
+        </ul>
 
-
+        <ul id="dropdown-members" class="dropdown-content">
+            <li><a href="{{ path('app_user_index') }}">{% trans %}Players{% endtrans %}</a></li>
+            <li><a href="{{ path('app_team_index') }}">{% trans %}Teams{% endtrans %}</a></li>
+            <li class="divider"></li>
+            <li><a href="{{ path('app_sponsor_index') }}">{% trans %}Sponsors{% endtrans %}</a></li>
+            <li><a href="{{ path('app_advertiser_index') }}">{% trans %}Advertisers{% endtrans %}</a></li>
         </ul>
     </div>
 </nav>

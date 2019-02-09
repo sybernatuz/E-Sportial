@@ -1,1 +1,0 @@
-require('../../css/pages/players.scss');

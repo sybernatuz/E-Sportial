@@ -27,7 +27,7 @@ class AdminSecurityController extends AbstractController
      */
     public function loginAdmin(): Response
     {
-        return $this->render('security/admin_login.html.twig', $this->formService->createLoginForm());
+        return $this->render('pages/back/security/admin_login.html.twig', $this->formService->createLoginForm());
     }
 
     /**

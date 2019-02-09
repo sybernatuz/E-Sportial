@@ -9,6 +9,7 @@
 namespace App\DataFixtures\dev;
 
 
+use App\Entity\Country;
 use App\Entity\User;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Bundle\FixturesBundle\FixtureGroupInterface;
@@ -30,6 +31,11 @@ class UserFixtures extends Fixture implements FixtureGroupInterface
     {
         $faker = Factory::create();
         $usernames = [];
+        $country = (new Country())
+                    ->setFlagPath($faker->imageUrl())
+                    ->setName($faker->name);
+        $manager->persist($country);
+
         for ($i = 0; $i < 100; $i++)
         {
             $user = (new User())
@@ -42,7 +48,8 @@ class UserFixtures extends Fixture implements FixtureGroupInterface
                 ->setFirstname($faker->firstName)
                 ->setLastname($faker->lastName)
                 ->setPro($faker->boolean)
-                ->setRoles(["ROLE_USER"]);
+                ->setRoles(["ROLE_USER"])
+                ->setCountry($country);
             $manager->persist($user);
         }
 
@@ -55,7 +62,8 @@ class UserFixtures extends Fixture implements FixtureGroupInterface
             ->setFirstname($faker->firstName)
             ->setLastname($faker->lastName)
             ->setPro($faker->boolean)
-            ->setRoles(["ROLE_USER", "ROLE_ADMIN"]);
+            ->setRoles(["ROLE_USER", "ROLE_ADMIN"])
+            ->setCountry($country);
         $user->setPassword($this->encoder->encodePassword($user, "admin"));
         $manager->persist($user);
 
@@ -68,7 +76,8 @@ class UserFixtures extends Fixture implements FixtureGroupInterface
             ->setFirstname($faker->firstName)
             ->setLastname($faker->lastName)
             ->setPro($faker->boolean)
-            ->setRoles(["ROLE_USER"]);
+            ->setRoles(["ROLE_USER"])
+            ->setCountry($country);
         $user->setPassword($this->encoder->encodePassword($user, "user"));
         $manager->persist($user);
 
