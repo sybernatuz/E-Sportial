@@ -34,3 +34,9 @@ user.retrieve_by_email_or_username.error: No user registered under this email ad
 user.send_mail.success: An email was sent to you
 user.send_mail.error: An error was encountered when sending an email
 user.reset_password_token.incorrect: No available reset password token
+
+followers: followers
+
+Search: Search
+All: All
+Country: Country

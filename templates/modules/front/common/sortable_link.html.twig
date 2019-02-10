@@ -1,0 +1,12 @@
+<a class="waves-effect waves-light btn btn-small"{% for attr, value in options %} {{ attr }}="{{ value }}"{% endfor %}>
+    {% if app.request.get('sort') == key %}
+        {% if app.request.get('direction') == 'desc' %}
+            <i class="material-icons left">arrow_upward</i>
+        {% else %}
+            <i class="material-icons left">arrow_downward</i>
+        {% endif %}
+    {% else %}
+        <i class="material-icons left">arrow_upward</i>
+    {% endif %}
+    {{ title }}
+</a>

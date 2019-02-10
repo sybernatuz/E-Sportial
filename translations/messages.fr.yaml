@@ -33,3 +33,9 @@ user.retrieve_by_email_or_username.error: Aucun utilisateur enregistré sous cet
 user.send_mail.success: Un courriel vous a été envoyé
 user.send_mail.error: Une erreur s'est produite lors de l'envoi du courriel
 user.reset_password_token.incorrect: Jeton de réinitialisation de mot de passe incorrect
+
+followers: abonnés
+
+Search: Rechercher
+All: Tous
+Country: Pays

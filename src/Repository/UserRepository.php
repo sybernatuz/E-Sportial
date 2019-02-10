@@ -2,6 +2,7 @@
 
 namespace App\Repository;
 
+use App\Entity\Search\UserSearch;
 use App\Entity\User;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\ORM\Query;
@@ -22,16 +23,29 @@ class UserRepository extends ServiceEntityRepository
 
     /**
      * Used for pagination
+     * @param UserSearch $search
      * @return Query
      */
-    public function findAllOrderedBySubscriptionsQuery() : Query {
-        return $this->createQueryBuilder('u')
-                    ->select('u.slug, u.username, u.avatar, c.flagPath, c.name as flagName, count(s) as followers')
-                    ->innerJoin('u.country', 'c')
-                    ->leftJoin('u.subscriptions', 's')
-                    ->groupBy('u.id, c.id')
-                    ->orderBy('followers', 'DESC')
-                    ->getQuery();
+    public function findAllQuery(UserSearch $search): Query
+    {
+        $query = $this->createQueryBuilder('u')
+            ->select('u.slug, u.username, u.avatar, c.flagPath, c.name as flagName, count(s) as followers')
+            ->innerJoin('u.country', 'c')
+            ->leftJoin('u.subscriptions', 's')
+            ->groupBy('u.id, c.id');
+
+        if ($word = $search->getWord()) {
+            $query->andWhere('u.username LIKE :word')
+                ->orWhere('c.name LIKE :word')
+                ->setParameter('word', '%' . $word . '%');
+        }
+
+        if ($country = $search->getCountry()) {
+            $query->andWhere('c.name = :country')
+                ->setParameter('country', $country->getName());
+        }
+
+        return $query->getQuery();
     }
 
     /**
@@ -40,14 +54,14 @@ class UserRepository extends ServiceEntityRepository
      * @return User
      * @throws \Doctrine\ORM\NonUniqueResultException
      */
-    public function findByUsernameOrEmail(string $username) : ?User
+    public function findByUsernameOrEmail(string $username): ?User
     {
         return $this->createQueryBuilder('u')
-                    ->where('u.username = :username')
-                    ->orWhere('u.email = :username')
-                    ->setParameter(':username', $username)
-                    ->getQuery()
-                    ->getOneOrNullResult();
+            ->where('u.username = :username')
+            ->orWhere('u.email = :username')
+            ->setParameter(':username', $username)
+            ->getQuery()
+            ->getOneOrNullResult();
     }
 
     /**
@@ -56,7 +70,7 @@ class UserRepository extends ServiceEntityRepository
      * @return User
      * @throws \Doctrine\ORM\NonUniqueResultException
      */
-    public function findByUsernameOrEmailAdmin(string $username) : ?User
+    public function findByUsernameOrEmailAdmin(string $username): ?User
     {
         return $this->createQueryBuilder('u')
             ->where('u.username = :username')
