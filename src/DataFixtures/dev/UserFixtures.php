@@ -31,10 +31,7 @@ class UserFixtures extends Fixture implements FixtureGroupInterface
     {
         $faker = Factory::create();
         $usernames = [];
-        $country = (new Country())
-                    ->setFlagPath($faker->imageUrl())
-                    ->setName($faker->name);
-        $manager->persist($country);
+        $countries = $manager->getRepository(Country::class)->findAll();
 
         for ($i = 0; $i < 100; $i++)
         {
@@ -42,6 +39,7 @@ class UserFixtures extends Fixture implements FixtureGroupInterface
                 ->setEmail($faker->email)
                 ->setPassword($faker->password)
                 ->setUsername($this->getUniqueUsername($usernames, $faker))
+                ->setDescription($faker->text)
                 ->setAge($faker->numberBetween(1, 100))
                 ->setOnline($faker->boolean)
                 ->setAvatar($faker->imageUrl())
@@ -49,7 +47,7 @@ class UserFixtures extends Fixture implements FixtureGroupInterface
                 ->setLastname($faker->lastName)
                 ->setPro($faker->boolean)
                 ->setRoles(["ROLE_USER"])
-                ->setCountry($country);
+                ->setCountry($faker->randomElement($countries));
             $manager->persist($user);
         }
 
@@ -63,7 +61,7 @@ class UserFixtures extends Fixture implements FixtureGroupInterface
             ->setLastname($faker->lastName)
             ->setPro($faker->boolean)
             ->setRoles(["ROLE_USER", "ROLE_ADMIN"])
-            ->setCountry($country);
+            ->setCountry($faker->randomElement($countries));
         $user->setPassword($this->encoder->encodePassword($user, "admin"));
         $manager->persist($user);
 
@@ -77,7 +75,7 @@ class UserFixtures extends Fixture implements FixtureGroupInterface
             ->setLastname($faker->lastName)
             ->setPro($faker->boolean)
             ->setRoles(["ROLE_USER"])
-            ->setCountry($country);
+            ->setCountry($faker->randomElement($countries));
         $user->setPassword($this->encoder->encodePassword($user, "user"));
         $manager->persist($user);
 

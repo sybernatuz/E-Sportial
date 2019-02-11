@@ -12,6 +12,7 @@ namespace App\DataFixtures\dev;
 use App\Entity\Country;
 use App\Entity\Organization;
 use App\Entity\Type;
+use App\Entity\User;
 use App\Enums\entity\EntityNameEnum;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Bundle\FixturesBundle\FixtureGroupInterface;
@@ -26,6 +27,7 @@ class OrganizationFixtures extends Fixture implements DependentFixtureInterface,
     {
         $faker = Factory::create();
         $countries = $manager->getRepository(Country::class)->findAll();
+        $users = $manager->getRepository(User::class)->findAll();
         $types = $manager->getRepository(Type::class)->findBy(["entityName" => EntityNameEnum::ENTITY_NAME_ORGANIZATION]);
         for ($i = 0; $i < 20; $i++) {
             $result = (new Organization())
@@ -36,6 +38,9 @@ class OrganizationFixtures extends Fixture implements DependentFixtureInterface,
                 ->setDescription($faker->text)
                 ->setType($faker->randomElement($types))
                 ->setVerify($faker->boolean);
+            for($y = 0; $y <= 5; $y++) {
+                $result->addUser($faker->randomElement($users));
+            }
             $manager->persist($result);
         }
         $manager->flush();

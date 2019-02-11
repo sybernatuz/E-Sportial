@@ -182,6 +182,11 @@ class User implements UserInterface
      */
     private $slug;
 
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\Organization", inversedBy="users")
+     */
+    private $organization;
+
     public function __construct()
     {
         $this->groups = new ArrayCollection();
@@ -218,9 +223,11 @@ class User implements UserInterface
     /**
      * @param mixed $slug
      */
-    public function setSlug($slug): void
+    public function setSlug($slug): self
     {
         $this->slug = $slug;
+
+        return $this;
     }
 
     public function getId(): ?int
@@ -937,6 +944,18 @@ class User implements UserInterface
     public function setCountry(?Country $country): self
     {
         $this->country = $country;
+
+        return $this;
+    }
+
+    public function getOrganization(): ?Organization
+    {
+        return $this->organization;
+    }
+
+    public function setOrganization(?Organization $organization): self
+    {
+        $this->organization = $organization;
 
         return $this;
     }

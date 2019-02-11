@@ -5,6 +5,7 @@ namespace App\Entity;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Gedmo\Mapping\Annotation as Gedmo;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\OrganizationRepository")
@@ -104,6 +105,17 @@ class Organization
      */
     private $files;
 
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\User", mappedBy="organization", cascade={"persist"})
+     */
+    private $users;
+
+    /**
+     * @Gedmo\Slug(fields={"name"})
+     * @ORM\Column(length=128, unique=true)
+     */
+    private $slug;
+
 
     public function __construct()
     {
@@ -116,7 +128,28 @@ class Organization
         $this->rosters = new ArrayCollection();
         $this->awards = new ArrayCollection();
         $this->files = new ArrayCollection();
+        $this->users = new ArrayCollection();
     }
+
+    /**
+     * @return mixed
+     */
+    public function getSlug()
+    {
+        return $this->slug;
+    }
+
+    /**
+     * @param mixed $slug
+     * @return Organization
+     */
+    public function setSlug($slug): self
+    {
+        $this->slug = $slug;
+
+        return $this;
+    }
+
 
     public function getId(): ?int
     {
@@ -498,6 +531,37 @@ class Organization
             // set the owning side to null (unless already changed)
             if ($file->getOrganization() === $this) {
                 $file->setOrganization(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|User[]
+     */
+    public function getUsers(): Collection
+    {
+        return $this->users;
+    }
+
+    public function addUser(User $user): self
+    {
+        if (!$this->users->contains($user)) {
+            $this->users[] = $user;
+            $user->setOrganization($this);
+        }
+
+        return $this;
+    }
+
+    public function removeUser(User $user): self
+    {
+        if ($this->users->contains($user)) {
+            $this->users->removeElement($user);
+            // set the owning side to null (unless already changed)
+            if ($user->getOrganization() === $this) {
+                $user->setOrganization(null);
             }
         }
 
