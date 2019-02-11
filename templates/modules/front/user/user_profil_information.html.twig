@@ -1,0 +1,38 @@
+<div class="col s12 m2 l2 xl2">
+    <img alt="Avatar" id="avatar" class="circle" src="{{ user.avatar }}">
+</div>
+<div class="col s12 m10 l10 xl10">
+    <div class="row no-margin-bottom">
+        <div class="col s12 m12 l12 xl12 flex-align-items-center">
+            <span class="username">{{ user.username }}</span>
+            <img alt="Country flag" class="image-small" src="{{ user.country.flagPath }}">
+        </div>
+    </div>
+
+    {% if user.description %}
+        <div class="row no-margin-bottom">
+            <div class="col s12 m12 l12 xl12 ">
+                <p>
+                    {{ user.description }}
+                </p>
+            </div>
+        </div>
+    {% endif %}
+
+    {% if user.organization %}
+        <div class="row no-margin-bottom">
+            <div class="col s12 m12 l12 xl12 ">
+                <a href="{{ path("app_team_show", {slug: user.organization.slug}) }}">
+                    <span>{{ user.organization.name }}</span>
+                    <img alt="Organization flag" class="image-small" src="{{ user.organization.logoPath }}">
+                </a>
+            </div>
+        </div>
+    {% endif %}
+
+    <div class="row">
+        <div class="col s12 m12 l12 xl12 margin-top">
+            <span>{{ user.subscriptions|length }} Followers</span>
+        </div>
+    </div>
+</div>

@@ -2,6 +2,7 @@
 
 namespace App\Controller\Front;
 
+use App\Entity\Organization;
 use App\Services\layout\FooterService;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
@@ -25,8 +26,17 @@ class TeamController extends AbstractController
      */
     public function index()
     {
-        return $this->render('pages/front/team/index.html.twig', [
-            'controller_name' => 'TeamController',
-        ] + $this->footerService->process());
+        return $this->render('pages/front/team/index.html.twig', $this->footerService->process());
+    }
+
+    /**
+     * @Route(path="/{slug}", name="show")
+     * @param Organization $team
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
+    public function show(Organization $team) {
+        return $this->render('pages/front/team/show.html.twig', [
+                'team' => $team,
+            ] + $this->footerService->process());
     }
 }

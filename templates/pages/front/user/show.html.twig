@@ -3,17 +3,41 @@
 {% block title %}{{ user.username }} profile{% endblock %}
 
 {% block stylesheets %}
-
+    {{ encore_entry_link_tags('user') }}
 {% endblock %}
 
 {% block body %}
     <div class="row">
-        <div class="col s4 m4 l4 xl4">
+        <div id="user-details" class="col s12 m9 l9 xl9">
+            {% include "modules/front/user/user_profil_information.html.twig" %}
         </div>
+
+        {% if app.user %}
+            <div class="col s12 m3 l3 xl3 right-align">
+                {% if app.user.id != user.id %}
+                    <a class="waves-effect waves-light btn modal-trigger" href="#contact-member-modal">
+                        <i class="material-icons left">local_post_office</i>
+                        Contact
+                    </a>
+                {% else %}
+                    <a href="{{ path("app_user_edit", {slug: app.user.slug}) }}" class="waves-effect waves-light btn">
+                        <i class="material-icons left">settings</i>
+                        Edit profile
+                    </a>
+                {% endif %}
+            </div>
+        {% endif %}
     </div>
+
+    <div class="row">
+        {% include "modules/front/user/user_profil_tab.html.twig" %}
+    </div>
+
+
+    {% include "modules/front/common/contact_member_modal.html.twig" %}
 {% endblock %}
 
 {% block javascripts %}
-
+    {{ encore_entry_script_tags('user') }}
 {% endblock %}
 

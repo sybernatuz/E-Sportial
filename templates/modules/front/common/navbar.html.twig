@@ -1,6 +1,6 @@
 {% if app.user %}
 <ul id="dropdown1" class="dropdown-content">
-    <li><a href="{{ path('app_profile_index', {'slug': app.user.username}) }}">{% trans %}Profile{% endtrans %}</a></li>
+    <li><a href="{{ path('app_user_show', {'slug': app.user.username}) }}">{% trans %}Profile{% endtrans %}</a></li>
     <li><a href="{{ path('app_security_logout') }}">{% trans %}Logout{% endtrans %}</a></li>
 </ul>
 {% endif %}

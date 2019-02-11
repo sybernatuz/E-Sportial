@@ -57,7 +57,7 @@ class UserController extends AbstractController
     }
 
     /**
-     * @Route("/{slug}", name="show")
+     * @Route(path="/{slug}", name="show")
      * @param User $user
      * @return \Symfony\Component\HttpFoundation\Response
      */
@@ -66,5 +66,17 @@ class UserController extends AbstractController
         return $this->render('pages/front/user/show.html.twig', [
             'user' => $user,
         ] + $this->footerService->process());
+    }
+
+    /**
+     * @Route(path="/edit/{slug}", name="edit")
+     * @param User $user
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
+    public function edit(User $user) {
+
+        return $this->render('pages/front/user/edit.html.twig', [
+                'user' => $user,
+            ] + $this->footerService->process());
     }
 }
