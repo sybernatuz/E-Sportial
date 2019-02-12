@@ -19,35 +19,37 @@ abstract class AbstractControllerTest extends WebTestCase
      */
     protected $client;
 
-    protected function setUp() : void
+    protected function standardTest(string $routeUrl, string $assetName) : void
     {
-        parent::setUp();
-        $this->client = static::createClient();
-        $this->client->request('GET', $this->getControllerUrl());
+        $this->initClient($routeUrl);
+        $this->statusTest();
+        $this->assetInclusionTest($assetName);
+        $this->commonAssetInclusionTest();
     }
 
-    public function testStatus() : void
+    private function initClient(string $routeUrl) : void
+    {
+        $this->client = static::createClient();
+        $this->client->request('GET', $routeUrl);
+    }
+
+    private function statusTest() : void
     {
         $this->assertEquals(200, $this->client->getResponse()->getStatusCode());
     }
 
-    public function testAssetInclusion() : void
+    private function assetInclusionTest(string $assetName) : void
     {
         $content = $this->client->getResponse()->getContent();
-        $assetName = $this->getAssetName();
         $this->assertContains($assetName . '.js', $content);
         $this->assertContains($assetName . '.css', $content);
     }
 
-    public function testCommonAssetInclusion() : void
+    private function commonAssetInclusionTest() : void
     {
         $content = $this->client->getResponse()->getContent();
         $this->assertContains('app.js', $content);
         $this->assertContains('app.css', $content);
     }
-
-    protected abstract function getControllerUrl() : string;
-
-    protected abstract function getAssetName() : string;
 
 }

@@ -16,14 +16,13 @@ namespace App\Tests\project\controllers;
 class GameControllerTest extends AbstractControllerTest
 {
 
-    protected function getControllerUrl(): string
+    public function testShow() : void
     {
-        return '/game/call-of-duty';
+        $this->standardTest('/game/call-of-duty', 'game_show');
     }
 
-
-    protected function getAssetName(): string
+    public function testList() : void
     {
-        return 'game';
+        $this->standardTest('/games', 'game_list');
     }
 }

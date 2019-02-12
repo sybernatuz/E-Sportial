@@ -19,14 +19,8 @@ use App\Tests\project\controllers\AbstractControllerTest;
 class HomeControllerTest extends AbstractControllerTest
 {
 
-    protected function getControllerUrl(): string
+    public function testIndex() : void
     {
-        return "/";
-    }
-
-
-    protected function getAssetName(): string
-    {
-        return 'home';
+        $this->standardTest('/', 'home');
     }
 }
