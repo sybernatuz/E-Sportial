@@ -1,12 +1,31 @@
-.no-margin-bottom {
-  margin-bottom: 0 !important;
-}
-
 .flex-align-items-center {
   display: flex;
   align-items: center;
 }
 
-.margin-top {
-  margin-top: 20px;
+
+@mixin margin-padding-x(){
+  $attr-list: null;
+  $direction-list: t b l r;
+  @for $i from 0 through 10 {
+    $attr-value: 10 * $i;
+    @each $direction in $direction-list {
+      $attribute-direction: map-get((
+              l : left,
+              r : right,
+              t : top,
+              b : bottom,
+      ), $direction);
+
+      .m#{$direction}#{$i} {
+        margin-#{$attribute-direction}: #{$attr-value}px;
+      }
+
+      .p#{$direction}#{$i} {
+        margin-#{$attribute-direction}: #{$attr-value}px;
+      }
+    }
+  }
 }
+
+@include margin-padding-x();

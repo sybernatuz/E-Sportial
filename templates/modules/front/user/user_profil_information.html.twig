@@ -2,7 +2,7 @@
     <img alt="Avatar" id="avatar" class="circle" src="{{ user.avatar }}">
 </div>
 <div class="col s12 m10 l10 xl10">
-    <div class="row no-margin-bottom">
+    <div class="row mb0">
         <div class="col s12 m12 l12 xl12 flex-align-items-center">
             <span class="username">{{ user.username }}</span>
             <img alt="Country flag" class="image-small" src="{{ user.country.flagPath }}">
@@ -10,7 +10,7 @@
     </div>
 
     {% if user.description %}
-        <div class="row no-margin-bottom">
+        <div class="row mb0">
             <div class="col s12 m12 l12 xl12 ">
                 <p>
                     {{ user.description }}
@@ -20,7 +20,7 @@
     {% endif %}
 
     {% if user.organization %}
-        <div class="row no-margin-bottom">
+        <div class="row mb0">
             <div class="col s12 m12 l12 xl12 ">
                 <a href="{{ path("app_team_show", {slug: user.organization.slug}) }}">
                     <span>{{ user.organization.name }}</span>
@@ -31,7 +31,7 @@
     {% endif %}
 
     <div class="row">
-        <div class="col s12 m12 l12 xl12 margin-top">
+        <div class="col s12 m12 l12 xl12 mt2">
             <span>{{ user.subscriptions|length }} Followers</span>
         </div>
     </div>
