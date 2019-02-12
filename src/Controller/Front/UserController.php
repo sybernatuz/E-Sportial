@@ -45,7 +45,7 @@ class UserController extends AbstractController
         $form->handleRequest($request);
 
         $users = $paginator->paginate(
-            $this->userRepository->findAllQuery($search),
+            $this->userRepository->findBySearch($search),
             $request->query->getInt('page', 1),
             self::USERS_NUMBER
         );

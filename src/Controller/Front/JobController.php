@@ -41,7 +41,7 @@ class JobController extends AbstractController
     public function list() : Response
     {
         $lastJobs = $this->jobRepository->findByLastDateAndType(self::JOBS_NUMBER, JobTypeEnum::WORK);
-        return $this->render("pages/front/jobs.html.twig", [
+        return $this->render("pages/front/job/list.html.twig", [
             'lastJobs' => $lastJobs,
             'jobDetail' => $lastJobs[0] ?? null,
             'pageNumber' => $this->jobRepository->getPaginationByLastDateAndType(self::JOBS_NUMBER, JobTypeEnum::WORK)

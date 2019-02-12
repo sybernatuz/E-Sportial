@@ -37,13 +37,13 @@ class EventController extends AbstractController
     }
 
     /**
-     * @Route(name="one", path="/event/{slug}")
+     * @Route(name="show", path="/event/{slug}")
      * @param Event $event
      * @return Response
      */
-    public function one(Event $event) : Response
+    public function show(Event $event) : Response
     {
-        return $this->render('pages/front/event/event.html.twig', [
+        return $this->render('pages/front/event/show.html.twig', [
             'event' => $event
         ] + $this->footerService->process());
     }
@@ -52,9 +52,9 @@ class EventController extends AbstractController
      * @Route(name="list", path="/events")
      * @return \Symfony\Component\HttpFoundation\Response
      */
-    public function index() : Response
+    public function list() : Response
     {
-        return $this->render("pages/front/event/events.html.twig", [
+        return $this->render("pages/front/event/list.html.twig", [
                 'eventTypes' => EventTypeEnum::getValues(),
                 'lastEvents' => $this->eventRepository->findByLastDateAndType(self::EVENTS_NUMBER, EventTypeEnum::ALL),
                 'pageNumber' => $this->eventRepository->getPaginationByType(self::EVENTS_NUMBER, EventTypeEnum::ALL)

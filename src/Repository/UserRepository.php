@@ -26,7 +26,7 @@ class UserRepository extends ServiceEntityRepository
      * @param UserSearch $search
      * @return Query
      */
-    public function findAllQuery(UserSearch $search): Query
+    public function findBySearch(UserSearch $search): Query
     {
         $query = $this->createQueryBuilder('u')
             ->select('u.slug, u.username, u.avatar, c.flagPath, c.name as flagName, count(s) as followers')
@@ -36,7 +36,6 @@ class UserRepository extends ServiceEntityRepository
 
         if ($word = $search->getWord()) {
             $query->andWhere('u.username LIKE :word')
-                ->orWhere('c.name LIKE :word')
                 ->setParameter('word', '%' . $word . '%');
         }
 

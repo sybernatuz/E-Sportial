@@ -38,13 +38,13 @@ class GameController extends AbstractController
     }
 
     /**
-     * @Route(name="one", path="/game/{slug}")
+     * @Route(name="show", path="/game/{slug}")
      * @param Game $game
      * @return \Symfony\Component\HttpFoundation\Response
      */
-    public function index(Game $game) : Response
+    public function show(Game $game) : Response
     {
-        return $this->render('pages/front/game/game.html.twig', [
+        return $this->render('pages/front/game/show.html.twig', [
             'game' => $game,
             'events' => $this->eventRepository->findByLastDateAndGame($game)
         ] + $this->footerService->process());
@@ -56,7 +56,7 @@ class GameController extends AbstractController
      */
     public function list() : Response
     {
-        return $this->render('pages/front/game/games.html.twig', [
+        return $this->render('pages/front/game/list.html.twig', [
                 'gamesList' => $this->gameRepository->findByOrderByNameAsc(self::GAMES_NUMBER),
                 'pageNumber' => $this->gameRepository->getPagination(self::GAMES_NUMBER)
             ] + $this->footerService->process());

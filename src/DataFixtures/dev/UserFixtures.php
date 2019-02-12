@@ -13,12 +13,13 @@ use App\Entity\Country;
 use App\Entity\User;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Bundle\FixturesBundle\FixtureGroupInterface;
+use Doctrine\Common\DataFixtures\DependentFixtureInterface;
 use Doctrine\Common\Persistence\ObjectManager;
 use Faker\Factory;
 use Faker\Generator;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 
-class UserFixtures extends Fixture implements FixtureGroupInterface
+class UserFixtures extends Fixture implements FixtureGroupInterface, DependentFixtureInterface
 {
     private $encoder;
 
@@ -103,5 +104,18 @@ class UserFixtures extends Fixture implements FixtureGroupInterface
     public static function getGroups(): array
     {
         return ['dev'];
+    }
+
+    /**
+     * This method must return an array of fixtures classes
+     * on which the implementing class depends on
+     *
+     * @return array
+     */
+    public function getDependencies()
+    {
+        return [
+            CountryFixtures::class
+        ];
     }
 }
