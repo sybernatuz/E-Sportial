@@ -22,11 +22,11 @@ class TeamController extends AbstractController
     }
 
     /**
-     * @Route(name="index")
+     * @Route(name="list")
      */
-    public function index()
+    public function list()
     {
-        return $this->render('pages/front/team/index.html.twig', $this->footerService->process());
+        return $this->render('pages/front/team/list.html.twig', $this->footerService->process());
     }
 
     /**

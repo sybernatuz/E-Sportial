@@ -21,11 +21,11 @@ class AdvertiserController extends AbstractController
     }
 
     /**
-     * @Route(name="index")
+     * @Route(name="list")
      */
-    public function index()
+    public function list()
     {
-        return $this->render('pages/front/advertiser/index.html.twig', [
+        return $this->render('pages/front/advertiser/list.html.twig', [
             'controller_name' => 'AdvertiserController',
         ] + $this->footerService->process());
     }

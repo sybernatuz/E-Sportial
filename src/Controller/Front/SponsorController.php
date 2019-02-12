@@ -21,11 +21,11 @@ class SponsorController extends AbstractController
     }
 
     /**
-     * @Route(name="index")
+     * @Route(name="list")
      */
-    public function index()
+    public function list()
     {
-        return $this->render('pages/front/sponsor/index.html.twig', [
+        return $this->render('pages/front/sponsor/list.html.twig', [
             'controller_name' => 'SponsorController',
         ] + $this->footerService->process());
     }

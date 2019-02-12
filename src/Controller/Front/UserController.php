@@ -32,12 +32,12 @@ class UserController extends AbstractController
 
 
     /**
-     * @Route(name="index")
+     * @Route(name="list")
      * @param PaginatorInterface $paginator
      * @param Request $request
      * @return \Symfony\Component\HttpFoundation\Response
      */
-    public function index(PaginatorInterface $paginator, Request $request)
+    public function list(PaginatorInterface $paginator, Request $request)
     {
         $search = new UserSearch();
         $form = $this->createForm(UserSearchType::class, $search);
@@ -50,7 +50,7 @@ class UserController extends AbstractController
             self::USERS_NUMBER
         );
 
-        return $this->render('pages/front/user/index.html.twig', [
+        return $this->render('pages/front/user/list.html.twig', [
             'users' => $users,
             'form'  => $form->createView()
         ] + $this->footerService->process());
