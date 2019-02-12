@@ -1,3 +1,3 @@
-require('../../../../css/pages/front/user/user.scss');
+require('../../../../css/pages/front/user/show.scss');
 require('../../../modules/common/tab');
 require('../../../modules/common/modal');

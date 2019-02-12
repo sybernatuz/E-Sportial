@@ -17,8 +17,8 @@ Encore
      */
     .addEntry('app', './assets/js/app.js')
     .addEntry('home', './assets/js/pages/front/home.js')
-    .addEntry('user', './assets/js/pages/front/user/user.js')
-    .addEntry('users', './assets/js/pages/front/user/users.js')
+    .addEntry('user_list', './assets/js/pages/front/user/list.js')
+    .addEntry('user_show', './assets/js/pages/front/user/show.js')
     .addEntry('job_list', './assets/js/pages/front/job/list.js')
     .addEntry('event_list', './assets/js/pages/front/event/list.js')
     .addEntry('event_show', './assets/js/pages/front/event/show.js')

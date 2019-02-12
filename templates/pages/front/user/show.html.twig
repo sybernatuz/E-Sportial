@@ -3,7 +3,7 @@
 {% block title %}{{ user.username }} profile{% endblock %}
 
 {% block stylesheets %}
-    {{ encore_entry_link_tags('user') }}
+    {{ encore_entry_link_tags('user_show') }}
 {% endblock %}
 
 {% block body %}
@@ -12,21 +12,9 @@
             {% include "modules/front/user/user_profil_information.html.twig" %}
         </div>
 
-        {% if app.user %}
-            <div class="col s12 m3 l3 xl3 right-align">
-                {% if app.user.id != user.id %}
-                    <a class="waves-effect waves-light btn modal-trigger" href="#contact-member-modal">
-                        <i class="material-icons left">local_post_office</i>
-                        Contact
-                    </a>
-                {% else %}
-                    <a href="{{ path("app_user_edit", {slug: app.user.slug}) }}" class="waves-effect waves-light btn">
-                        <i class="material-icons left">settings</i>
-                        Edit profile
-                    </a>
-                {% endif %}
-            </div>
-        {% endif %}
+        <div class="col s12 m3 l3 xl3 right-align">
+            {% include "modules/front/common/action_member_buttons.html.twig" %}
+        </div>
     </div>
 
     <div class="row">
@@ -38,6 +26,6 @@
 {% endblock %}
 
 {% block javascripts %}
-    {{ encore_entry_script_tags('user') }}
+    {{ encore_entry_script_tags('user_show') }}
 {% endblock %}
 
