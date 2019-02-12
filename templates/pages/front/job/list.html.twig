@@ -1,19 +1,19 @@
 {% extends 'base.html.twig' %}
 
 {% block stylesheets %}
-    {{ encore_entry_link_tags('jobs') }}
+    {{ encore_entry_link_tags('job_list') }}
 {% endblock %}
 
 {% block body %}
     <div class="row">
-        {% include 'modules/front/jobs/search.html.twig' %}
+        {% include 'modules/front/job/list/search.html.twig' %}
     </div>
     <div class="row">
-        {% include 'modules/front/jobs/lastJobs.html.twig' %}
-        {% include 'modules/front/jobs/jobDetail.html.twig' %}
+        {% include 'modules/front/job/list/last_jobs.html.twig' %}
+        {% include 'modules/front/job/list/job_detail.html.twig' %}
     </div>
 {% endblock %}
 
 {% block javascripts %}
-    {{ encore_entry_script_tags('jobs') }}
+    {{ encore_entry_script_tags('job_list') }}
 {% endblock %}

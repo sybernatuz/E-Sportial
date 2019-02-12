@@ -3,8 +3,10 @@
 namespace App\Repository;
 
 use App\Entity\Game;
+use App\Entity\Search\GameSearch;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\ORM\NonUniqueResultException;
+use Doctrine\ORM\Query;
 use Symfony\Bridge\Doctrine\RegistryInterface;
 
 /**
@@ -18,6 +20,23 @@ class GameRepository extends ServiceEntityRepository
     public function __construct(RegistryInterface $registry)
     {
         parent::__construct($registry, Game::class);
+    }
+
+    /**
+     * Used for pagination
+     * @param GameSearch $search
+     * @return Query
+     */
+    public function findBySearch(GameSearch $search): Query
+    {
+        $query = $this->createQueryBuilder('g');
+
+        if ($word = $search->getWord()) {
+            $query->andWhere('g.name LIKE :word')
+                ->setParameter('word', '%' . $word . '%');
+        }
+
+        return $query->getQuery();
     }
 
     /**

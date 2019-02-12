@@ -19,11 +19,11 @@ Encore
     .addEntry('home', './assets/js/pages/front/home.js')
     .addEntry('user', './assets/js/pages/front/user/user.js')
     .addEntry('users', './assets/js/pages/front/user/users.js')
-    .addEntry('jobs', './assets/js/pages/front/jobs.js')
-    .addEntry('events', './assets/js/pages/front/event/events.js')
-    .addEntry('event', './assets/js/pages/front/event/event.js')
-    .addEntry('games', './assets/js/pages/front/game/games.js')
-    .addEntry('game', './assets/js/pages/front/game/game.js')
+    .addEntry('job_list', './assets/js/pages/front/job/list.js')
+    .addEntry('event_list', './assets/js/pages/front/event/list.js')
+    .addEntry('event_show', './assets/js/pages/front/event/show.js')
+    .addEntry('game_list', './assets/js/pages/front/game/list.js')
+    .addEntry('game_show', './assets/js/pages/front/game/show.js')
     .addEntry('register', './assets/js/pages/front/security/register.js')
 
 

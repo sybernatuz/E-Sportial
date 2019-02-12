@@ -1,7 +1,7 @@
 <div class="games-list">
     <div class="row">
-        {% for game in gamesList %}
-            <a href="{{ path('app_game_one', {'slug' : game.slug}) }}">
+        {% for game in games %}
+            <a href="{{ path('app_game_show', {'slug' : game.slug}) }}">
                 <div class="col s12 m6 l3">
                     <div class="card">
                         <div class="card-image">
@@ -16,8 +16,5 @@
                 </div>
             </a>
         {% endfor %}
-    </div>
-    <div class="row">
-        {% include 'modules/front/common/pagination.html.twig' %}
     </div>
 </div>

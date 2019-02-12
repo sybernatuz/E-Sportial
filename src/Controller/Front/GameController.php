@@ -9,10 +9,14 @@
 namespace App\Controller\Front;
 
 use App\Entity\Game;
+use App\Entity\Search\GameSearch;
+use App\Form\GameSearchType;
 use App\Repository\EventRepository;
 use App\Repository\GameRepository;
 use App\Services\layout\FooterService;
+use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
@@ -52,13 +56,25 @@ class GameController extends AbstractController
 
     /**
      * @Route(name="list", path="/games")
+     * @param PaginatorInterface $paginator
+     * @param Request $request
      * @return \Symfony\Component\HttpFoundation\Response
      */
-    public function list() : Response
+    public function list(PaginatorInterface $paginator, Request $request) : Response
     {
+        $search = new GameSearch();
+        $form = $this->createForm(GameSearchType::class, $search);
+        $form->handleRequest($request);
+
+        $games = $paginator->paginate(
+            $this->gameRepository->findBySearch($search),
+            $request->query->getInt('page', 1),
+            self::GAMES_NUMBER
+        );
+
         return $this->render('pages/front/game/list.html.twig', [
-                'gamesList' => $this->gameRepository->findByOrderByNameAsc(self::GAMES_NUMBER),
-                'pageNumber' => $this->gameRepository->getPagination(self::GAMES_NUMBER)
+                'games' => $games,
+                'searchForm' => $form->createView()
             ] + $this->footerService->process());
     }
 }

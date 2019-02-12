@@ -11,7 +11,7 @@
             <ul class="col s3 m2 l2">
                 <li class="footer-category">{% trans %}Games{% endtrans %}</li>
                 {% for footerGame in footerGames %}
-                    <li><a href="{{ path('app_game_one', {'slug' : footerGame.slug}) }}">{{ footerGame.name }}</a></li>
+                    <li><a href="{{ path('app_game_show', {'slug' : footerGame.slug}) }}">{{ footerGame.name }}</a></li>
                 {% endfor %}
             </ul>
             <ul class="col s3 m2 l2">

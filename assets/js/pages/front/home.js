@@ -1,3 +1,3 @@
 require('../../../css/pages/front/home.scss');
 
-require('../../../js/modules/front/home/lastEvents');
+require('../../modules/front/home/last_events');

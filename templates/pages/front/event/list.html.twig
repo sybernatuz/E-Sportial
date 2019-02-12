@@ -1,18 +1,18 @@
 {% extends 'base.html.twig' %}
 
 {% block stylesheets %}
-    {{ encore_entry_link_tags('events') }}
+    {{ encore_entry_link_tags('event_list') }}
 {% endblock %}
 
 {% block body %}
     <div class="row">
-        {% include 'modules/front/events/search.html.twig' %}
+        {% include 'modules/front/event/list/search.html.twig' %}
     </div>
     <div class="row">
-        {% include 'modules/front/events/lastEvents.html.twig' %}
+        {% include 'modules/front/event/list/last_events.html.twig' %}
     </div>
 {% endblock %}
 
 {% block javascripts %}
-    {{ encore_entry_script_tags('events') }}
+    {{ encore_entry_script_tags('event_list') }}
 {% endblock %}

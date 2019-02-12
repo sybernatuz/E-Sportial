@@ -1,19 +1,19 @@
 {% extends 'base.html.twig' %}
 
 {% block stylesheets %}
-    {{ encore_entry_link_tags('game') }}
+    {{ encore_entry_link_tags('game_show') }}
 {% endblock %}
 
 {% block body %}
     <div class="row">
-        {% include 'modules/front/game/gameDetail.html.twig' %}
+        {% include 'modules/front/game/show/gameDetail.html.twig' %}
     </div>
     <div class="row">
-        {% include 'modules/front/game/teamList.html.twig' %}
-        {% include 'modules/front/game/eventList.html.twig' %}
+        {% include 'modules/front/game/show/teamList.html.twig' %}
+        {% include 'modules/front/game/show/eventList.html.twig' %}
     </div>
 {% endblock %}
 
 {% block javascripts %}
-    {{ encore_entry_script_tags('game') }}
+    {{ encore_entry_script_tags('game_show') }}
 {% endblock %}
