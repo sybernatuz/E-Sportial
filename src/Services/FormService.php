@@ -9,7 +9,7 @@
 namespace App\Services;
 
 
-use App\Form\LoginType;
+use App\Form\Security\LoginType;
 use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 

@@ -3,8 +3,8 @@
 namespace App\Controller\Front;
 
 use App\Entity\User;
-use App\Form\ResetPasswordType;
-use App\Form\RetrieveForgotPasswordType;
+use App\Form\Security\ResetPasswordType;
+use App\Form\Security\RetrieveForgotPasswordType;
 use App\Handler\Security\ResetPasswordHandler;
 use App\Repository\UserRepository;
 use App\Services\FormService;

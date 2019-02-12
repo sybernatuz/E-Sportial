@@ -1,18 +1,23 @@
 <?php
+/**
+ * Created by PhpStorm.
+ * User: ldecultot
+ * Date: 12/02/2019
+ * Time: 12:36
+ */
 
-namespace App\Form;
+namespace App\Form\Search;
 
-use App\Entity\Country;
-use App\Entity\Search\UserSearch;
-use App\Repository\CountryRepository;
-use Symfony\Bridge\Doctrine\Form\Type\EntityType;
+
+use App\Entity\Search\GameSearch;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
-class UserSearchType extends AbstractType
+class GameSearchType extends AbstractType
 {
     private $translator;
 
@@ -28,31 +33,18 @@ class UserSearchType extends AbstractType
                 'label' => $this->translator->trans('Search'),
                 'required' => false,
             ])
-            ->add('country', EntityType::class, [
-                'label' => 'Country',
-                'placeholder' => 'All',
-                'class' => Country::class,
-                'required' => false,
-                'choice_label' => 'name',
-                'choice_value' => 'name',
-                'query_builder' => function (CountryRepository $countryRepository) {
-                    return $countryRepository->createQueryBuilder('c')
-                        ->orderBy('c.name', 'ASC');
-                },
-                'choice_attr' => function($entity) {
-                    return ['data-icon' => $entity->getFlagPath()];
-                },
+            ->add('search', SubmitType::class, [
+                'label' => $this->translator->trans('Search'),
                 'attr' => [
-                    'class' => 'icons',
-                ],
-            ])
-        ;
+                    'class' => 'waves-effect waves-light btn'
+                ]
+            ]);
     }
 
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults([
-            'data_class' => UserSearch::class,
+            'data_class' => GameSearch::class,
             'method' => 'get',
             'csrf_protection' => false,
             'allow_extra_fields' => true

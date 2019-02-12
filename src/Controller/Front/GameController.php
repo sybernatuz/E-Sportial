@@ -10,7 +10,7 @@ namespace App\Controller\Front;
 
 use App\Entity\Game;
 use App\Entity\Search\GameSearch;
-use App\Form\GameSearchType;
+use App\Form\Search\GameSearchType;
 use App\Repository\EventRepository;
 use App\Repository\GameRepository;
 use App\Services\layout\FooterService;

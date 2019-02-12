@@ -4,7 +4,7 @@ namespace App\Controller\Front;
 
 use App\Entity\Search\UserSearch;
 use App\Entity\User;
-use App\Form\UserSearchType;
+use App\Form\Search\UserSearchType;
 use App\Repository\UserRepository;
 use App\Services\layout\FooterService;
 use Knp\Component\Pager\PaginatorInterface;
