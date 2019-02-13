@@ -6,10 +6,14 @@
 
 {% block body %}
     <div class="row">
-        {% include 'modules/front/event/list/search.html.twig' %}
+        {% include 'modules/front/event/list/search_form.html.twig' %}
     </div>
     <div class="row">
         {% include 'modules/front/event/list/last_events.html.twig' %}
+    </div>
+
+    <div class="row">
+        {{ knp_pagination_render(lastEvents) }}
     </div>
 {% endblock %}
 

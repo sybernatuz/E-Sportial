@@ -10,10 +10,13 @@ namespace App\Controller\Front;
 
 
 use App\Entity\Event;
-use App\Enums\type\EventTypeEnum;
+use App\Entity\Search\EventSearch;
+use App\Form\Search\EventSearchType;
 use App\Repository\EventRepository;
 use App\Services\layout\FooterService;
+use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
@@ -50,14 +53,25 @@ class EventController extends AbstractController
 
     /**
      * @Route(name="list", path="/events")
+     * @param PaginatorInterface $paginator
+     * @param Request $request
      * @return \Symfony\Component\HttpFoundation\Response
      */
-    public function list() : Response
+    public function list(PaginatorInterface $paginator, Request $request) : Response
     {
+        $search = new EventSearch();
+        $searchForm = $this->createForm(EventSearchType::class, $search);
+        $searchForm->handleRequest($request);
+
+        $events = $paginator->paginate(
+            $this->eventRepository->findBySearchOrderByLastDate($search),
+            $request->query->getInt('page', 1),
+            self::EVENTS_NUMBER
+        );
+
         return $this->render("pages/front/event/list.html.twig", [
-                'eventTypes' => EventTypeEnum::getValues(),
-                'lastEvents' => $this->eventRepository->findByLastDateAndType(self::EVENTS_NUMBER, EventTypeEnum::ALL),
-                'pageNumber' => $this->eventRepository->getPaginationByType(self::EVENTS_NUMBER, EventTypeEnum::ALL)
+                'lastEvents' => $events,
+                'searchForm' => $searchForm->createView()
             ] + $this->footerService->process());
     }
 }

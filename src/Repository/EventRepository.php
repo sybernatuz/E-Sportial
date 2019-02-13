@@ -4,8 +4,10 @@ namespace App\Repository;
 
 use App\Entity\Event;
 use App\Entity\Game;
+use App\Entity\Search\EventSearch;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
-use Doctrine\ORM\NonUniqueResultException;
+use Doctrine\ORM\Query;
+use Doctrine\ORM\Query\Expr\Join;
 use Symfony\Bridge\Doctrine\RegistryInterface;
 
 /**
@@ -20,6 +22,36 @@ class EventRepository extends ServiceEntityRepository
     {
         parent::__construct($registry, Event::class);
     }
+
+
+    /**
+     * Used for pagination
+     * @param EventSearch $search
+     * @return Query
+     */
+    public function findBySearchOrderByLastDate(EventSearch $search): Query
+    {
+        $query = $this->createQueryBuilder('e')
+            ->orderBy('e.createdAt', 'DESC');
+
+        if ($word = $search->getWord()) {
+            $query->andWhere('j.name LIKE :word')
+                ->setParameter('word', '%' . $word . '%');
+        }
+
+        if ($location = $search->getLocation()) {
+            $query->andWhere('e.location LIKE :location')
+                ->setParameter('location', '%' . $location . '%');
+        }
+
+        if ($type = $search->getType()) {
+            $query->leftJoin('j.type', 't')
+                ->where('t.name = :type')
+                ->setParameter(':type', $type->getName());
+        }
+        return $query->getQuery();
+    }
+
 
     /**
      * @param int $eventsNumber
@@ -41,62 +73,11 @@ class EventRepository extends ServiceEntityRepository
     public function findByLastDateAndGame(Game $game)
     {
         return $this->createQueryBuilder('e')
-            ->leftJoin('App\Entity\Party', 'p', \Doctrine\ORM\Query\Expr\Join::WITH, 'p.event = e.id')
+            ->leftJoin('App\Entity\Party', 'p', Join::WITH, 'p.event = e.id')
             ->where('p.game = :game')
             ->setParameter(':game', $game)
             ->orderBy('e.startDate', 'DESC')
             ->getQuery()
             ->getResult();
-    }
-
-    public function getPaginationByType(int $eventsNumber, string $type)
-    {
-        try {
-            return $this->createQueryBuilder('e')
-                ->select('COUNT(e.id) / '. $eventsNumber)
-                ->leftJoin('e.type', 't')
-                ->where('t.name LIKE :type')
-                ->setParameter(':type', '%'.$type.'%')
-                ->getQuery()
-                ->getSingleScalarResult();
-        } catch (NonUniqueResultException $e) {
-            return null;
-        }
-    }
-
-    public function findByNameAndLocationAndTypeOrderByLastDate(string $name, string $location, string $type, int $eventsNumber, int $page = 1)
-    {
-        return $this->createQueryBuilder('e')
-            ->leftJoin('e.type', 't')
-            ->where('t.name LIKE :type')
-            ->andwhere('LOWER(e.name) LIKE LOWER(:name)')
-            ->andWhere('LOWER(e.location) LIKE LOWER(:location)')
-            ->setParameter(':type', '%'.$type.'%')
-            ->setParameter(':name', '%'.$name.'%')
-            ->setParameter(':location', '%'.$location.'%')
-            ->orderBy('e.createdAt', 'DESC')
-            ->setFirstResult($eventsNumber * $page - $eventsNumber)
-            ->setMaxResults($eventsNumber)
-            ->getQuery()
-            ->getResult();
-    }
-
-    public function getPaginationByNameAndLocationAndType(string $name, string $location, string $type, int $eventsNumber)
-    {
-        try {
-            return $this->createQueryBuilder('e')
-                ->select('COUNT(e.id) / ' . $eventsNumber)
-                ->leftJoin('e.type', 't')
-                ->where('t.name LIKE :type')
-                ->andwhere('LOWER(e.name) LIKE LOWER(:name)')
-                ->andWhere('LOWER(e.location) LIKE LOWER(:location)')
-                ->setParameter(':type', '%'.$type.'%')
-                ->setParameter(':name', '%' . $name . '%')
-                ->setParameter(':location', '%' . $location . '%')
-                ->getQuery()
-                ->getSingleScalarResult();
-        } catch (NonUniqueResultException $e) {
-            return null;
-        }
     }
 }

@@ -4,8 +4,8 @@ namespace App\Repository;
 
 use App\Entity\Job;
 use App\Entity\Search\JobSearch;
+use App\Enums\type\JobTypeEnum;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
-use Doctrine\ORM\NonUniqueResultException;
 use Doctrine\ORM\Query;
 use Symfony\Bridge\Doctrine\RegistryInterface;
 
@@ -42,49 +42,12 @@ class JobRepository extends ServiceEntityRepository
                 ->setParameter('location', '%' . $location . '%');
         }
 
-        if ($type = $search->getType()) {
-            $query->leftJoin('j.type', 't')
-                ->where('t.name = :type')
-                ->setParameter(':type', $type->getName());
-        }
+        $type = $search->getType() != null ? $search->getType()->getName() : JobTypeEnum::WORK;
+        $query->leftJoin('j.type', 't')
+            ->where('t.name = :type')
+            ->setParameter(':type', $type);
 
         return $query->getQuery();
-    }
-
-    public function findByTitleAndLocationAndTypeOrderByLastDate(string $title, string $location, string $type, int $jobNumber, int $page = 1)
-    {
-        return $this->createQueryBuilder('j')
-            ->leftJoin('j.type', 't')
-            ->where('t.name = :type')
-            ->andwhere('LOWER(j.title) LIKE LOWER(:title)')
-            ->andWhere('LOWER(j.location) LIKE LOWER(:location)')
-            ->setParameter(':type', $type)
-            ->setParameter(':title', '%'.$title.'%')
-            ->setParameter(':location', '%'.$location.'%')
-            ->orderBy('j.createdAt', 'DESC')
-            ->setFirstResult($jobNumber * $page - $jobNumber)
-            ->setMaxResults($jobNumber)
-            ->getQuery()
-            ->getResult();
-    }
-
-    public function getPaginationByTitleAndLocationAndType(string $title, string $location, string $type, int $jobNumber)
-    {
-        try {
-            return $this->createQueryBuilder('j')
-                ->select('COUNT(j.id) / ' . $jobNumber)
-                ->leftJoin('j.type', 't')
-                ->where('t.name = :type')
-                ->andwhere('LOWER(j.title) LIKE LOWER(:title)')
-                ->andWhere('LOWER(j.location) LIKE LOWER(:location)')
-                ->setParameter(':type', $type)
-                ->setParameter(':title', '%' . $title . '%')
-                ->setParameter(':location', '%' . $location . '%')
-                ->getQuery()
-                ->getSingleScalarResult();
-        } catch (NonUniqueResultException $e) {
-            return null;
-        }
     }
 
     public function findByLastDateAndType(int $jobsNumber, string $type)
@@ -97,20 +60,5 @@ class JobRepository extends ServiceEntityRepository
             ->setMaxResults($jobsNumber)
             ->getQuery()
             ->getResult();
-    }
-
-    public function getPaginationByLastDateAndType(int $jobsNumber, string $type)
-    {
-        try {
-            return $this->createQueryBuilder('j')
-                ->select('COUNT(j.id) / ' . $jobsNumber)
-                ->leftJoin('j.type', 't')
-                ->where('t.name = :type')
-                ->setParameter(':type', $type)
-                ->getQuery()
-                ->getSingleScalarResult();
-        } catch (NonUniqueResultException $e) {
-            return null;
-        }
     }
 }
