@@ -9,7 +9,7 @@ use Symfony\Component\Routing\Annotation\Route;
 /**
  * Class SponsorController
  * @package App\Controller
- * @Route(path="/sponsor", name="app_sponsor_")
+ * @Route(name="app_sponsor_")
  */
 class SponsorController extends AbstractController
 {
@@ -21,7 +21,7 @@ class SponsorController extends AbstractController
     }
 
     /**
-     * @Route(name="list")
+     * @Route(path="/sponsors", name="list")
      */
     public function list()
     {

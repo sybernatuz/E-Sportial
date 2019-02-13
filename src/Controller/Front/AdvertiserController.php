@@ -9,7 +9,7 @@ use Symfony\Component\Routing\Annotation\Route;
 /**
  * Class AdvertiserController
  * @package App\Controller
- * @Route(path="/advertiser", name="app_advertiser_")
+ * @Route(name="app_advertiser_")
  */
 class AdvertiserController extends AbstractController
 {
@@ -21,7 +21,7 @@ class AdvertiserController extends AbstractController
     }
 
     /**
-     * @Route(name="list")
+     * @Route(path="/advertisers", name="list")
      */
     public function list()
     {

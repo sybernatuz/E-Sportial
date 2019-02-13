@@ -15,7 +15,7 @@ use Symfony\Component\Routing\Annotation\Route;
 /**
  * Class UserController
  * @package App\Controller
- * @Route(path="/user", name="app_user_")
+ * @Route(name="app_user_")
  */
 class UserController extends AbstractController
 {
@@ -32,7 +32,7 @@ class UserController extends AbstractController
 
 
     /**
-     * @Route(name="list")
+     * @Route(path="/users", name="list")
      * @param PaginatorInterface $paginator
      * @param Request $request
      * @return \Symfony\Component\HttpFoundation\Response
@@ -57,7 +57,7 @@ class UserController extends AbstractController
     }
 
     /**
-     * @Route(path="/{slug}", name="show")
+     * @Route(path="/user/{slug}", name="show")
      * @param User $user
      * @return \Symfony\Component\HttpFoundation\Response
      */
@@ -69,7 +69,7 @@ class UserController extends AbstractController
     }
 
     /**
-     * @Route(path="/edit/{slug}", name="edit")
+     * @Route(path="user/{slug}/edit", name="edit")
      * @param User $user
      * @return \Symfony\Component\HttpFoundation\Response
      */

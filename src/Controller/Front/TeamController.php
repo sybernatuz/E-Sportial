@@ -10,7 +10,7 @@ use Symfony\Component\Routing\Annotation\Route;
 /**
  * Class TeamController
  * @package App\Controller
- * @Route(path="/team", name="app_team_")
+ * @Route(name="app_team_")
  */
 class TeamController extends AbstractController
 {
@@ -22,7 +22,7 @@ class TeamController extends AbstractController
     }
 
     /**
-     * @Route(name="list")
+     * @Route(path="/teams", name="list")
      */
     public function list()
     {
@@ -30,7 +30,7 @@ class TeamController extends AbstractController
     }
 
     /**
-     * @Route(path="/{slug}", name="show")
+     * @Route(path="/team/{slug}", name="show")
      * @param Organization $team
      * @return \Symfony\Component\HttpFoundation\Response
      */
