@@ -38,5 +38,7 @@ user.reset_password_token.incorrect: No available reset password token
 followers: followers
 
 Search: Search
+Location: Location
+Type: Type
 All: All
 Country: Country

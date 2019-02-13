@@ -63,8 +63,8 @@ class GameController extends AbstractController
     public function list(PaginatorInterface $paginator, Request $request) : Response
     {
         $search = new GameSearch();
-        $form = $this->createForm(GameSearchType::class, $search);
-        $form->handleRequest($request);
+        $searchForm = $this->createForm(GameSearchType::class, $search);
+        $searchForm->handleRequest($request);
 
         $games = $paginator->paginate(
             $this->gameRepository->findBySearch($search),
@@ -74,7 +74,7 @@ class GameController extends AbstractController
 
         return $this->render('pages/front/game/list.html.twig', [
                 'games' => $games,
-                'searchForm' => $form->createView()
+                'searchForm' => $searchForm->createView()
             ] + $this->footerService->process());
     }
 }

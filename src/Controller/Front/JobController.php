@@ -9,10 +9,13 @@
 namespace App\Controller\Front;
 
 
-use App\Enums\type\JobTypeEnum;
+use App\Entity\Search\JobSearch;
+use App\Form\Search\JobSearchType;
 use App\Repository\JobRepository;
 use App\Services\layout\FooterService;
+use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
@@ -36,15 +39,26 @@ class JobController extends AbstractController
 
     /**
      * @Route(name="list", path="/jobs")
+     * @param PaginatorInterface $paginator
+     * @param Request $request
      * @return \Symfony\Component\HttpFoundation\Response
      */
-    public function list() : Response
+    public function list(PaginatorInterface $paginator, Request $request) : Response
     {
-        $lastJobs = $this->jobRepository->findByLastDateAndType(self::JOBS_NUMBER, JobTypeEnum::WORK);
+        $search = new JobSearch();
+        $searchForm = $this->createForm(JobSearchType::class, $search);
+        $searchForm->handleRequest($request);
+
+        $jobs = $paginator->paginate(
+            $this->jobRepository->findBySearchOrderByLastDate($search),
+            $request->query->getInt('page', 1),
+            self::JOBS_NUMBER
+        );
+
         return $this->render("pages/front/job/list.html.twig", [
-            'lastJobs' => $lastJobs,
-            'jobDetail' => $lastJobs[0] ?? null,
-            'pageNumber' => $this->jobRepository->getPaginationByLastDateAndType(self::JOBS_NUMBER, JobTypeEnum::WORK)
+            'lastJobs' => $jobs,
+            'jobDetail' => $jobs[0] ?? null,
+            'searchForm' => $searchForm->createView()
         ] + $this->footerService->process());
     }
 }

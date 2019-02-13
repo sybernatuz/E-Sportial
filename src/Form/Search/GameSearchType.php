@@ -32,12 +32,6 @@ class GameSearchType extends AbstractType
             ->add('word', TextType::class, [
                 'label' => $this->translator->trans('Search'),
                 'required' => false,
-            ])
-            ->add('search', SubmitType::class, [
-                'label' => $this->translator->trans('Search'),
-                'attr' => [
-                    'class' => 'waves-effect waves-light btn'
-                ]
             ]);
     }
 

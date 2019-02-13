@@ -3,8 +3,10 @@
 namespace App\Repository;
 
 use App\Entity\Job;
+use App\Entity\Search\JobSearch;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\ORM\NonUniqueResultException;
+use Doctrine\ORM\Query;
 use Symfony\Bridge\Doctrine\RegistryInterface;
 
 /**
@@ -18,6 +20,35 @@ class JobRepository extends ServiceEntityRepository
     public function __construct(RegistryInterface $registry)
     {
         parent::__construct($registry, Job::class);
+    }
+
+    /**
+     * Used for pagination
+     * @param JobSearch $search
+     * @return Query
+     */
+    public function findBySearchOrderByLastDate(JobSearch $search): Query
+    {
+        $query = $this->createQueryBuilder('j')
+            ->orderBy('j.createdAt', 'DESC');
+
+        if ($word = $search->getWord()) {
+            $query->andWhere('j.title LIKE :word')
+                ->setParameter('word', '%' . $word . '%');
+        }
+
+        if ($location = $search->getLocation()) {
+            $query->andWhere('j.location LIKE :location')
+                ->setParameter('location', '%' . $location . '%');
+        }
+
+        if ($type = $search->getType()) {
+            $query->leftJoin('j.type', 't')
+                ->where('t.name = :type')
+                ->setParameter(':type', $type->getName());
+        }
+
+        return $query->getQuery();
     }
 
     public function findByTitleAndLocationAndTypeOrderByLastDate(string $title, string $location, string $type, int $jobNumber, int $page = 1)

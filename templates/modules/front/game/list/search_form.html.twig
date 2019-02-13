@@ -8,7 +8,9 @@
         </div>
     </div>
     <div class="col s2 m2 l2 xl2">
-        {{ form_widget(searchForm.search) }}
+        <button class="btn waves-effect waves-light" type="submit">
+            {% trans %}Search{% endtrans %}
+        </button>
     </div>
 </div>
 {{ form_end(searchForm) }}

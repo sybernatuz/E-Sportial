@@ -11,7 +11,6 @@ namespace App\Controller\Ajax;
 use App\Entity\Job;
 use App\Repository\JobRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
@@ -38,39 +37,8 @@ class JobAjaxController extends AbstractController
     public function getJob(Job $job) : Response
     {
 //        return new JsonResponse($this->serializer->normalize($job, 'json', ['groups' => ['one']]));
-        return $this->render("modules/front/jobs/jobDetail.html.twig", [
+        return $this->render("modules/front/job/list/job_detail.html.twig", [
             'jobDetail' => $job
-        ]);
-    }
-
-    /**
-     * @Route(name="get_last_jobs", path="/get/last/jobs/{jobType}")
-     * @param string $jobType
-     * @return \Symfony\Component\HttpFoundation\Response
-     */
-    public function getLastJobs(string $jobType) : Response
-    {
-        return $this->render("modules/front/jobs/lastJobs.html.twig", [
-            'lastJobs' => $this->jobRepository->findByLastDateAndType(5, $jobType),
-            'pageNumber' => $this->jobRepository->getPaginationByLastDateAndType(5, $jobType)
-        ]);
-    }
-
-    /**
-     * @Route(name="search", path="/search")
-     * @param Request $request
-     * @return \Symfony\Component\HttpFoundation\Response
-     */
-    public function search(Request $request) : Response
-    {
-        $title = $request->get("title") != null ? $request->get("title") : '';
-        $location = $request->get("location") != null ? $request->get("location") : '';
-        $type = $request->get("type") != null ? $request->get("type") : '';
-        $page = $request->get("page") != null ? $request->get("page") : 1;
-        return $this->render("modules/front/jobs/lastJobs.html.twig", [
-            'lastJobs' => $this->jobRepository->findByTitleAndLocationAndTypeOrderByLastDate($title, $location, $type, 5, $page),
-            'pageNumber' => $this->jobRepository->getPaginationByTitleAndLocationAndType($title, $location, $type, 5),
-            'activePage' => $page
         ]);
     }
 }
