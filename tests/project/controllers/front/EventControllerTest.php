@@ -16,7 +16,7 @@ namespace App\Tests\project\controllers;
 class EventControllerTest extends AbstractControllerTest
 {
 
-    public function testList(): array
+    public function testList(): void
     {
         $this->standardTest('/events', 'event_list');
     }

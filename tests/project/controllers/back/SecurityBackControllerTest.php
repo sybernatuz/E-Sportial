@@ -16,7 +16,7 @@ namespace App\Tests\project\controllers;
 class SecurityBackControllerTest extends AbstractControllerTest
 {
 
-    public function testList(): array
+    public function testList(): void
     {
         $this->standardTest('/admin/login', '');
     }

@@ -20,21 +20,17 @@ use Doctrine\ORM\NonUniqueResultException;
  * @package App\Tests\project\repositories
  * @group Repository
  */
-class UserRepositoryTest extends AbstractMockInitializerTest
+class UserRepositoryTest extends AbstractRepositoryTest
 {
 
     /**
      * @var UserRepository
      */
-    private $userRepository;
+    protected $repository;
 
-    protected function setUp() : void
+    protected function getClassName(): string
     {
-        $this->userRepository = self::bootKernel()
-            ->getContainer()
-            ->get('doctrine')
-            ->getManager()
-            ->getRepository(User::class);
+        return User::class;
     }
 
     public function testFindByUsernameOrEmail() : void
@@ -46,7 +42,7 @@ class UserRepositoryTest extends AbstractMockInitializerTest
     {
         $user = null;
         try {
-            $user = $this->userRepository->findByUsernameOrEmail($emailOrUsername);
+            $user = $this->repository->findByUsernameOrEmail($emailOrUsername);
         } catch (NonUniqueResultException $e) {
             $this->fail('more than one result');
         }
@@ -66,7 +62,7 @@ class UserRepositoryTest extends AbstractMockInitializerTest
     {
         $user = null;
         try {
-            $user = $this->userRepository->findByUsernameOrEmailAdmin($emailOrUsername);
+            $user = $this->repository->findByUsernameOrEmailAdmin($emailOrUsername);
         } catch (NonUniqueResultException $e) {
             $this->fail('more than one result');
         }
