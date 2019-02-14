@@ -20,11 +20,16 @@ class UserMock
     /**
      * @var User
      */
+    static $user2;
+    /**
+     * @var User
+     */
     static $admin1;
 
     public static function init() : void
     {
         self::$user1 = self::createUser1();
+        self::$user2 = self::createUser2();
         self::$admin1 = self::createAdmin1();
     }
 
@@ -40,7 +45,24 @@ class UserMock
             ->setLastname("Jean")
             ->setFirstname("Jacque")
             ->setPro(false)
-            ->setRoles(["ROLE_USER"]);
+            ->setRoles(["ROLE_USER"])
+            ->setCountry(CountryMock::$country1);
+    }
+
+    private static function createUser2() : User
+    {
+        return (new User())
+            ->setEmail("user@gmail.com")
+            ->setPassword("user")
+            ->setUsername("user")
+            ->setAge(20)
+            ->setOnline(false)
+            ->setAvatar("images/avatar-man.png")
+            ->setLastname("last")
+            ->setFirstname("first")
+            ->setPro(false)
+            ->setRoles(["ROLE_USER"])
+            ->setCountry(CountryMock::$country2);
     }
 
     private static function createAdmin1() : User
@@ -55,6 +77,7 @@ class UserMock
             ->setLastname("Thor")
             ->setFirstname("Chirac")
             ->setPro(false)
-            ->setRoles(["ROLE_ADMIN", "ROLE_USER"]);
+            ->setRoles(["ROLE_ADMIN", "ROLE_USER"])
+            ->setCountry(CountryMock::$country1);
     }
 }

@@ -9,9 +9,10 @@
 namespace App\Tests\project\repositories;
 
 
+use App\Entity\Search\UserSearch;
 use App\Entity\User;
 use App\Repository\UserRepository;
-use App\Tests\setup\mock\AbstractMockInitializerTest;
+use App\Tests\setup\mock\CountryMock;
 use App\Tests\setup\mock\UserMock;
 use Doctrine\ORM\NonUniqueResultException;
 
@@ -70,5 +71,16 @@ class UserRepositoryTest extends AbstractRepositoryTest
             $this->fail('No user found');
         $this->assertEquals(UserMock::$admin1->getUsername(), $user->getUsername());
         $this->assertEquals(UserMock::$admin1->getRoles(), $user->getRoles());
+    }
+
+    public function testFindBySearch1() : void
+    {
+        $search = (new UserSearch)
+            ->setWord("user");
+        $users = (array) $this->repository->findBySearch($search)->getResult();
+        $this->assertCount(1, $users);
+        $this->assertEquals(UserMock::$user2->getUsername(), $users[0]['username']);
+        $this->assertEquals(CountryMock::$country2->getName(), $users[0]['flagName']);
+        $this->assertEquals(1, $users[0]['followers']);
     }
 }
