@@ -9,17 +9,20 @@
                     <img class="circle" src="{{ jobDetail.organization.logoPath }}">
                 {% endif %}
                 <span class="title job-detail-title">{{ jobDetail.title }}</span>
-                <p class="job-infos">{{ jobDetail.location }}
+                <p class="job-infos">
+                    <span class="job-location">{{ jobDetail.location }}</span>
                     <br>
-                    {% if jobDetail.user.username is defined and jobDetail.user.username is not null %}
-                        {{ jobDetail.user.username }}
-                    {% endif %}
-                    {% if jobDetail.organization.name is defined and jobDetail.organization.name is not null  %}
-                        {{ jobDetail.organization.name }}
-                    {% endif %}
+                    <span class="job-creator-name">
+                        {% if jobDetail.user.username is defined and jobDetail.user.username is not null %}
+                            {{ jobDetail.user.username }}
+                        {% endif %}
+                        {% if jobDetail.organization.name is defined and jobDetail.organization.name is not null  %}
+                            {{ jobDetail.organization.name }}
+                        {% endif %}
+                    </span>
                 </p>
             </li>
         </ul>
-        {{ jobDetail.description }}
+        <p class="job-description">{{ jobDetail.description }}</p>
     {% endif %}
 </div>

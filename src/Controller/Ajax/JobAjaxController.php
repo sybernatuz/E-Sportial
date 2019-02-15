@@ -9,10 +9,12 @@
 namespace App\Controller\Ajax;
 
 use App\Entity\Job;
+use App\Mapper\Mapper;
 use App\Repository\JobRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Serializer\SerializerInterface;
 
 /**
  * Class JobAjaxController
@@ -23,22 +25,24 @@ class JobAjaxController extends AbstractController
 {
 
     private $jobRepository;
+    private $serializer;
+    private $mapper;
 
-    public function __construct(JobRepository $jobRepository)
+    public function __construct(SerializerInterface $serializer, JobRepository $jobRepository, Mapper $mapper)
     {
         $this->jobRepository = $jobRepository;
+        $this->serializer = $serializer;
+        $this->mapper = $mapper;
     }
 
     /**
      * @Route(name="get_detail", path="/get/detail/{id}")
      * @param Job $job
-     * @return \Symfony\Component\HttpFoundation\Response
+     * @return JsonResponse
      */
-    public function getJob(Job $job) : Response
+    public function getJob(Job $job) : JsonResponse
     {
-//        return new JsonResponse($this->serializer->normalize($job, 'json', ['groups' => ['one']]));
-        return $this->render("modules/front/job/list/job_detail.html.twig", [
-            'jobDetail' => $job
-        ]);
+        $jobDetailOut = $this->mapper->jobEntityToJobDetailOut($job);
+        return new JsonResponse($this->serializer->normalize($jobDetailOut, 'json'));
     }
 }
