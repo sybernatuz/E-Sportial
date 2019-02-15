@@ -1,0 +1,41 @@
+{% import 'modules/macro/user.html.twig' as userMacro %}
+
+<table>
+    <thead>
+        <tr>
+            <th>Username</th>
+            <th>Email</th>
+            <th>Last name</th>
+            <th>First name</th>
+            <th>Age</th>
+            <th>Roles</th>
+            <th>Online</th>
+            <th>Edit</th>
+            <th>Delete</th>
+        </tr>
+    </thead>
+
+    <tbody>
+        {% for user in users %}
+            <tr>
+                <td>{{ user.username }}</td>
+                <td>{{ user.email }}</td>
+                <td>{{ user.lastname }}</td>
+                <td>{{ user.firstname }}</td>
+                <td>{{ user.age }}</td>
+                <td>{{ user.roles|join(' | ') }}</td>
+                <td>{{ userMacro.online_status(user.online) }}</td>
+                <td>
+                    <a href="{{ path('app_admin_user_edit', {'slug' : user.username }) }}">
+                        <i class="material-icons">edit</i>
+                    </a>
+                </td>
+                <td>
+                    <a href="{{ path('app_admin_user_delete', {'id' : user.id}) }}">
+                        <i class="material-icons">delete</i>
+                    </a>
+                </td>
+            </tr>
+        {% endfor %}
+    </tbody>
+</table>

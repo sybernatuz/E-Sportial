@@ -7,17 +7,23 @@
             {% for gameName,lastParties in lastPartiesGroupByGameName %}
                 <li class="collection-header last-results-game-name">{{ gameName }}</li>
                 {% for lastParty in lastParties %}
-                    <li class="collection-item avatar valign-wrapper">
+                    {% if lastParty.results[0] is defined and lastParty.results[1] is defined %}
+                        <li class="collection-item avatar valign-wrapper">
                             <div class="col s5 m5 l5 left-align">
-                                <img class="circle" src="{{ lastParty.results[0].user.avatar }}">
-                                <span class="name">{{ lastParty.results[0].user.username }}</span>
+                                {% if lastParty.results[0].user is defined %}
+                                    <img class="circle" src="{{ lastParty.results[0].user.avatar }}">
+                                    <span class="name">{{ lastParty.results[0].user.username }}</span>
+                                {% endif %}
                             </div>
                             <span class="col s2 m2 l2 result center-align">{{ lastParty.results[0].score }} - {{ lastParty.results[1].score }}</span>
                             <div class="col s5 m5 l5 right-align">
-                                <span class="name">{{ lastParty.results[1].user.username }}</span>
-                                <img class="circle" src="{{ lastParty.results[1].user.avatar }}">
+                                {% if lastParty.results[1].user is defined %}
+                                    <span class="name">{{ lastParty.results[1].user.username }}</span>
+                                    <img class="circle" src="{{ lastParty.results[1].user.avatar }}">
+                                {% endif %}
                             </div>
-                    </li>
+                        </li>
+                    {% endif %}
                 {% endfor %}
             {% endfor %}
         </ul>

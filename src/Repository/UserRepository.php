@@ -2,6 +2,7 @@
 
 namespace App\Repository;
 
+use App\Entity\Search\Admin\UserSearchAdmin;
 use App\Entity\Search\UserSearch;
 use App\Entity\User;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
@@ -42,6 +43,48 @@ class UserRepository extends ServiceEntityRepository
         if ($country = $search->getCountry()) {
             $query->andWhere('c.name = :country')
                 ->setParameter('country', $country->getName());
+        }
+
+        return $query->getQuery();
+    }
+
+    /**
+     * Used for pagination
+     * @param UserSearchAdmin $search
+     * @return Query
+     */
+    public function findBySearchAdmin(UserSearchAdmin $search): Query
+    {
+        $query = $this->createQueryBuilder('u');
+
+        if ($username = $search->getUsername()) {
+            $query->andWhere('LOWER(u.username) LIKE LOWER(:username)')
+                ->setParameter('username', '%' . $username . '%');
+        }
+
+        if ($email = $search->getEmail()) {
+            $query->andWhere('LOWER(u.email) LIKE LOWER(:email)')
+                ->setParameter('email', '%' . $email . '%');
+        }
+
+        if ($firstName = $search->getFirstName()) {
+            $query->andWhere('LOWER(u.firstname) LIKE LOWER(:firstName)')
+                ->setParameter('firstName', '%' . $firstName . '%');
+        }
+
+        if ($lastName = $search->getLastName()) {
+            $query->andWhere('LOWER(u.lastname) LIKE LOWER(:lastName)')
+                ->setParameter('lastName', '%' . $lastName . '%');
+        }
+
+        if ($age = $search->getAge()) {
+            $query->andWhere('u.age = :age')
+                ->setParameter('age', $age);
+        }
+
+        if ($online = $search->isOnline()) {
+            $query->andWhere('u.online = :online')
+                ->setParameter('online', $online);
         }
 
         return $query->getQuery();

@@ -112,32 +112,32 @@ class User implements UserInterface
     private $jobs;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Recruitment", mappedBy="user")
+     * @ORM\OneToMany(targetEntity="App\Entity\Recruitment", mappedBy="user", cascade={"remove"})
      */
     private $recruitments;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Subscription", mappedBy="user")
+     * @ORM\OneToMany(targetEntity="App\Entity\Subscription", mappedBy="user", cascade={"remove"})
      */
     private $subscriptions;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Subscription", mappedBy="subscriber")
+     * @ORM\OneToMany(targetEntity="App\Entity\Subscription", mappedBy="subscriber", cascade={"remove"})
      */
     private $subscribed;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Play", mappedBy="user")
+     * @ORM\OneToMany(targetEntity="App\Entity\Play", mappedBy="user", cascade={"remove"})
      */
     private $plays;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Message", mappedBy="receiver")
+     * @ORM\OneToMany(targetEntity="App\Entity\Message", mappedBy="receiver", cascade={"remove"})
      */
     private $receivedMessages;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Message", mappedBy="transmitter")
+     * @ORM\OneToMany(targetEntity="App\Entity\Message", mappedBy="transmitter", cascade={"remove"})
      */
     private $transmittedMessages;
 
@@ -147,27 +147,27 @@ class User implements UserInterface
     private $parties;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Result", mappedBy="user")
+     * @ORM\OneToMany(targetEntity="App\Entity\Result", mappedBy="user", cascade={"remove"})
      */
     private $results;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Ranking", mappedBy="user")
+     * @ORM\OneToMany(targetEntity="App\Entity\Ranking", mappedBy="user", cascade={"remove"})
      */
     private $rankings;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Award", mappedBy="user")
+     * @ORM\OneToMany(targetEntity="App\Entity\Award", mappedBy="user", cascade={"remove"})
      */
     private $awards;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\File", mappedBy="user")
+     * @ORM\OneToMany(targetEntity="App\Entity\File", mappedBy="user", cascade={"remove"})
      */
     private $files;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Participant", mappedBy="user")
+     * @ORM\OneToMany(targetEntity="App\Entity\Participant", mappedBy="user", cascade={"remove"})
      */
     private $participants;
 
@@ -222,6 +222,7 @@ class User implements UserInterface
 
     /**
      * @param mixed $slug
+     * @return User
      */
     public function setSlug($slug): self
     {

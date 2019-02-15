@@ -3,6 +3,7 @@
 namespace App\Controller\Back;
 
 use App\Services\FormService;
+use App\Services\layout\FooterService;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -15,10 +16,12 @@ use Symfony\Component\Routing\Annotation\Route;
 class AdminSecurityController extends AbstractController
 {
     private $formService;
+    private $footerService;
 
-    public function __construct(FormService $formService)
+    public function __construct(FormService $formService, FooterService $footerService)
     {
         $this->formService = $formService;
+        $this->footerService = $footerService;
     }
 
     /**
@@ -27,7 +30,10 @@ class AdminSecurityController extends AbstractController
      */
     public function loginAdmin(): Response
     {
-        return $this->render('pages/back/security/admin_login.html.twig', $this->formService->createLoginForm());
+        return $this->render('pages/back/security/admin_login.html.twig',
+            $this->formService->createLoginForm() +
+            $this->footerService->process()
+        );
     }
 
     /**

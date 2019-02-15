@@ -1,0 +1,55 @@
+{{ form_start(searchForm) }}
+<div class="row">
+    <div class="input-field col s12 m4 l4 xl4">
+        {{ form_label(searchForm.username) }}
+        {{ form_widget(searchForm.username) }}
+        <div class="form-errors">
+            {{ form_errors(searchForm.username) }}
+        </div>
+    </div>
+    <div class="input-field col s12 m4 l4 xl4">
+        {{ form_label(searchForm.email) }}
+        {{ form_widget(searchForm.email) }}
+        <div class="form-errors">
+            {{ form_errors(searchForm.email) }}
+        </div>
+    </div>
+    <div class="input-field col s12 m4 l4 xl4">
+        {{ form_label(searchForm.firstName) }}
+        {{ form_widget(searchForm.firstName) }}
+        <div class="form-errors">
+            {{ form_errors(searchForm.firstName) }}
+        </div>
+    </div>
+    <div class="input-field col s12 m4 l4 xl4">
+        {{ form_label(searchForm.lastName) }}
+        {{ form_widget(searchForm.lastName) }}
+        <div class="form-errors">
+            {{ form_errors(searchForm.lastName) }}
+        </div>
+    </div>
+    <div class="input-field col s12 m4 l4 xl4">
+        {{ form_label(searchForm.age) }}
+        {{ form_widget(searchForm.age) }}
+        <div class="form-errors">
+            {{ form_errors(searchForm.age) }}
+        </div>
+    </div>
+    <div class="input-field col s12 m4 l4 xl4">
+        {{ form_label(searchForm.online) }}
+        {{ form_widget(searchForm.online) }}
+        <div class="form-errors">
+            {{ form_errors(searchForm.online) }}
+        </div>
+    </div>
+
+
+</div>
+<div class="row">
+    <div class="col s3 m3 l3 xl3">
+        <button class="btn waves-effect waves-light" type="submit">
+            {% trans %}Search{% endtrans %}
+        </button>
+    </div>
+</div>
+{{ form_end(searchForm) }}

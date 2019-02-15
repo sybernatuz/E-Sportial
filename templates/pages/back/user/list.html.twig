@@ -1,0 +1,26 @@
+{% extends 'dashboard.html.twig' %}
+{% import "modules/macro/flash_message.html.twig" as flashes %}
+
+{% block stylesheets %}
+    {{ encore_entry_link_tags('user_admin_list') }}
+{% endblock %}
+
+{% block body %}
+    {{ flashes.get_success_messages() }}
+
+    <div class="row">
+        {% include 'modules/back/user/list/search_form.html.twig' %}
+    </div>
+
+    <div class="row">
+        {% include 'modules/back/user/list/user_table.html.twig' %}
+    </div>
+
+    <div class="row">
+        {{ knp_pagination_render(users) }}
+    </div>
+{% endblock %}
+
+{% block javascripts %}
+    {{ encore_entry_script_tags('user_admin_list') }}
+{% endblock %}
