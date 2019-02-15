@@ -20,4 +20,6 @@ require('../js/modules/common/navbar');
 
 require('materialize-css/dist/css/materialize.css');
 require('materialize-css/dist/js/materialize.js');
+require('material-icons/iconfont/material-icons.css');
+require('@fortawesome/fontawesome-free/css/all.css');
 

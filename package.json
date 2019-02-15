@@ -15,7 +15,9 @@
         "build": "encore production --progress"
     },
     "dependencies": {
+        "@fortawesome/fontawesome-free": "^5.7.2",
         "jquery": "^3.3.1",
+        "material-icons": "^0.3.0",
         "materialize-css": "^1.0.0"
     }
 }
