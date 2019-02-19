@@ -9,15 +9,7 @@
     {{ flashes.get_success_messages() }}
 
     <div class="row">
-        {% include 'modules/back/user/list/search_form.html.twig' %}
-    </div>
-
-    <div class="row">
-        {% include 'modules/back/user/list/user_table.html.twig' %}
-    </div>
-
-    <div class="row">
-        {{ knp_pagination_render(users) }}
+        {% include 'modules/back/user/list/table.html.twig' %}
     </div>
 {% endblock %}
 

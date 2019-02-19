@@ -5,8 +5,9 @@
  * (and its CSS file) in your base layout (base.html.twig).
  */
 const $ = require('jquery');
-
 global.$ = global.jQuery = $;
+
+
 
 
 // Need jQuery? Install it with "yarn add jquery", then uncomment to require it.
@@ -22,4 +23,3 @@ require('materialize-css/dist/css/materialize.css');
 require('materialize-css/dist/js/materialize.js');
 require('material-icons/iconfont/material-icons.css');
 require('@fortawesome/fontawesome-free/css/all.css');
-

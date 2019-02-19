@@ -13,7 +13,6 @@ use App\Entity\Search\Admin\UserSearchAdmin;
 use App\Entity\User;
 use App\Form\Search\Admin\UserSearchTypeAdmin;
 use App\Repository\UserRepository;
-use Knp\Component\Pager\PaginatorInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -27,8 +26,6 @@ use Symfony\Component\Routing\Annotation\Route;
  */
 class AdminUserController extends AbstractController
 {
-    private const USERS_NUMBER = 15;
-
     private $userRepository;
 
     public function __construct(UserRepository $userRepository)
@@ -36,29 +33,14 @@ class AdminUserController extends AbstractController
         $this->userRepository = $userRepository;
     }
 
-
     /**
      * @Route(name="list", path="/users")
-     * @param Request $request
-     * @param PaginatorInterface $paginator
      * @return \Symfony\Component\HttpFoundation\Response
      */
-    public function list(Request $request, PaginatorInterface $paginator)
+    public function list()
     {
-        $search = new UserSearchAdmin();
-        $searchForm = $this->createForm(UserSearchTypeAdmin::class, $search);
-
-        $searchForm->handleRequest($request);
-
-        $users = $paginator->paginate(
-            $this->userRepository->findBySearchAdmin($search),
-            $request->query->getInt('page', 1),
-            self::USERS_NUMBER
-        );
-
         return $this->render('pages/back/user/list.html.twig', [
-            'users' => $users,
-            'searchForm' => $searchForm->createView()
+            'users' => $this->userRepository->findAll()
         ]);
     }
 
