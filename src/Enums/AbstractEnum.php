@@ -15,7 +15,8 @@ abstract class AbstractEnum
 {
     const ALL = "";
 
-    static function getValues() {
+    static function getValues() : array
+    {
         try {
             $oClass = new ReflectionClass(static::class);
         } catch (\ReflectionException $e) {

@@ -17,15 +17,21 @@ Encore
      */
     .addEntry('app', './assets/js/app.js')
     .addEntry('home', './assets/js/pages/front/home.js')
+
     .addEntry('user_list', './assets/js/pages/front/user/list.js')
     .addEntry('user_show', './assets/js/pages/front/user/show.js')
     .addEntry('user_admin_list', './assets/js/pages/back/user/list.js')
+    .addEntry('user_admin_edit', './assets/js/pages/back/user/edit.js')
+
 
     .addEntry('job_list', './assets/js/pages/front/job/list.js')
+
     .addEntry('event_list', './assets/js/pages/front/event/list.js')
     .addEntry('event_show', './assets/js/pages/front/event/show.js')
+
     .addEntry('game_list', './assets/js/pages/front/game/list.js')
     .addEntry('game_show', './assets/js/pages/front/game/show.js')
+
     .addEntry('register', './assets/js/pages/front/security/register.js')
 
 

@@ -1,23 +1,5 @@
-{% if app.user %}
-    <ul id="dropdown-user" class="dropdown-content">
-        <li><a href="{{ path('app_user_show', {'slug': app.user.username}) }}">{% trans %}Profile{% endtrans %}</a></li>
-        <li><a href="{{ path('app_security_logout') }}">{% trans %}Logout{% endtrans %}</a></li>
-    </ul>
-{% endif %}
-
-<ul id="dropdown-members" class="dropdown-content">
-    <li><a href="{{ path('app_user_list') }}">{% trans %}Players{% endtrans %}</a></li>
-    <li><a href="{{ path('app_team_list') }}">{% trans %}Teams{% endtrans %}</a></li>
-    <li class="divider"></li>
-    <li><a href="{{ path('app_sponsor_list') }}">{% trans %}Sponsors{% endtrans %}</a></li>
-    <li><a href="{{ path('app_advertiser_list') }}">{% trans %}Advertisers{% endtrans %}</a></li>
-</ul>
-
 <nav>
     <div class="nav-wrapper">
-        <a href="{{ path('app_home_index') }}" class="brand-logo center">
-            <img alt="Logo E-Sportial" class="nav-logo" src="{{ asset('build/images/logo.png') }}">
-        </a>
         <ul id="nav-mobile" class="left hide-on-med-and-down">
             <li><a href="{{ path('app_admin_statistic_index') }}">{% trans %}Home{% endtrans %}</a></li>
             <li><a href="{{ path('app_admin_user_list') }}">{% trans %}Users{% endtrans %}</a></li>

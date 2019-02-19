@@ -26,7 +26,7 @@
                 <td>{{ user.roles|join(' | ') }}</td>
                 <td>{{ userMacro.online_status(user.online) }}</td>
                 <td>
-                    <a href="{{ path('app_admin_user_edit', {'slug' : user.username }) }}">
+                    <a href="{{ path('app_admin_user_edit', {'slug' : user.slug }) }}">
                         <i class="material-icons">edit</i>
                     </a>
                 </td>

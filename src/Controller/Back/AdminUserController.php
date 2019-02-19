@@ -12,6 +12,7 @@ namespace App\Controller\Back;
 use App\Entity\Search\Admin\UserSearchAdmin;
 use App\Entity\User;
 use App\Form\Search\Admin\UserSearchTypeAdmin;
+use App\Form\User\UserEditAdminFormType;
 use App\Repository\UserRepository;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -52,14 +53,18 @@ class AdminUserController extends AbstractController
      */
     public function edit(User $user, Request $request)
     {
-        $search = new UserSearchAdmin();
-        $editForm = $this->createForm(UserSearchTypeAdmin::class, $search);
+        $editForm = $this->createForm(UserEditAdminFormType::class, $user);
 
         $editForm->handleRequest($request);
 
+        if ($editForm->isSubmitted() && $editForm->isValid()) {
+            $manager = $this->getDoctrine()->getManager();
+            $manager->flush();
+        }
+
         return $this->render('pages/back/user/edit.html.twig', [
             'user' => $user,
-            'searchForm' => $editForm->createView()
+            'editForm' => $editForm->createView()
         ]);
     }
 

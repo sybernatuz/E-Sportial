@@ -1,0 +1,51 @@
+{{ form_start(editForm) }}
+    <div class="row">
+        <div class="input-field col s12 m4 l4 xl4">
+            {{ form_label(editForm.username) }}
+            {{ form_widget(editForm.username) }}
+            <div class="form-errors">
+                {{ form_errors(editForm.username) }}
+            </div>
+        </div>
+        <div class="input-field col s12 m4 l4 xl4">
+            {{ form_widget(editForm.email) }}
+            {{ form_label(editForm.email) }}
+            <div class="form-errors">
+                {{ form_errors(editForm.email) }}
+            </div>
+        </div>
+        <div class="input-field col s12 m4 l4 xl4">
+            {{ form_widget(editForm.lastname) }}
+            {{ form_label(editForm.lastname) }}
+            <div class="form-errors">
+                {{ form_errors(editForm.lastname) }}
+            </div>
+        </div>
+        <div class="input-field col s12 m4 l4 xl4">
+            {{ form_widget(editForm.firstname) }}
+            {{ form_label(editForm.firstname) }}
+            <div class="form-errors">
+                {{ form_errors(editForm.firstname) }}
+            </div>
+        </div>
+        <div class="input-field col s12 m4 l4 xl4">
+            {{ form_widget(editForm.age) }}
+            {{ form_label(editForm.age) }}
+            <div class="form-errors">
+                {{ form_errors(editForm.age) }}
+            </div>
+        </div>
+        <div class="input-field col s12 m4 l4 xl4">
+            {{ form_widget(editForm.roles) }}
+            {{ form_label(editForm.roles) }}
+            <div class="form-errors">
+                {{ form_errors(editForm.roles) }}
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col s3 m3 l3 xl3">
+            {{ form_widget(editForm.edit) }}
+        </div>
+    </div>
+{{ form_end(editForm) }}
