@@ -14,4 +14,15 @@
     margin-left: 50%;
   }
 
+  .apply {
+
+    background-color: $purple-color;
+
+    .preloader-wrapper {
+      height: 30px;
+      width: 30px;
+      margin-left: 0;
+    }
+  }
+
 }

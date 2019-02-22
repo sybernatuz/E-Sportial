@@ -13,9 +13,16 @@ use App\Entity\Job;
 use App\Entity\Out\JobDetail\JobDetailOut;
 use App\Entity\Out\JobDetail\OrganizationOut;
 use App\Entity\Out\JobDetail\UserOut;
+use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 
 class Mapper
 {
+    private $token;
+
+    public function __construct(TokenStorageInterface $token)
+    {
+        $this->token = $token;
+    }
 
     public function jobEntityToJobDetailOut(Job $job) : ?JobDetailOut
     {
@@ -30,6 +37,8 @@ class Mapper
             ->setCreatedAt($job->getCreatedAt())
             ->setDuration($job->getDuration())
             ->setSalary($job->getSalary());
+
+        $user = $this->token->getToken()->getUser();
 
         if ($user = $job->getUser()) {
             $userOut = (new UserOut())

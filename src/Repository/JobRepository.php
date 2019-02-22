@@ -4,6 +4,7 @@ namespace App\Repository;
 
 use App\Entity\Job;
 use App\Entity\Search\JobSearch;
+use App\Entity\User;
 use App\Enums\type\JobTypeEnum;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\ORM\Query;

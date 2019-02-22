@@ -11,6 +11,7 @@ namespace App\Controller\Ajax;
 use App\Entity\Job;
 use App\Mapper\Mapper;
 use App\Repository\JobRepository;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\Routing\Annotation\Route;
@@ -44,5 +45,20 @@ class JobAjaxController extends AbstractController
     {
         $jobDetailOut = $this->mapper->jobEntityToJobDetailOut($job);
         return new JsonResponse($this->serializer->normalize($jobDetailOut, 'json'));
+    }
+
+    /**
+     * @IsGranted("ROLE_USER")
+     * @Route(name="apply", path="/apply/{id}")
+     * @param Job $job
+     * @return JsonResponse
+     */
+    public function apply(Job $job) : JsonResponse
+    {
+        $user = $this->getUser();
+        $job->addApplicant($user);
+        $this->getDoctrine()->getManager()->flush();
+
+        return new JsonResponse($this->serializer->normalize(true, 'json'));
     }
 }

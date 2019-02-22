@@ -9,6 +9,7 @@
 namespace App\Controller\Front;
 
 
+use App\Entity\Job;
 use App\Entity\Search\JobSearch;
 use App\Form\Search\JobSearchType;
 use App\Repository\JobRepository;

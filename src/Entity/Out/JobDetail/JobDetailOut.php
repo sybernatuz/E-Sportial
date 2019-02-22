@@ -48,6 +48,11 @@ class JobDetailOut
     private $createdAt;
 
     /**
+     * @var bool
+     */
+    private $isApplied;
+
+    /**
      * @var OrganizationOut
      */
     private $organization;
@@ -220,6 +225,26 @@ class JobDetailOut
         $this->createdAt = $createdAt;
         return $this;
     }
+
+    /**
+     * @return bool
+     */
+    public function isApplied(): bool
+    {
+        return $this->isApplied;
+    }
+
+    /**
+     * @param bool $isApplied
+     * @return JobDetailOut
+     */
+    public function setIsApplied(bool $isApplied): JobDetailOut
+    {
+        $this->isApplied = $isApplied;
+        return $this;
+    }
+
+
 
 
 

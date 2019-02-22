@@ -2,6 +2,7 @@
 
 namespace App\Controller\Back;
 
+use App\Repository\UserRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
 
@@ -12,13 +13,20 @@ use Symfony\Component\Routing\Annotation\Route;
  */
 class AdminStatisticController extends AbstractController
 {
+    private $userRepository;
+
+    public function __construct(UserRepository $userRepository)
+    {
+        $this->userRepository = $userRepository;
+    }
+
     /**
      * @Route(path="/statistic", name="index")
      */
     public function index()
     {
         return $this->render('pages/back/home.html.twig', [
-            'controller_name' => 'AdminStatisticController',
+            'registeredUsers' => $this->userRepository->count([])
         ]);
     }
 }

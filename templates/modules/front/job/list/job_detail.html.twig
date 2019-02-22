@@ -3,10 +3,10 @@
         <ul class="collection">
             <li class="collection-item avatar">
                 {% if jobDetail.user.avatar is defined and jobDetail.user.avatar is not null %}
-                    <img class="circle" src="{{ jobDetail.user.avatar }}">
+                    <img id="avatar" class="circle" src="{{ jobDetail.user.avatar }}">
                 {% endif %}
                 {% if jobDetail.organization.logoPath is defined and jobDetail.organization.logoPath is not null  %}
-                    <img class="circle" src="{{ jobDetail.organization.logoPath }}">
+                    <img id="avatar" class="circle" src="{{ jobDetail.organization.logoPath }}">
                 {% endif %}
                 <span class="title job-detail-title">{{ jobDetail.title }}</span>
                 <p class="job-infos">
@@ -24,5 +24,8 @@
             </li>
         </ul>
         <p class="job-description">{{ jobDetail.description }}</p>
+        {% if app.user %}
+            <button id="{{ jobDetail.id }}" class="btn apply">Apply</button>
+        {% endif %}
     {% endif %}
 </div>

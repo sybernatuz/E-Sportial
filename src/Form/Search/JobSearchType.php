@@ -64,7 +64,10 @@ class JobSearchType extends AbstractType
             'data_class' => JobSearch::class,
             'method' => 'get',
             'csrf_protection' => false,
-            'allow_extra_fields' => true
+            'allow_extra_fields' => true,
+            'attr' => [
+                'class' => 'search-form'
+            ]
         ]);
     }
 

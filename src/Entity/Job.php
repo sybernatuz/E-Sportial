@@ -2,6 +2,8 @@
 
 namespace App\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -66,6 +68,16 @@ class Job
      * @ORM\Column(type="string", length=255)
      */
     private $location;
+
+    /**
+     * @ORM\ManyToMany(targetEntity="App\Entity\User", inversedBy="appliedJobs")
+     */
+    private $applicants;
+
+    public function __construct()
+    {
+        $this->applicants = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -188,6 +200,32 @@ class Job
     public function setLocation(string $location): self
     {
         $this->location = $location;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|User[]
+     */
+    public function getApplicants(): Collection
+    {
+        return $this->applicants;
+    }
+
+    public function addApplicant(User $applicant): self
+    {
+        if (!$this->applicants->contains($applicant)) {
+            $this->applicants[] = $applicant;
+        }
+
+        return $this;
+    }
+
+    public function removeApplicant(User $applicant): self
+    {
+        if ($this->applicants->contains($applicant)) {
+            $this->applicants->removeElement($applicant);
+        }
 
         return $this;
     }

@@ -187,6 +187,11 @@ class User implements UserInterface
      */
     private $organization;
 
+    /**
+     * @ORM\ManyToMany(targetEntity="App\Entity\Job", mappedBy="applicants")
+     */
+    private $appliedJobs;
+
     public function __construct()
     {
         $this->groups = new ArrayCollection();
@@ -210,6 +215,7 @@ class User implements UserInterface
             $this->createdAt = new DateTime();
         } catch (\Exception $e) {
         }
+        $this->appliedJobs = new ArrayCollection();
     }
 
     /**
@@ -957,6 +963,34 @@ class User implements UserInterface
     public function setOrganization(?Organization $organization): self
     {
         $this->organization = $organization;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Job[]
+     */
+    public function getAppliedJobs(): Collection
+    {
+        return $this->appliedJobs;
+    }
+
+    public function addAppliedJob(Job $appliedJob): self
+    {
+        if (!$this->appliedJobs->contains($appliedJob)) {
+            $this->appliedJobs[] = $appliedJob;
+            $appliedJob->addApplicant($this);
+        }
+
+        return $this;
+    }
+
+    public function removeAppliedJob(Job $appliedJob): self
+    {
+        if ($this->appliedJobs->contains($appliedJob)) {
+            $this->appliedJobs->removeElement($appliedJob);
+            $appliedJob->removeApplicant($this);
+        }
 
         return $this;
     }
