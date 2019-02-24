@@ -3,7 +3,7 @@
 namespace App\Controller\Front;
 
 use App\Entity\User;
-use App\Form\RegistrationFormType;
+use App\Form\Front\RegistrationFormType;
 use App\Security\FrontLoginAuthenticator;
 use App\Services\layout\FooterService;
 use Doctrine\ORM\EntityManagerInterface;

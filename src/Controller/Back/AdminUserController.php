@@ -9,10 +9,8 @@
 namespace App\Controller\Back;
 
 
-use App\Entity\Search\Admin\UserSearchAdmin;
 use App\Entity\User;
-use App\Form\Search\Admin\UserSearchTypeAdmin;
-use App\Form\User\UserEditAdminFormType;
+use App\Form\Back\User\UserEditAdminFormType;
 use App\Repository\UserRepository;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;

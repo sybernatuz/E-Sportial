@@ -4,6 +4,7 @@ namespace App\Controller\Front;
 
 use App\Entity\Search\UserSearch;
 use App\Entity\User;
+use App\Form\Front\User\EditFormType;
 use App\Form\Search\UserSearchType;
 use App\Repository\UserRepository;
 use App\Services\layout\FooterService;
@@ -71,12 +72,26 @@ class UserController extends AbstractController
     /**
      * @Route(path="user/{slug}/edit", name="edit")
      * @param User $user
+     * @param Request $request
      * @return \Symfony\Component\HttpFoundation\Response
      */
-    public function edit(User $user) {
-
+    public function edit(User $user, Request $request)
+    {
+        $this->denyAccessUnlessGranted('editProfile', $user);
+        $form = $this->createForm(EditFormType::class, $user);
+        $form->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid()) {
+            try {
+                $this->getDoctrine()->getManager()->persist($user);
+                $this->getDoctrine()->getManager()->flush();
+                $this->addFlash('success', 'Profile edited successfully');
+            } catch (\Exception $e) {
+                $this->addFlash('error', 'An error occurred');
+            }
+        }
         return $this->render('pages/front/user/edit.html.twig', [
-                'user' => $user,
+                'form' => $form->createView(),
+                'user' => $user
             ] + $this->footerService->process());
     }
 }

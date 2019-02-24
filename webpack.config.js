@@ -20,6 +20,7 @@ Encore
 
     .addEntry('user_list', './assets/js/pages/front/user/list.js')
     .addEntry('user_show', './assets/js/pages/front/user/show.js')
+    .addEntry('user_edit', './assets/js/pages/front/user/edit.js')
     .addEntry('user_admin_list', './assets/js/pages/back/user/list.js')
     .addEntry('user_admin_edit', './assets/js/pages/back/user/edit.js')
 

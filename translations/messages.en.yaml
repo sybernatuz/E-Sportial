@@ -24,7 +24,6 @@ Recruitment: Recruitment
 Teams: Teams
 Advertisers: Advertisers
 
-
 #mail
 ##resetPassword
 mail.reset_password.subject: Set up a new password
@@ -53,3 +52,4 @@ Last name: Last name
 Age: Age
 Online: Online
 Offline: Offline
+Modify: Modify

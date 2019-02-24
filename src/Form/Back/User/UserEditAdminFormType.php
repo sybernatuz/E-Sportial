@@ -6,7 +6,7 @@
  * Time: 10:11
  */
 
-namespace App\Form\User;
+namespace App\Form\Back\User;
 
 
 use App\Entity\User;
