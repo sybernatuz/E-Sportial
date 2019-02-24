@@ -1,0 +1,7 @@
+<div class="col l4 m4 s4">
+    {% if user.avatar is not null %}
+        <img class="circle" src="{{ user.avatar }}" alt="user avatar">
+    {% else %}
+        No avatar
+    {% endif %}
+</div>

@@ -1,0 +1,58 @@
+{% import "modules/macro/flash_message.html.twig" as flashes %}
+
+<div class="col l8 m8 s8">
+    {{ flashes.get_messages() }}
+    <div class="row">
+        {{ form_start(form) }}
+        <div class="row">
+            <div class="input-field col s8 m8 l8 xl8">
+                {{ form_label(form.username) }}
+                {{ form_widget(form.username) }}
+                <div class="form-errors">
+                    {{ form_errors(form.username) }}
+                </div>
+            </div>
+            <div class="input-field col s4 m4 l4 xl4">
+                {{ form_widget(form.country) }}
+                {{ form_label(form.country) }}
+            </div>
+        </div>
+        <div class="row">
+            <div class="input-field col s12 m12 l12 xl12">
+                {{ form_label(form.email) }}
+                {{ form_widget(form.email) }}
+                <div class="form-error">
+                    {{ form_errors(form.email) }}
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="input-field col s4 m4 l4 xl4">
+                {{ form_label(form.firstname) }}
+                {{ form_widget(form.firstname) }}
+            </div>
+            <div class="input-field col s4 m4 l4 xl4">
+                {{ form_label(form.lastname) }}
+                {{ form_widget(form.lastname) }}
+            </div>
+            <div class="input-field col s4 m4 l4 xl4">
+                {{ form_label(form.age) }}
+                {{ form_widget(form.age) }}
+            </div>
+        </div>
+        <div class="row">
+            <div class="col s12 m12 l12 xl12">
+                <label>
+                    {{ form_widget(form.pro) }}
+                    <span>Professional</span>
+                </label>
+            </div>
+        </div>
+        <div class="row">
+            <div class="input-field col s12 m12 l12 xl12">
+                {{ form_widget(form.modify) }}
+            </div>
+        </div>
+        {{ form_end(form) }}
+    </div>
+</div>
