@@ -62,4 +62,16 @@ class JobRepository extends ServiceEntityRepository
             ->getQuery()
             ->getResult();
     }
+
+    public function findByUserApplied(int $id, User $user)
+    {
+        return $this->createQueryBuilder('j')
+            ->leftJoin('j.applicants', 'a')
+            ->where('j.id = :id')
+            ->setParameter(':id', $id)
+            ->andWhere('a = :applicant')
+            ->setParameter(':applicant', $user)
+            ->getQuery()
+            ->getResult();
+    }
 }

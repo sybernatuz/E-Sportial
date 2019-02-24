@@ -13,15 +13,18 @@ use App\Entity\Job;
 use App\Entity\Out\JobDetail\JobDetailOut;
 use App\Entity\Out\JobDetail\OrganizationOut;
 use App\Entity\Out\JobDetail\UserOut;
+use App\Repository\JobRepository;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 
 class Mapper
 {
     private $token;
+    private $jobRepository;
 
-    public function __construct(TokenStorageInterface $token)
+    public function __construct(TokenStorageInterface $token, JobRepository $jobRepository)
     {
         $this->token = $token;
+        $this->jobRepository = $jobRepository;
     }
 
     public function jobEntityToJobDetailOut(Job $job) : ?JobDetailOut
@@ -38,7 +41,8 @@ class Mapper
             ->setDuration($job->getDuration())
             ->setSalary($job->getSalary());
 
-        $user = $this->token->getToken()->getUser();
+
+        $jobDetail->setIsApplied($this->isJobApplied($job));
 
         if ($user = $job->getUser()) {
             $userOut = (new UserOut())
@@ -55,5 +59,12 @@ class Mapper
             $jobDetail->setOrganization($organizationOut);
         }
         return $jobDetail;
+    }
+
+    private function isJobApplied(Job $job) : bool
+    {
+        $user = $this->token->getToken()->getUser();
+        $applicant = $this->jobRepository->findByUserApplied($job->getId(), $user);
+        return $applicant == null ? false : true;
     }
 }

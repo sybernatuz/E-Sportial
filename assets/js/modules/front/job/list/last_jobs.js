@@ -26,26 +26,12 @@ $(function loadJobDetailOnClick() {
                     jobDetail.find('.job-creator-name').html(name);
                     jobDetail.find('.job-location').html(data.location);
                     jobDetail.find('.apply').attr('id', data.id);
-                    jobDetail.find('.apply').html('apply');
+                    let labelApplyButton = data.applied ? '<i class="material-icons">done</i>' : 'apply';
+                    jobDetail.find('.apply').html(labelApplyButton);
                     jobDetail.find('.apply').css('display', '');
                 }
         });
     });
 });
 
-$(function applyToJob() {
-    $(document).on('click', '.apply', function () {
-        $.ajax({
-            url: "/ajax/job/apply/" + $(this).attr('id'),
-            beforeSend: function () {
-                $('.job-detail').find('.apply').html(loading);
-            },
-            success: function (data) {
-                if (data === true)
-                    $('.job-detail').find('.apply').html('<i class="material-icons">done</i>');
-                else
-                    $('.job-detail').find('.apply').html('<i class="material-icons">clear</i>');
-            }
-        });
-    });
-});
+
