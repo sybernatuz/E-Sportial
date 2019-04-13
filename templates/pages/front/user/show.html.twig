@@ -13,7 +13,10 @@
         </div>
 
         <div class="col s12 m3 l3 xl3 right-align">
-            {% include "modules/front/common/action_member_buttons.html.twig" %}
+            {% if app.user %}
+                {% include "modules/front/common/action_member_buttons.html.twig" %}
+                {% include "modules/front/user/show/action_user_buttons.html.twig" %}
+            {% endif %}
         </div>
     </div>
 
@@ -22,7 +25,6 @@
     </div>
 
 
-    {% include "modules/front/common/contact_member_modal.html.twig" %}
 {% endblock %}
 
 {% block javascripts %}

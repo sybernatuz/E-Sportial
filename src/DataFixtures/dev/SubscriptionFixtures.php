@@ -1,13 +1,6 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: ldecultot
- * Date: 08/01/2019
- * Time: 15:46
- */
 
 namespace App\DataFixtures\dev;
-
 
 use App\Entity\Organization;
 use App\Entity\Subscription;
@@ -17,39 +10,26 @@ use Doctrine\Bundle\FixturesBundle\FixtureGroupInterface;
 use Doctrine\Common\DataFixtures\DependentFixtureInterface;
 use Doctrine\Common\Persistence\ObjectManager;
 use Faker\Factory;
-use Faker\Generator;
 
 class SubscriptionFixtures extends Fixture implements DependentFixtureInterface, FixtureGroupInterface
 {
-
     public function load(ObjectManager $manager)
     {
         $faker = Factory::create();
         $users = $manager->getRepository(User::class)->findAll();
         $organizations = $manager->getRepository(Organization::class)->findAll();
-        for ($i = 0; $i < 20; $i++) {
-            $subscription = (new Subscription())
-                ->setSubscriber($faker->randomElement($users));
-            $this->setOneOrganizationOrOneUser($subscription, $faker, $users, $organizations);
+
+        for ($i = 0; $i < 50; $i++) {
+            $subscription = (new Subscription())->setSubscriber($faker->randomElement($users));
+            if($i > 25) {
+                $subscription->setUser($faker->randomElement($users));
+            } else {
+                $subscription->setOrganization($faker->randomElement($organizations));
+            }
             $manager->persist($subscription);
         }
+
         $manager->flush();
-    }
-
-    public function getDependencies()
-    {
-        return [
-            UserFixtures::class,
-            OrganizationFixtures::class
-        ];
-    }
-
-    private function setOneOrganizationOrOneUser(Subscription &$subscription, Generator $faker, array $users, array $organizations) {
-        $isUser = $faker->boolean;
-        if ($isUser)
-            $subscription->setUser($faker->randomElement($users));
-        else
-            $subscription->setOrganization($faker->randomElement($organizations));
     }
 
     /**
@@ -61,5 +41,19 @@ class SubscriptionFixtures extends Fixture implements DependentFixtureInterface,
     public static function getGroups(): array
     {
         return ['dev'];
+    }
+
+    /**
+     * This method must return an array of fixtures classes
+     * on which the implementing class depends on
+     *
+     * @return array
+     */
+    public function getDependencies()
+    {
+        return [
+            OrganizationFixtures::class,
+            UserFixtures::class
+        ];
     }
 }

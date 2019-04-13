@@ -117,12 +117,12 @@ class User implements UserInterface
     private $recruitments;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Subscription", mappedBy="user", cascade={"remove"})
+     * @ORM\OneToMany(targetEntity="App\Entity\Subscription", mappedBy="user", orphanRemoval=true)
      */
     private $subscriptions;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Subscription", mappedBy="subscriber", cascade={"remove"})
+     * @ORM\OneToMany(targetEntity="App\Entity\Subscription", mappedBy="subscriber", orphanRemoval=true)
      */
     private $subscribed;
 

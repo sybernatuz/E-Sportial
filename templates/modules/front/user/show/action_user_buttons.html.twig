@@ -1,0 +1,24 @@
+{% if user %}
+    {% if app.user.id == user.id %}
+        <div class="row">
+            <a href="{{ path("app_user_edit", {slug: app.user.slug}) }}" class="waves-effect waves-light btn">
+                <i class="material-icons left">settings</i>
+                Edit profile
+            </a>
+        </div>
+    {% else %}
+        <div class="row">
+        {% if hasSubscribed(app.user,user) %}
+            <a id="unsubscribe" data-user-id="{{ user.id }}" class="waves-effect waves-light btn">
+                <i class="material-icons left">clear</i>
+                Unsubscribe
+            </a>
+        {% else %}
+            <a id="subscribe" data-user-id="{{ user.id }}" class="waves-effect waves-light btn">
+                <i class="material-icons left">done</i>
+                Subscribe
+            </a>
+        {% endif %}
+        </div>
+    {% endif %}
+{% endif %}

@@ -3,7 +3,9 @@
 namespace App\Repository;
 
 use App\Entity\Subscription;
+use App\Entity\User;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\ORM\NonUniqueResultException;
 use Symfony\Bridge\Doctrine\RegistryInterface;
 
 /**
@@ -19,32 +21,54 @@ class SubscriptionRepository extends ServiceEntityRepository
         parent::__construct($registry, Subscription::class);
     }
 
-    // /**
-    //  * @return Subscription[] Returns an array of Subscription objects
-    //  */
-    /*
-    public function findByExampleField($value)
-    {
+    /**
+     * @param User $user
+     * @return mixed
+     */
+    public function getListOfSubscriptions(User $user) {
         return $this->createQueryBuilder('s')
-            ->andWhere('s.exampleField = :val')
-            ->setParameter('val', $value)
-            ->orderBy('s.id', 'ASC')
-            ->setMaxResults(10)
-            ->getQuery()
-            ->getResult()
-        ;
+                    ->select('u')
+                    ->join(User::class, 'u', 'WITH', 's.user = u.id')
+                    ->where("s.subscriber = :user")
+                    ->setParameter("user", $user)
+                    ->getQuery()->getResult();
     }
-    */
 
-    /*
-    public function findOneBySomeField($value): ?Subscription
-    {
+    /**
+     * @param User $user
+     * @return mixed
+     */
+    public function getListOfSubscriber(User $user) {
         return $this->createQueryBuilder('s')
-            ->andWhere('s.exampleField = :val')
-            ->setParameter('val', $value)
-            ->getQuery()
-            ->getOneOrNullResult()
-        ;
+            ->select('u')
+            ->join(User::class, 'u', 'WITH', 's.subscriber = u.id')
+            ->where("s.user = :user")
+            ->setParameter("user", $user)
+            ->getQuery()->getResult();
     }
-    */
+
+    /**
+     * @param User $subscriber
+     * @param $member
+     * @return mixed|null |null
+     */
+    public function findBySubscriberAndMember(User $subscriber, $member) {
+        $query = $this->createQueryBuilder('s');
+
+        if(get_class($member) == User::class) {
+            $query->where("s.user = :member");
+        } else {
+            $query->where("s.organization = :member");
+        }
+
+        $query->andWhere("s.subscriber = :subscriber")
+              ->setParameter("member", $member)
+              ->setParameter("subscriber", $subscriber);
+
+        try {
+            return $query->getQuery()->getOneOrNullResult();
+        } catch (NonUniqueResultException $e) {
+            return null;
+        }
+    }
 }

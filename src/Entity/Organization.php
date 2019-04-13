@@ -86,7 +86,7 @@ class Organization
     private $recruitments;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Subscription", mappedBy="organization")
+     * @ORM\OneToMany(targetEntity="App\Entity\Subscription", mappedBy="organization", orphanRemoval=true)
      */
     private $subscriptions;
 
