@@ -1,10 +1,11 @@
 $(document).ready( function () {
-    $('#user-table').DataTable({
+    $('#game-table').DataTable({
         columnDefs: [
             {
                 targets: "no-sort",
                 orderable: false
             }
-        ],
+        ]
     });
+
 });

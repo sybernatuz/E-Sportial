@@ -1,0 +1,10 @@
+.game-image {
+  width: 85px;
+}
+
+@media (max-width: 992px) {
+  .game-image {
+    width: auto;
+    height: 100%;
+  }
+}

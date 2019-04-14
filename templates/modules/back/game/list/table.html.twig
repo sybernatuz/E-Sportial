@@ -1,0 +1,31 @@
+<table id="game-table" class="display responsive-table nowrap">
+    <thead>
+        <tr>
+            <th class="no-sort">IMAGE</th>
+            <th>NAME</th>
+            <th>API URL</th>
+            <th class="no-sort">Edit</th>
+            <th class="no-sort">Delete</th>
+        </tr>
+    </thead>
+
+    <tbody>
+    {% for game in games %}
+        <tr>
+            <td><img class="game-image" src="{{ game.posterPath }}"></td>
+            <td>{{ game.name }}</td>
+            <td>{{ game.apiUrl }}</td>
+            <td>
+                <a href="{{ path('app_admin_game_edit', {'slug' : game.slug }) }}">
+                    <i class="material-icons">edit</i>
+                </a>
+            </td>
+            <td>
+                <a href="{{ path('app_admin_game_delete', {'slug' : game.slug}) }}">
+                    <i class="material-icons">delete</i>
+                </a>
+            </td>
+        </tr>
+    {% endfor %}
+    </tbody>
+</table>

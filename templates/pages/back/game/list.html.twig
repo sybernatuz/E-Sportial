@@ -2,19 +2,21 @@
 {% import "modules/macro/flash_message.html.twig" as flashes %}
 
 {% block stylesheets %}
-    {{ encore_entry_link_tags('user_admin_list') }}
+    {{ encore_entry_link_tags('game_admin_list') }}
 {% endblock %}
+
+{% block title %}Dashboard - Games{% endblock %}
 
 {% block body %}
     {{ flashes.get_success_messages() }}
 
     <div class="row">
         <div class="col s12 m12 l12 xl12">
-            {% include 'modules/back/user/list/table.html.twig' %}
+            {% include 'modules/back/game/list/table.html.twig' %}
         </div>
     </div>
 {% endblock %}
 
 {% block javascripts %}
-    {{ encore_entry_script_tags('user_admin_list') }}
+    {{ encore_entry_script_tags('game_admin_list') }}
 {% endblock %}
