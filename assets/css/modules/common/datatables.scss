@@ -267,6 +267,10 @@ div.dataTables_wrapper div.dataTables_filter input {
   vertical-align: middle;
 }
 
+.dataTables_wrapper .table-body {
+  overflow: auto;
+}
+
 .datatables_wrapper .table-body.row {
   margin-bottom: 0;
 }
