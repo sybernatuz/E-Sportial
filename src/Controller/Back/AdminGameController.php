@@ -3,9 +3,12 @@
 namespace App\Controller\Back;
 
 use App\Entity\Game;
+use App\Form\Back\Game\GameFormAdminType;
 use App\Repository\GameRepository;
+use App\Services\FileUploaderService;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 
 /**
@@ -17,11 +20,13 @@ class AdminGameController extends AbstractController
 {
     private $em;
     private $gameRepository;
+    private $fileUploader;
 
-    public function __construct(EntityManagerInterface $em, GameRepository $gameRepository)
+    public function __construct(EntityManagerInterface $em, GameRepository $gameRepository, FileUploaderService $fileUploader)
     {
         $this->em = $em;
         $this->gameRepository = $gameRepository;
+        $this->fileUploader = $fileUploader;
     }
 
     /**
@@ -35,25 +40,69 @@ class AdminGameController extends AbstractController
     }
 
     /**
-     * @Route("/admin/game/{slug}/edit", name="edit")
-     * @param Game $game
+     * @Route("/admin/game/new", name="new", options={"expose"=true})
+     * @param Request $request
      * @return \Symfony\Component\HttpFoundation\Response
      */
-    public function edit(Game $game)
+    public function new(Request $request)
     {
-        return $this->render('pages/back/game/edit.html.twig', [
-            'game' => $game
+        $game = new Game();
+        $gameForm = $this->createForm(GameFormAdminType::class, $game);
+        $gameForm->handleRequest($request);
+
+        if ($gameForm->isSubmitted() && $gameForm->isValid()) {
+            if($game->getPosterFile()) {
+                $fileName = $this->fileUploader->upload($game->getPosterFile(), "games");
+                $game->setPosterPath($fileName);
+            }
+            $this->em->persist($game);
+            $this->em->flush();
+
+            $this->addFlash("success", "Game created successfully");
+            return $this->redirectToRoute('app_admin_game_list');
+        }
+
+        return $this->render('pages/back/game/new.html.twig', [
+            'gameForm' => $gameForm->createView(),
         ]);
     }
 
     /**
-     * @Route("/admin/game/{slug}/delete", name="delete")
+     * @Route("/admin/game/{slug}/edit", name="edit")
+     * @param Game $game
+     * @param Request $request
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
+    public function edit(Game $game, Request $request)
+    {
+        $gameForm = $this->createForm(GameFormAdminType::class, $game);
+        $oldFile = $game->getPosterFile();
+        $gameForm->handleRequest($request);
+
+        if ($gameForm->isSubmitted() && $gameForm->isValid()) {
+            if($game->getPosterFile()) {
+                $fileName = $this->fileUploader->upload($game->getPosterFile(), "games", true, $oldFile);
+                $game->setPosterPath($fileName);
+            }
+            $this->em->flush();
+
+            $this->addFlash("success", "Game updated successfully");
+            return $this->redirectToRoute('app_admin_game_list');
+        }
+
+        return $this->render('pages/back/game/edit.html.twig', [
+            'gameForm' => $gameForm->createView(),
+        ]);
+    }
+
+    /**
+     * @Route("/admin/game/{id}/delete", name="delete")
      * @param Game $game
      * @return \Symfony\Component\HttpFoundation\RedirectResponse
      */
     public function delete(Game $game)
     {
-        $this->em->remove($game);
+        $game->setEnable(false);
         $this->em->flush();
 
         $this->addFlash("success", "Game delete successfully");

@@ -2,6 +2,7 @@
 <html>
     <head>
         <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
         <link rel="icon" href="{{ asset('build/images/favicon.png') }}" sizes="32x32">
         <title>{% block title %}Dashboard{% endblock %}</title>
         {{ encore_entry_link_tags('app') }}
@@ -19,6 +20,8 @@
         </div>
 
         {% block javascripts %}
+            <script src="{{ asset('bundles/fosjsrouting/js/router.js') }}"></script>
+            <script src="{{ path('fos_js_routing_js', { callback: 'fos.Router.setData' }) }}"></script>
         {% endblock %}
 
         {{ encore_entry_script_tags('app') }}

@@ -53,7 +53,7 @@ class MailerService
     {
         $message = (new \Swift_Message($subject));
 
-        $logo = ['logo' => $message->embed(\Swift_Image::fromPath( $this->params->get('project_dir') . '/public' . $this->assetManager->getUrl('build/images/logo.png')))];
+        $logo = ['logo' => $message->embed(\Swift_Image::fromPath( $this->params->get('public_dir') . $this->assetManager->getUrl('build/images/logo.png')))];
 
         $message->setFrom($this->params->get('mailer_username'))
                 ->setTo($to);

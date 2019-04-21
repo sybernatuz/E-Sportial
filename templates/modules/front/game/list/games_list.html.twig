@@ -5,11 +5,11 @@
                 <div class="col s12 m6 l3">
                     <div class="card">
                         <div class="card-image">
-                            <img src="{{ game.posterPath is defined ? game.posterPath }}">
+                            <img src="{{ asset(game_images_dir ~ game.posterPath) }}">
                         </div>
                         <div class="card-content">
                             <div class="center-align">
-                                <span class="game-name">{{ game.name is defined ? game.name }}</span>
+                                <span class="game-name">{{ game.name }}</span>
                             </div>
                         </div>
                     </div>

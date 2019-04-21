@@ -18,11 +18,11 @@
       ), $direction);
 
       .m#{$direction}#{$i} {
-        margin-#{$attribute-direction}: #{$attr-value}px;
+        margin-#{$attribute-direction}: #{$attr-value}px !important;
       }
 
       .p#{$direction}#{$i} {
-        margin-#{$attribute-direction}: #{$attr-value}px;
+        margin-#{$attribute-direction}: #{$attr-value}px !important;
       }
     }
   }

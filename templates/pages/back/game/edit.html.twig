@@ -1,0 +1,18 @@
+{% extends 'dashboard.html.twig' %}
+{% import "modules/macro/flash_message.html.twig" as flashes %}
+
+{% block stylesheets %}
+    {{ encore_entry_link_tags('game_admin_edit') }}
+{% endblock %}
+
+{% block body %}
+    {{ flashes.get_success_messages() }}
+
+    <div class="row">
+        {% include 'modules/back/common/form/game/form.html.twig' %}
+    </div>
+{% endblock %}
+
+{% block javascripts %}
+    {{ encore_entry_script_tags('game_admin_edit') }}
+{% endblock %}

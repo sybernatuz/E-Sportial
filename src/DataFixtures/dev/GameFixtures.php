@@ -14,9 +14,17 @@ use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Bundle\FixturesBundle\FixtureGroupInterface;
 use Doctrine\Common\Persistence\ObjectManager;
 use Faker\Factory;
+use Symfony\Component\Asset\Packages;
 
 class GameFixtures extends Fixture implements FixtureGroupInterface
 {
+    private $packages;
+
+    public function __construct(Packages $packages)
+    {
+        $this->packages = $packages;
+    }
+
     public function load(ObjectManager $manager)
     {
         $faker = Factory::create();
@@ -25,7 +33,7 @@ class GameFixtures extends Fixture implements FixtureGroupInterface
                 ->setApiUrl($faker->url)
                 ->setDescription($faker->text)
                 ->setName($faker->name)
-                ->setPosterPath($faker->imageUrl());
+                ->setPosterPath('defaultPoster.jpg');
             $manager->persist($game);
         }
         $manager->flush();

@@ -7,9 +7,6 @@
 const $ = require('jquery');
 global.$ = global.jQuery = $;
 
-
-
-
 // Need jQuery? Install it with "yarn add jquery", then uncomment to require it.
 // any CSS you require will output into a single css file (app.scss in this case)
 
@@ -18,6 +15,7 @@ require('../css/app.scss');
 require('../js/images/images');
 
 require('../js/modules/common/navbar');
+
 
 require('materialize-css/dist/css/materialize.css');
 require('materialize-css/dist/js/materialize.js');

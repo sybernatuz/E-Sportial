@@ -32,6 +32,9 @@ Encore
 
     .addEntry('game_list', './assets/js/pages/front/game/list.js')
     .addEntry('game_show', './assets/js/pages/front/game/show.js')
+    .addEntry('game_admin_list', './assets/js/pages/back/game/list.js')
+    .addEntry('game_admin_edit', './assets/js/pages/back/game/edit.js')
+    .addEntry('game_admin_new', './assets/js/pages/back/game/new.js')
 
     .addEntry('register', './assets/js/pages/front/security/register.js')
 

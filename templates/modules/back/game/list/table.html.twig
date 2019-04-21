@@ -1,9 +1,12 @@
-<table id="game-table" class="display responsive-table nowrap">
+{% import 'modules/macro/game.html.twig' as gameMacro %}
+
+<table id="game-table" class="display responsive-table">
     <thead>
         <tr>
             <th class="no-sort">IMAGE</th>
             <th>NAME</th>
             <th>API URL</th>
+            <th>Enabled</th>
             <th class="no-sort">Edit</th>
             <th class="no-sort">Delete</th>
         </tr>
@@ -12,16 +15,17 @@
     <tbody>
     {% for game in games %}
         <tr>
-            <td><img class="game-image" src="{{ game.posterPath }}"></td>
+            <td><img class="game-image" src="{{ asset( game_images_dir ~ game.posterPath) }}"></td>
             <td>{{ game.name }}</td>
             <td>{{ game.apiUrl }}</td>
+            <td>{{ gameMacro.delete_status(game.enable) }}</td>
             <td>
                 <a href="{{ path('app_admin_game_edit', {'slug' : game.slug }) }}">
                     <i class="material-icons">edit</i>
                 </a>
             </td>
             <td>
-                <a href="{{ path('app_admin_game_delete', {'slug' : game.slug}) }}">
+                <a href="{{ path('app_admin_game_delete', {'id' : game.id}) }}">
                     <i class="material-icons">delete</i>
                 </a>
             </td>

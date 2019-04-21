@@ -3,7 +3,7 @@ require('../../../css/modules/common/datatables.scss');
 (function( factory ){
     if ( typeof define === 'function' && define.amd ) {
         // AMD
-        define( ['jquery', 'datatables.net'], function ( $ ) {
+        define( ['jquery', 'datatables.net', 'datatables.net-buttons'], function ( $ ) {
             return factory( $, window, document );
         } );
     }
@@ -19,6 +19,7 @@ require('../../../css/modules/common/datatables.scss');
                 // jQuery if needed and have a $ property so we can access the
                 // jQuery object that is used
                 $ = require('datatables.net')(root, $).$;
+                $ = require('datatables.net-buttons')(root, $).$;
             }
 
             return factory( $, root, root.document );
@@ -140,7 +141,7 @@ require('../../../css/modules/common/datatables.scss');
         },
         sPaginationType: 'listbox',
         dom:
-            "<'row'<'col s6 offset-m6'f>>" +
+            "<'row valign-wrapper'<'col s6 m6 l6 xl6'B><'col s6 m6 l6 xl6'f>>" +
             "<'row table-body'<'col s12'tr>>" +
             "<'row'<'col s12 bottom-row'pli<'chev'>>>",
         renderer: 'bootstrap',

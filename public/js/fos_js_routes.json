@@ -1,0 +1,1 @@
+{"base_url":"","routes":{"app_admin_game_new":{"tokens":[["text","\/admin\/game\/new"]],"defaults":[],"requirements":[],"hosttokens":[],"methods":[],"schemes":[]}},"prefix":"","host":"localhost","port":"","scheme":"http"}

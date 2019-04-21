@@ -2,16 +2,21 @@
 
 namespace App\Entity;
 
+use App\Entity\EnableTrait\EnableTrait;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\GameRepository")
  */
 class Game
 {
+    use EnableTrait;
+
     /**
      * @ORM\Id()
      * @ORM\GeneratedValue()
@@ -28,6 +33,15 @@ class Game
      * @ORM\Column(type="string", length=255)
      */
     private $posterPath;
+
+    /**
+     * @Assert\File(
+     *     maxSize = "1024k",
+     *     mimeTypes = {"image/png", "image/pjpeg", "image/jpeg","image/gif" },
+     *     mimeTypesMessage = "Please upload a valid image"
+     * )
+     */
+    private $posterFile;
 
     /**
      * @ORM\Column(type="text", nullable=true)
@@ -73,16 +87,26 @@ class Game
         $this->jobs = new ArrayCollection();
     }
 
+    /**
+     * @return int|null
+     */
     public function getId(): ?int
     {
         return $this->id;
     }
 
+    /**
+     * @return string|null
+     */
     public function getName(): ?string
     {
         return $this->name;
     }
 
+    /**
+     * @param string $name
+     * @return Game
+     */
     public function setName(string $name): self
     {
         $this->name = $name;
@@ -90,14 +114,36 @@ class Game
         return $this;
     }
 
-    public function getPosterPath() : string
+    public function getPosterPath()
     {
         return $this->posterPath;
     }
 
+    /**
+     * @param $posterPath
+     * @return Game
+     */
     public function setPosterPath($posterPath) : self
     {
         $this->posterPath = $posterPath;
+        return $this;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getPosterFile()
+    {
+        return $this->posterFile;
+    }
+
+    /**
+     * @param $posterFile
+     * @return Game
+     */
+    public function setPosterFile($posterFile): self
+    {
+        $this->posterFile = $posterFile;
         return $this;
     }
 
@@ -113,11 +159,18 @@ class Game
         return $this;
     }
 
+    /**
+     * @return string|null
+     */
     public function getApiUrl(): ?string
     {
         return $this->apiUrl;
     }
 
+    /**
+     * @param string|null $apiUrl
+     * @return Game
+     */
     public function setApiUrl(?string $apiUrl): self
     {
         $this->apiUrl = $apiUrl;
@@ -133,6 +186,10 @@ class Game
         return $this->rosters;
     }
 
+    /**
+     * @param Roster $roster
+     * @return Game
+     */
     public function addRoster(Roster $roster): self
     {
         if (!$this->rosters->contains($roster)) {
@@ -143,6 +200,10 @@ class Game
         return $this;
     }
 
+    /**
+     * @param Roster $roster
+     * @return Game
+     */
     public function removeRoster(Roster $roster): self
     {
         if ($this->rosters->contains($roster)) {
@@ -164,6 +225,10 @@ class Game
         return $this->plays;
     }
 
+    /**
+     * @param Play $play
+     * @return Game
+     */
     public function addPlay(Play $play): self
     {
         if (!$this->plays->contains($play)) {
@@ -174,6 +239,10 @@ class Game
         return $this;
     }
 
+    /**
+     * @param Play $play
+     * @return Game
+     */
     public function removePlay(Play $play): self
     {
         if ($this->plays->contains($play)) {
@@ -195,6 +264,10 @@ class Game
         return $this->parties;
     }
 
+    /**
+     * @param Party $party
+     * @return Game
+     */
     public function addParty(Party $party): self
     {
         if (!$this->parties->contains($party)) {
@@ -205,6 +278,10 @@ class Game
         return $this;
     }
 
+    /**
+     * @param Party $party
+     * @return Game
+     */
     public function removeParty(Party $party): self
     {
         if ($this->parties->contains($party)) {
@@ -226,6 +303,10 @@ class Game
         return $this->jobs;
     }
 
+    /**
+     * @param Job $job
+     * @return Game
+     */
     public function addJob(Job $job): self
     {
         if (!$this->jobs->contains($job)) {
@@ -236,6 +317,10 @@ class Game
         return $this;
     }
 
+    /**
+     * @param Job $job
+     * @return Game
+     */
     public function removeJob(Job $job): self
     {
         if ($this->jobs->contains($job)) {
@@ -249,11 +334,18 @@ class Game
         return $this;
     }
 
+    /**
+     * @return string|null
+     */
     public function getSlug(): ?string
     {
         return $this->slug;
     }
 
+    /**
+     * @param string $slug
+     * @return Game
+     */
     public function setSlug(string $slug): self
     {
         $this->slug = $slug;

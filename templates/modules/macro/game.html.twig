@@ -1,0 +1,7 @@
+{% macro delete_status(enable) %}
+    {% if enable %}
+        <i class="material-icons green-text">done</i>
+    {% else %}
+        <i class="material-icons red-text">close</i>
+    {% endif %}
+{% endmacro %}
