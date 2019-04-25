@@ -8,7 +8,7 @@
 
 {% block body %}
     <div class="row">
-        <div id="user-details" class="col s12 m9 l9 xl9">
+        <div id="user-details" data-user-id="{{ user.id }}" class="col s12 m9 l9 xl9">
             {% include "modules/front/user/show/user_profil_information.html.twig" %}
         </div>
 
@@ -21,7 +21,7 @@
     </div>
 
     <div class="row">
-        {% include "modules/front/user/show/user_profil_tab.html.twig" %}
+        {% include "modules/front/user/show/user_profil_tabs.html.twig" %}
     </div>
 
 

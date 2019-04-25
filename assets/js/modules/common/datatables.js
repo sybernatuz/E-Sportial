@@ -141,7 +141,7 @@ require('../../../css/modules/common/datatables.scss');
         },
         sPaginationType: 'listbox',
         dom:
-            "<'row valign-wrapper'<'col s6 m6 l6 xl6'B><'col s6 m6 l6 xl6'f>>" +
+            "<'row valign-wrapper'<'col s12 m6 l6 xl6'B><'col s12 m6 l6 xl6'f>>" +
             "<'row table-body'<'col s12'tr>>" +
             "<'row'<'col s12 bottom-row'pli<'chev'>>>",
         renderer: 'bootstrap',

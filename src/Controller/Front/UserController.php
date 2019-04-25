@@ -10,6 +10,7 @@ use App\Repository\UserRepository;
 use App\Services\layout\FooterService;
 use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 
@@ -64,6 +65,7 @@ class UserController extends AbstractController
      */
     public function show(User $user)
     {
+        // Form game
         return $this->render('pages/front/user/show.html.twig', [
             'user' => $user,
         ] + $this->footerService->process());
@@ -89,6 +91,7 @@ class UserController extends AbstractController
                 $this->addFlash('error', 'An error occurred');
             }
         }
+
         return $this->render('pages/front/user/edit.html.twig', [
                 'form' => $form->createView(),
                 'user' => $user

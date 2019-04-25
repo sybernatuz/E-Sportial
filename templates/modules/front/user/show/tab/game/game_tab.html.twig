@@ -1,0 +1,10 @@
+<div class="container-fluide">
+    {% if app.user and user.id == app.user.id %}
+        <div class="row" id="user-profile-add-game">
+            {% include 'modules/front/user/show/form/game/add_game_form.html.twig' %}
+        </div>
+    {% endif %}
+    <div class="row" id="user-profile-games">
+        {% include 'modules/front/game/list/games_list.html.twig' %}
+    </div>
+</div>

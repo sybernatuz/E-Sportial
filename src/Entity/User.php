@@ -192,6 +192,12 @@ class User implements UserInterface
      */
     private $appliedJobs;
 
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\GameAccount", mappedBy="gamer", orphanRemoval=true)
+     */
+    private $gameAccounts;
+
+
     public function __construct()
     {
         $this->groups = new ArrayCollection();
@@ -216,6 +222,7 @@ class User implements UserInterface
         } catch (\Exception $e) {
         }
         $this->appliedJobs = new ArrayCollection();
+        $this->gameAccounts = new ArrayCollection();
     }
 
     /**
@@ -995,5 +1002,34 @@ class User implements UserInterface
         return $this;
     }
 
+    /**
+     * @return Collection|GameAccount[]
+     */
+    public function getGameAccounts(): Collection
+    {
+        return $this->gameAccounts;
+    }
 
+    public function addGameAccount(GameAccount $gameAccount): self
+    {
+        if (!$this->gameAccounts->contains($gameAccount)) {
+            $this->gameAccounts[] = $gameAccount;
+            $gameAccount->setGamer($this);
+        }
+
+        return $this;
+    }
+
+    public function removeGameAccount(GameAccount $gameAccount): self
+    {
+        if ($this->gameAccounts->contains($gameAccount)) {
+            $this->gameAccounts->removeElement($gameAccount);
+            // set the owning side to null (unless already changed)
+            if ($gameAccount->getGamer() === $this) {
+                $gameAccount->setGamer(null);
+            }
+        }
+
+        return $this;
+    }
 }

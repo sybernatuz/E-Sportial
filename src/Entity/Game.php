@@ -7,7 +7,6 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
-use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
@@ -79,12 +78,19 @@ class Game
      */
     private $slug;
 
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\GameAccount", mappedBy="game", orphanRemoval=true)
+     */
+    private $gameAccounts;
+
+
     public function __construct()
     {
         $this->rosters = new ArrayCollection();
         $this->plays = new ArrayCollection();
         $this->parties = new ArrayCollection();
         $this->jobs = new ArrayCollection();
+        $this->gameAccounts = new ArrayCollection();
     }
 
     /**
@@ -349,6 +355,37 @@ class Game
     public function setSlug(string $slug): self
     {
         $this->slug = $slug;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|GameAccount[]
+     */
+    public function getGameAccounts(): Collection
+    {
+        return $this->gameAccounts;
+    }
+
+    public function addGameAccount(GameAccount $gameAccount): self
+    {
+        if (!$this->gameAccounts->contains($gameAccount)) {
+            $this->gameAccounts[] = $gameAccount;
+            $gameAccount->setGame($this);
+        }
+
+        return $this;
+    }
+
+    public function removeGameAccount(GameAccount $gameAccount): self
+    {
+        if ($this->gameAccounts->contains($gameAccount)) {
+            $this->gameAccounts->removeElement($gameAccount);
+            // set the owning side to null (unless already changed)
+            if ($gameAccount->getGame() === $this) {
+                $gameAccount->setGame(null);
+            }
+        }
 
         return $this;
     }

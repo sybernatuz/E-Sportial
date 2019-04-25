@@ -1,0 +1,15 @@
+{{ form_start(form) }}
+<div class="row">
+    <div class="input-field col s12 m5 l5 xl5">
+        {{ form_widget(form.game) }}
+        {{ form_label(form.game) }}
+    </div>
+    <div class="input-field col s12 m5 l5 xl5">
+        {{ form_widget(form.pseudo) }}
+        {{ form_label(form.pseudo) }}
+    </div>
+    <div class="input-field col s12 m2 l2 xl2">
+        {{ form_widget(form.add) }}
+    </div>
+</div>
+{{ form_end(form) }}

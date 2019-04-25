@@ -1,0 +1,1 @@
+require('./tab/game_tab');
