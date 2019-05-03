@@ -33,8 +33,8 @@ class AddGameFormType extends AbstractType
                     return $gameRepository->createQueryBuilder('g')->orderBy('g.name', 'ASC');
                 },
                 'choice_label' => 'name',
-                'choice_attr' => function(Game $entity, $key, $value) {
-                    return ['data-icon' => $entity->getPosterPath()];
+                'choice_attr' => function(Game $game, $key, $value) {
+                    return ['data-icon' => $game->getPosterPath()];
                 },
                 'attr' => [
                     'class' => 'icons'

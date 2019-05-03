@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\GameAccountRepository")
@@ -18,18 +19,21 @@ class GameAccount
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Assert\NotBlank
      */
     private $pseudo;
 
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\Game", inversedBy="gameAccounts")
      * @ORM\JoinColumn(nullable=false)
+     * @Assert\NotBlank
      */
     private $game;
 
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\User", inversedBy="gameAccounts")
      * @ORM\JoinColumn(nullable=false)
+     * @Assert\NotBlank
      */
     private $gamer;
 

@@ -6,6 +6,7 @@ use App\Entity\Game;
 use App\Entity\GameAccount;
 use App\Entity\User;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\ORM\NonUniqueResultException;
 use Symfony\Bridge\Doctrine\RegistryInterface;
 
 /**
@@ -21,15 +22,17 @@ class GameAccountRepository extends ServiceEntityRepository
         parent::__construct($registry, GameAccount::class);
     }
 
-    public function findUserGames(User $user ) {
-        return $this->createQueryBuilder('ga')
-            ->select('g')
-            ->join(User::class, 'u', 'WITH', 'ga.gamer = u.id')
-            ->join(Game::class, 'g', 'WITH', 'ga.game = g.id')
-            ->where('ga.gamer = :user')
-            ->setParameter('user', $user)
-            ->orderBy('g.name', 'ASC')
-            ->getQuery()
-            ->getResult();
+    public function findByUserAndGame(User $user, Game $game) {
+        $query = $this->createQueryBuilder('ga')
+                    ->where('ga.gamer = :user AND ga.game = :game')
+                    ->setParameter('user', $user)
+                    ->setParameter('game', $game)
+                    ->getQuery();
+
+        try {
+            return $query->getOneOrNullResult();
+        } catch (NonUniqueResultException $e) {
+            return null;
+        }
     }
 }

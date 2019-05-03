@@ -1,0 +1,341 @@
+<div id="fortnite_stat_tab" class="row">
+    <div class="col s12 m12 l12 xl12">
+        <div class="row">
+            <div class="col s12 m12 l12 xl12">
+                <h5>Username : {{ data.epicName }}</h5>
+            </div>
+        </div>
+        <div id="global-stats" class="row mb0">
+            <div class="col s12 m3 l3 xl3 center">
+                <div class="row">
+                    <div class="col s12 m12 l12 xl12">
+                        <p><b>VICTORY</b></p>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col s12 m12 l12 xl12">
+                        <span class="stat-number">{{ data.overallData.defaultModes.placetop1 }}</span>
+                    </div>
+                </div>
+            </div>
+            <div class="col s12 m3 l3 xl3 center">
+                <div class="row">
+                    <div class="col s12 m12 l12 xl12">
+                        <p><b>% OF VICTORY</b></p>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col s12 m12 l12 xl12">
+                        <span class="stat-number">
+                            {{ ((data.overallData.defaultModes.placetop1 / data.overallData.defaultModes.matchesplayed) * 100) | round(2, 'floor') }}
+                        </span>
+                    </div>
+                </div>
+            </div>
+            <div class="col s12 m3 l3 xl3 center">
+                <div class="row">
+                    <div class="col s12 m12 l12 xl12">
+                        <p><b>KILL</b></p>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col s12 m12 l12 xl12">
+                        <span class="stat-number">{{ data.overallData.defaultModes.kills }}</span>
+                    </div>
+                </div>
+            </div>
+            <div class="col s12 m3 l3 xl3 center">
+                <div class="row">
+                    <div class="col s12 m12 l12 xl12">
+                        <p><b>K/D</b></p>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col s12 m12 l12 xl12">
+                        <span class="stat-number">{{ (data.overallData.defaultModes.kills / (data.overallData.defaultModes.matchesplayed - data.overallData.defaultModes.placetop1)) | round(2, 'floor') }}</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div id="modes-stats" class="row pt2">
+            {% for i in 0..2 %}
+                <div class="col s12 m4 l4 xl4 center">
+                    <div class="row header-stat">
+                        <div class="col s12 m6 l6 xl6">
+                            <span>
+                                <b>
+                                    {% if i == 0 %}
+                                        SOLO
+                                    {% elseif i == 1 %}
+                                        DUO
+                                    {% else %}
+                                        SQUAD
+                                    {% endif %}
+                                </b>
+                            </span>
+                        </div>
+                        <div class="col s12 m6 l6 xl6">
+                            <span class="matches-played">
+                                <b>
+                                    {% if i == 0 %}
+                                        {{ data.data.keyboardmouse.defaultsolo.default.matchesplayed }} matches played
+                                    {% elseif i == 1 %}
+                                        {{ data.data.keyboardmouse.defaultduo.default.matchesplayed }} matches played
+                                    {% else %}
+                                        {{ data.data.keyboardmouse.defaultsquad.default.matchesplayed }} matches played
+                                    {% endif %}
+                                </b>
+                            </span>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col s12 m6 l6 xl6">
+                            <div class="row">
+                                <div class="col s12 m12 l12 xl12">
+                                    <span><b>WINS</b></span>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col s12 m12 l12 xl12">
+                                    <span>
+                                        {% if i == 0 %}
+                                            {{ data.data.keyboardmouse.defaultsolo.default.placetop1 }}
+                                        {% elseif i == 1 %}
+                                            {{ data.data.keyboardmouse.defaultduo.default.placetop1 }}
+                                        {% else %}
+                                            {{ data.data.keyboardmouse.defaultsquad.default.placetop1 }}
+                                        {% endif %}
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col s12 m6 l6 xl6">
+                            <div class="row">
+                                <div class="col s12 m12 l12 xl12">
+                                    <span><b>KILLS</b></span>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col s12 m12 l12 xl12">
+                                    <span>
+                                        {% if i == 0 %}
+                                            {{ data.data.keyboardmouse.defaultsolo.default.kills }}
+                                        {% elseif i == 1 %}
+                                            {{ data.data.keyboardmouse.defaultduo.default.kills }}
+                                        {% else %}
+                                            {{ data.data.keyboardmouse.defaultsquad.default.kills }}
+                                        {% endif %}
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col s12 m6 l6 xl6">
+                            <div class="row">
+                                <div class="col s12 m12 l12 xl12">
+                                    <span><b>WIN %</b></span>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col s12 m12 l12 xl12">
+                                    <span>
+                                        {% if i == 0 %}
+                                            {{ ((data.data.keyboardmouse.defaultsolo.default.placetop1 / data.data.keyboardmouse.defaultsolo.default.matchesplayed) * 100) | round(2, 'floor') }}
+                                        {% elseif i == 1 %}
+                                            {{ ((data.data.keyboardmouse.defaultduo.default.placetop1 / data.data.keyboardmouse.defaultduo.default.matchesplayed) * 100) | round(2, 'floor') }}
+                                        {% else %}
+                                            {{ ((data.data.keyboardmouse.defaultsquad.default.placetop1 / data.data.keyboardmouse.defaultsquad.default.matchesplayed) * 100) | round(2, 'floor') }}
+                                        {% endif %}
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col s12 m6 l6 xl6">
+                            <div class="row">
+                                <div class="col s12 m12 l12 xl12">
+                                    <span><b>K/D</b></span>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col s12 m12 l12 xl12">
+                                    <span>
+                                        {% if i == 0 %}
+                                            {{ (data.data.keyboardmouse.defaultsolo.default.kills / (data.data.keyboardmouse.defaultsolo.default.matchesplayed - data.data.keyboardmouse.defaultsolo.default.placetop1)) | round(2, 'floor') }}
+                                        {% elseif i == 1 %}
+                                            {{ (data.data.keyboardmouse.defaultduo.default.kills / (data.data.keyboardmouse.defaultduo.default.matchesplayed - data.data.keyboardmouse.defaultduo.default.placetop1)) | round(2, 'floor') }}
+                                        {% else %}
+                                            {{ (data.data.keyboardmouse.defaultsquad.default.kills / (data.data.keyboardmouse.defaultsquad.default.matchesplayed - data.data.keyboardmouse.defaultsquad.default.placetop1)) | round(2, 'floor') }}
+                                        {% endif %}
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col s12 m6 l6 xl6">
+                            {% if i == 0 %}
+                                <div class="row">
+                                    <div class="col s12 m12 l12 xl12">
+                                        <span><b>TOP 10</b></span>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col s12 m12 l12 xl12">
+                                        <span>{{ data.data.keyboardmouse.defaultsolo.default.placetop10 }}</span>
+                                    </div>
+                                </div>
+                            {% elseif i == 1 %}
+                                <div class="row">
+                                    <div class="col s12 m12 l12 xl12">
+                                        <span><b>TOP 5</b></span>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col s12 m12 l12 xl12">
+                                        <span>{{ data.data.keyboardmouse.defaultduo.default.placetop5 }}</span>
+                                    </div>
+                                </div>
+                            {% else %}
+                                <div class="row">
+                                    <div class="col s12 m12 l12 xl12">
+                                        <span><b>TOP 3</b></span>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col s12 m12 l12 xl12">
+                                        <span>{{ data.data.keyboardmouse.defaultsquad.default.placetop3 }}</span>
+                                    </div>
+                                </div>
+                            {% endif %}
+                        </div>
+                        <div class="col s12 m6 l6 xl6">
+                            <div class="row">
+                                <div class="col s12 m12 l12 xl12">
+                                    <span><b>KILLS PER MATCH</b></span>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col s12 m12 l12 xl12">
+                                    <span>
+                                        {% if i == 0 %}
+                                            {{ (data.data.keyboardmouse.defaultsolo.default.kills / data.data.keyboardmouse.defaultsolo.default.matchesplayed) | round(2, 'floor') }}
+                                        {% elseif i == 1 %}
+                                            {{ (data.data.keyboardmouse.defaultduo.default.kills / data.data.keyboardmouse.defaultduo.default.matchesplayed) | round(2, 'floor') }}
+                                        {% else %}
+                                            {{ (data.data.keyboardmouse.defaultsquad.default.kills / data.data.keyboardmouse.defaultsquad.default.matchesplayed) | round(2, 'floor') }}
+                                        {% endif %}
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        {% if i == 0 %}
+                            <div class="col s12 m6 l6 xl6">
+                                <div class="row">
+                                    <div class="col s12 m12 l12 xl12">
+                                        <span><b>TOP 25</b></span>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col s12 m12 l12 xl12">
+                                        <span>{{ data.data.keyboardmouse.defaultsolo.default.placetop25 }}</span>
+                                    </div>
+                                </div>
+                            </div>
+                        {% elseif i == 1 %}
+                            <div class="col s12 m6 l6 xl6">
+                                <div class="row">
+                                    <div class="col s12 m12 l12 xl12">
+                                        <span><b>TOP 12</b></span>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col s12 m12 l12 xl12">
+                                        <span>{{ data.data.keyboardmouse.defaultduo.default.placetop12 }}</span>
+                                    </div>
+                                </div>
+                            </div>
+                        {% else %}
+                            <div class="col s12 m6 l6 xl6">
+                                <div class="row">
+                                    <div class="col s12 m12 l12 xl12">
+                                        <span><b>TOP 6</b></span>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col s12 m12 l12 xl12">
+                                        <span>{{ data.data.keyboardmouse.defaultsquad.default.placetop6 }}</span>
+                                    </div>
+                                </div>
+                            </div>
+                        {% endif %}
+                        <div class="col s12 m6 l6 xl6">
+                            <div class="row">
+                                <div class="col s12 m12 l12 xl12">
+                                    <span><b>SCORE</b></span>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col s12 m12 l12 xl12">
+                                    <span>
+                                        {% if i == 0 %}
+                                            {{ data.data.keyboardmouse.defaultsolo.default.score }}
+                                        {% elseif i == 1 %}
+                                            {{ data.data.keyboardmouse.defaultduo.default.score }}
+                                        {% else %}
+                                            {{ data.data.keyboardmouse.defaultsquad.default.score }}
+                                        {% endif %}
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col s12 m6 l6 xl6">
+                            <div class="row">
+                                <div class="col s12 m12 l12 xl12">
+                                    <span><b>MINUTES PLAYED</b></span>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col s12 m12 l12 xl12">
+                                    <span>
+                                        {% if i == 0 %}
+                                            {{ data.data.keyboardmouse.defaultsolo.default.minutesplayed }}
+                                        {% elseif i == 1 %}
+                                            {{ data.data.keyboardmouse.defaultduo.default.minutesplayed }}
+                                        {% else %}
+                                            {{ data.data.keyboardmouse.defaultsquad.default.minutesplayed }}
+                                        {% endif %}
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col s12 m6 l6 xl6">
+                            <div class="row">
+                                <div class="col s12 m12 l12 xl12">
+                                    <span><b>SCORE PER MATCH</b></span>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col s12 m12 l12 xl12">
+                                    <span>
+                                        {% if i == 0 %}
+                                            {{ (data.data.keyboardmouse.defaultsolo.default.score / data.data.keyboardmouse.defaultsolo.default.matchesplayed) | round(2, 'floor') }}
+                                        {% elseif i == 1 %}
+                                            {{ (data.data.keyboardmouse.defaultduo.default.score / data.data.keyboardmouse.defaultduo.default.matchesplayed) | round(2, 'floor') }}
+                                        {% else %}
+                                            {{ (data.data.keyboardmouse.defaultsquad.default.score / data.data.keyboardmouse.defaultsquad.default.matchesplayed) | round(2, 'floor') }}
+                                        {% endif %}
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+</div>

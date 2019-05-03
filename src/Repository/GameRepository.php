@@ -3,7 +3,9 @@
 namespace App\Repository;
 
 use App\Entity\Game;
+use App\Entity\GameAccount;
 use App\Entity\Search\GameSearch;
+use App\Entity\User;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\ORM\Query;
 use Symfony\Bridge\Doctrine\RegistryInterface;
@@ -51,6 +53,26 @@ class GameRepository extends ServiceEntityRepository
             ->setMaxResults($gamesNumber)
             ->getQuery()
             ->getResult();
+    }
+
+    /**
+     * @param User $user
+     * @return mixed
+     */
+    public function findUserGames(User $user, bool $returnQueryBuilder = false) {
+        $query = $this->createQueryBuilder('g')
+            ->join(GameAccount::class, 'ga', 'WITH', 'ga.game = g.id')
+            ->join(User::class, 'u', 'WITH', 'ga.gamer = u.id')
+            ->where('ga.gamer = :user')
+            ->setParameter('user', $user)
+            ->orderBy('g.name', 'ASC');
+
+        if(!$returnQueryBuilder) {
+            return $query->getQuery()
+                         ->getResult();
+        }
+
+        return $query;
     }
 
 

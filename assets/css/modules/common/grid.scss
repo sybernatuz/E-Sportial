@@ -22,7 +22,7 @@
       }
 
       .p#{$direction}#{$i} {
-        margin-#{$attribute-direction}: #{$attr-value}px !important;
+        padding-#{$attribute-direction}: #{$attr-value}px !important;
       }
     }
   }
