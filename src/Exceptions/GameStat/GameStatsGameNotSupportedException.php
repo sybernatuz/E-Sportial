@@ -11,7 +11,7 @@ namespace App\Exceptions\GameStat;
 
 use Throwable;
 
-class GameStatGameNotSupportedException extends GameStatsException
+class GameStatsGameNotSupportedException extends GameStatsException
 {
     public function __construct(string $gameName, int $code = 0, Throwable $previous = null)
     {
