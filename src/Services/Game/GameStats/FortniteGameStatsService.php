@@ -22,7 +22,7 @@ class FortniteGameStatsService implements GameStatsInterface
 
     public function getUserStats(string $apiUrl, string $pseudo)
     {
-        $uid = self::getUid($apiUrl, $pseudo);
+        $uid = $this->getUid($apiUrl, $pseudo);
         if(!$uid) {
             throw new GameStatsFortniteEpicNameUnknownException($pseudo);
         }
