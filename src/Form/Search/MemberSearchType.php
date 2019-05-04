@@ -3,7 +3,7 @@
 namespace App\Form\Search;
 
 use App\Entity\Country;
-use App\Entity\Search\UserSearch;
+use App\Entity\Search\MemberSearch;
 use App\Repository\CountryRepository;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
@@ -12,7 +12,7 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
-class UserSearchType extends AbstractType
+class MemberSearchType extends AbstractType
 {
     private $translator;
 
@@ -52,7 +52,7 @@ class UserSearchType extends AbstractType
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults([
-            'data_class' => UserSearch::class,
+            'data_class' => MemberSearch::class,
             'method' => 'get',
             'csrf_protection' => false,
             'allow_extra_fields' => true

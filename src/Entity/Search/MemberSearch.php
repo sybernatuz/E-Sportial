@@ -4,7 +4,7 @@ namespace App\Entity\Search;
 
 use App\Entity\Country;
 
-class UserSearch
+class MemberSearch
 {
     /**
      * @var string

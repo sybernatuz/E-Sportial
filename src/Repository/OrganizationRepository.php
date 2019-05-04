@@ -3,7 +3,9 @@
 namespace App\Repository;
 
 use App\Entity\Organization;
+use App\Entity\Search\MemberSearch;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\ORM\Query;
 use Symfony\Bridge\Doctrine\RegistryInterface;
 
 /**
@@ -30,15 +32,32 @@ class OrganizationRepository extends ServiceEntityRepository
             ->getResult();
     }
 
-    /*
-    public function findOneBySomeField($value): ?Organization
+    /**
+     * Used for pagination
+     * @param MemberSearch $search
+     * @return Query
+     */
+    public function findTeamBySearch(MemberSearch $search): Query
     {
-        return $this->createQueryBuilder('o')
-            ->andWhere('o.exampleField = :val')
-            ->setParameter('val', $value)
-            ->getQuery()
-            ->getOneOrNullResult()
-        ;
+        $query = $this->createQueryBuilder('t')
+            ->select('t.slug, t.name, t.logoPath, c.flagPath, c.name as flagName, count(s) as followers')
+            ->innerJoin('t.type', 'ty')
+            ->innerJoin('t.country', 'c')
+            ->leftJoin('t.subscriptions', 's')
+            ->where('ty.name = \'team\'')
+            ->groupBy('t.id, c.id');
+
+        if ($word = $search->getWord()) {
+            $query->andWhere('t.name LIKE :word')
+                ->setParameter('word', '%' . $word . '%');
+        }
+
+        if ($country = $search->getCountry()) {
+            $query->andWhere('c.name = :country')
+                ->setParameter('country', $country->getName());
+        }
+
+        return $query->getQuery();
     }
-    */
+
 }

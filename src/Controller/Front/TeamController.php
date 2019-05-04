@@ -3,8 +3,13 @@
 namespace App\Controller\Front;
 
 use App\Entity\Organization;
+use App\Entity\Search\MemberSearch;
+use App\Form\Search\MemberSearchType;
+use App\Repository\OrganizationRepository;
 use App\Services\layout\FooterService;
+use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 
 /**
@@ -14,19 +19,40 @@ use Symfony\Component\Routing\Annotation\Route;
  */
 class TeamController extends AbstractController
 {
-    private $footerService;
+    private const TEAMS_NUMBER = 12;
 
-    public function __construct(FooterService $footerService)
+    private $footerService;
+    private $teamRepository;
+
+    public function __construct(FooterService $footerService, OrganizationRepository $teamRepository)
     {
+        $this->teamRepository = $teamRepository;
         $this->footerService = $footerService;
     }
 
     /**
      * @Route(path="/teams", name="list")
+     * @param PaginatorInterface $paginator
+     * @param Request $request
+     * @return \Symfony\Component\HttpFoundation\Response
      */
-    public function list()
+    public function list(PaginatorInterface $paginator, Request $request)
     {
-        return $this->render('pages/front/team/list.html.twig', $this->footerService->process());
+        $search = new MemberSearch();
+        $form = $this->createForm(MemberSearchType::class, $search);
+
+        $form->handleRequest($request);
+
+        $teams = $paginator->paginate(
+            $this->teamRepository->findTeamBySearch($search),
+            $request->query->getInt('page', 1),
+            self::TEAMS_NUMBER
+        );
+
+        return $this->render('pages/front/team/list.html.twig', [
+                'teams' => $teams,
+                'form'  => $form->createView()
+            ] + $this->footerService->process());
     }
 
     /**

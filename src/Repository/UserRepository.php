@@ -3,7 +3,7 @@
 namespace App\Repository;
 
 use App\Entity\Search\Admin\UserSearchAdmin;
-use App\Entity\Search\UserSearch;
+use App\Entity\Search\MemberSearch;
 use App\Entity\User;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\ORM\Query;
@@ -24,10 +24,10 @@ class UserRepository extends ServiceEntityRepository
 
     /**
      * Used for pagination
-     * @param UserSearch $search
+     * @param MemberSearch $search
      * @return Query
      */
-    public function findBySearch(UserSearch $search): Query
+    public function findBySearch(MemberSearch $search): Query
     {
         $query = $this->createQueryBuilder('u')
             ->select('u.slug, u.username, u.avatar, c.flagPath, c.name as flagName, count(s) as followers')

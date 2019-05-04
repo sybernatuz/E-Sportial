@@ -2,15 +2,14 @@
 
 namespace App\Controller\Front;
 
-use App\Entity\Search\UserSearch;
+use App\Entity\Search\MemberSearch;
 use App\Entity\User;
 use App\Form\Front\User\EditFormType;
-use App\Form\Search\UserSearchType;
+use App\Form\Search\MemberSearchType;
 use App\Repository\UserRepository;
 use App\Services\layout\FooterService;
 use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 
@@ -41,8 +40,8 @@ class UserController extends AbstractController
      */
     public function list(PaginatorInterface $paginator, Request $request)
     {
-        $search = new UserSearch();
-        $form = $this->createForm(UserSearchType::class, $search);
+        $search = new MemberSearch();
+        $form = $this->createForm(MemberSearchType::class, $search);
 
         $form->handleRequest($request);
 

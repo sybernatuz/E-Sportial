@@ -1,7 +1,38 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello TeamController!{% endblock %}
+{% block title %}Teams list{% endblock %}
+
+{% block stylesheets %}
+    {{ encore_entry_link_tags('team_list') }}
+{% endblock %}
 
 {% block body %}
+    <div class="row">
+        <div class="col s12 m12 l12 xl12">
+            {% include "modules/front/common/form/member_search_form.html.twig" %}
+        </div>
+    </div>
+    <div class="row">
+        <div class="col s12 m12 l12 xl12 right-align">
+            {% include "modules/front/team/list/sortable.html.twig" %}
+        </div>
+    </div>
+    <div class="row">
+        {% for team in teams %}
+            <div class="col s12 m4 l4 xl4">
+                {% include "modules/front/team/list/team.html.twig" %}
+            </div>
+        {% endfor %}
+    </div>
 
+    <div class="row">
+        <div class="col s12 m12 l12 xl12">
+            {{ knp_pagination_render(teams) }}
+        </div>
+    </div>
 {% endblock %}
+
+{% block javascripts %}
+    {{ encore_entry_script_tags('team_list') }}
+{% endblock %}
+

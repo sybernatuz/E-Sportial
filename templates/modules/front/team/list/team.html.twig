@@ -1,0 +1,27 @@
+<a href="{{ path("app_team_show", { "slug": team.slug }) }}" class="card-link">
+    <div class="card horizontal hoverable">
+        <div class="card-image">
+            <img alt="Logo" src="{{ asset(team.logoPath) }}">
+        </div>
+        <div class="card-stacked">
+            <div class="card-content">
+                <div class="row">
+                    <div class="col s12 m12 l12 xl12">
+                        <span><strong>{{ team.name }}</strong></span>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col s12 m12 l12 xl12">
+                        <img alt="Flag image" class="flag-image" src="{{ asset(team.flagPath) }}">
+                        <span>{{ asset(team.flagName) }}</span>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col s12 m12 l12 xl12">
+                        <span>{{ team.followers }} {% trans %}followers{% endtrans %}</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</a>

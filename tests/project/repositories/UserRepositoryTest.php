@@ -9,7 +9,7 @@
 namespace App\Tests\project\repositories;
 
 
-use App\Entity\Search\UserSearch;
+use App\Entity\Search\MemberSearch;
 use App\Entity\User;
 use App\Repository\UserRepository;
 use App\Tests\setup\mock\CountryMock;
@@ -75,7 +75,7 @@ class UserRepositoryTest extends AbstractRepositoryTest
 
     public function testFindBySearch1() : void
     {
-        $search = (new UserSearch)
+        $search = (new MemberSearch)
             ->setWord("user");
         $users = (array) $this->repository->findBySearch($search)->getResult();
         $this->assertCount(1, $users);
