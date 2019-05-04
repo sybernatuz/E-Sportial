@@ -25,8 +25,8 @@ class FortniteApiCallerService
      * @throws GameStatFortniteEpicNameUnknownException
      * @throws GameStatFortniteDataNotFoundException
      */
-    public function getUserStats(string $apiUrl, string $pseudo) {
-        $uid = $this->getUid($apiUrl, $pseudo);
+    public static function getUserStats(string $apiUrl, string $pseudo) {
+        $uid = self::getUid($apiUrl, $pseudo);
         if(!$uid) {
             throw new GameStatFortniteEpicNameUnknownException($pseudo);
         }
@@ -39,7 +39,7 @@ class FortniteApiCallerService
             throw new GameStatFortniteDataNotFoundException($pseudo);
         }
 
-        return DataConverterUtil::StdClassToArray($result);
+        return DataConverterUtil::stdClassToArray($result);
     }
 
     /**
@@ -47,7 +47,7 @@ class FortniteApiCallerService
      * @param string $pseudo
      * @return string | boolean
      */
-    private function getUid(string $apiUrl, string $pseudo) : string {
+    private static function getUid(string $apiUrl, string $pseudo) {
         $headers = array('Accept' => 'application/json');
 
         $queryUid = array('username' => $pseudo);
@@ -57,6 +57,6 @@ class FortniteApiCallerService
             return false;
         }
 
-        return Request::get($apiUrl . self::USER_ID_ROUTE, $headers, $queryUid)->body->uid;
+        return $result->uid;
     }
 }

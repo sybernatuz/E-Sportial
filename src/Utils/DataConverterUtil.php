@@ -15,7 +15,7 @@ class DataConverterUtil
      * @param $object
      * @return mixed
      */
-    public static function StdClassToArray($object) {
+    public static function stdClassToArray($object) {
         return json_decode(json_encode($object, true));
     }
 }

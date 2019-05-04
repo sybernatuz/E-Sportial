@@ -5,11 +5,13 @@ namespace App\Controller\Ajax;
 use App\Entity\Game;
 use App\Entity\GameAccount;
 use App\Entity\User;
+use App\Exceptions\GameAccount\GameAccountNotFoundException;
 use App\Form\Front\User\AddGameFormType;
 use App\Form\Front\User\SelectGameUserType;
 use App\Handler\Member\SubscriptionHandler;
+use App\Repository\GameAccountRepository;
 use App\Repository\GameRepository;
-use App\Services\Game\GameStatService;
+use App\Services\Game\GameStats\GameStatsFactory;
 use Doctrine\ORM\EntityManagerInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -119,27 +121,27 @@ class UserAjaxController extends AbstractController
      * @ParamConverter("game", options={"id" = "gameId"})
      * @param User $user
      * @param Game $game
-     * @param GameStatService $gameStatService
+     * @param GameStatsFactory $gameStatsFactory
+     * @param GameAccountRepository $gameAccountRepository
      * @return JsonResponse
      */
-    public function renderGameStats(User $user, Game $game, GameStatService $gameStatService) {
+    public function renderGameStats(User $user, Game $game, GameStatsFactory $gameStatsFactory, GameAccountRepository $gameAccountRepository) {
         if(!$user || !$game) {
             throw $this->createNotFoundException('The user or game not exist');
         }
 
-        try {
-            $data = $gameStatService->getGameStats($game, $user);
-            $template = $gameStatService->getGameStatsTemplate($game->getSlug());
-        } catch (\RuntimeException $e) {
-            $data = $e->getMessage();
-            $template = $gameStatService->getGameStatsTemplate($game->getSlug(), true);
+        $gameAccount = $gameAccountRepository->findByUserAndGame($user, $game);
+        if(!$gameAccount) {
+            throw new GameAccountNotFoundException($game);
         }
 
+        $gameStatService = $gameStatsFactory->create($game);
+        $data = $gameStatService->getUserStats($game->getApiUrl(), $gameAccount->getPseudo());
+        $template = $gameStatService->getStatsTemplate();
 
         $html = $this->renderView($template, [
             "data" => $data
         ]);
-
         return new JsonResponse($html);
     }
 }

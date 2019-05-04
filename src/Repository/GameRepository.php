@@ -57,12 +57,12 @@ class GameRepository extends ServiceEntityRepository
 
     /**
      * @param User $user
+     * @param bool $returnQueryBuilder
      * @return mixed
      */
     public function findUserGames(User $user, bool $returnQueryBuilder = false) {
         $query = $this->createQueryBuilder('g')
             ->join(GameAccount::class, 'ga', 'WITH', 'ga.game = g.id')
-            ->join(User::class, 'u', 'WITH', 'ga.gamer = u.id')
             ->where('ga.gamer = :user')
             ->setParameter('user', $user)
             ->orderBy('g.name', 'ASC');

@@ -33,3 +33,8 @@ services:
     App\Services\FileUploaderService:
         arguments:
             $targetDirectory: '%images_dir%'
+
+    App\Listener\AjaxExceptionListener:
+        tags:
+            - {name: kernel.event_listener, event: kernel.exception, method: onKernelResponse }
+        arguments: ['@router']
