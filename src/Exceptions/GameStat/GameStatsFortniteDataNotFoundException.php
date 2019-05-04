@@ -3,18 +3,19 @@
  * Created by PhpStorm.
  * User: d3one
  * Date: 03/05/19
- * Time: 20:22
+ * Time: 21:35
  */
 
 namespace App\Exceptions\GameStat;
 
+
 use Throwable;
 
-class GameStatFortniteEpicNameUnknownException extends GameStatException
+class GameStatsFortniteDataNotFoundException extends GameStatsException
 {
     public function __construct(string $pseudo, int $code = 0, Throwable $previous = null)
     {
-        $message = sprintf('The Epic username %s doesn\'t exist', $pseudo);
+        $message = sprintf('No data found for the Epic username %s', $pseudo);
         parent::__construct($message, $code, $previous);
     }
 }

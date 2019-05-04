@@ -26,7 +26,6 @@ function getGameSelectedStats(userId) {
     $.ajax({
         url: Routing.generate("app_user_ajax_game_stats", {userId: userId, gameId: gameIdSelected}),
         success: function (data) {
-            console.log(data);
             $("#game-stats").empty().append(data);
         },
         error: function(data) {

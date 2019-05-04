@@ -11,7 +11,7 @@ namespace App\Exceptions\GameStat;
 
 use Throwable;
 
-class GameStatException extends \RuntimeException
+class GameStatsException extends \RuntimeException
 {
     public function __construct(string $message = "", int $code = 0, Throwable $previous = null)
     {

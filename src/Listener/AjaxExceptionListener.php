@@ -10,8 +10,8 @@ namespace App\Listener;
 
 
 use App\Exceptions\GameAccount\GameAccountNotFoundException;
-use App\Exceptions\GameStat\GameStatFortniteDataNotFoundException;
-use App\Exceptions\GameStat\GameStatFortniteEpicNameUnknownException;
+use App\Exceptions\GameStat\GameStatsFortniteDataNotFoundException;
+use App\Exceptions\GameStat\GameStatsFortniteEpicNameUnknownException;
 use App\Exceptions\GameStat\GameStatGameNotSupportedException;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpKernel\Event\GetResponseForExceptionEvent;
@@ -55,8 +55,8 @@ class AjaxExceptionListener
             $exception instanceof NotFoundHttpException ||
             $exception instanceof GameAccountNotFoundException ||
             $exception instanceof GameStatGameNotSupportedException ||
-            $exception instanceof GameStatFortniteDataNotFoundException ||
-            $exception instanceof GameStatFortniteEpicNameUnknownException
+            $exception instanceof GameStatsFortniteDataNotFoundException ||
+            $exception instanceof GameStatsFortniteEpicNameUnknownException
         ) {
             return 404;
         } else {

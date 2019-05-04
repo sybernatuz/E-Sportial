@@ -16,12 +16,10 @@ class GameStatsFactory
 {
     /**
      * @param Game $game
-     * @return mixed
+     * @return GameStatsInterface
      */
-    public static function create(Game $game) {
-        $gameSlug = str_replace('-', '_', $game->getSlug());
-
-        switch ($gameSlug) {
+    public static function create(Game $game) : GameStatsInterface {
+        switch ($game->getSlug()) {
             case "fortnite":
                 return new FortniteGameStatsService();
             default:
