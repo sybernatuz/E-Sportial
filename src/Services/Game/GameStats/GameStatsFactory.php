@@ -10,7 +10,7 @@ namespace App\Services\Game\GameStats;
 
 
 use App\Entity\Game;
-use App\Exceptions\GameStat\GameStatGameNotSupportedException;
+use App\Exceptions\GameStat\GameStatsGameNotSupportedException;
 
 class GameStatsFactory
 {
@@ -23,7 +23,7 @@ class GameStatsFactory
             case "fortnite":
                 return new FortniteGameStatsService();
             default:
-                throw new GameStatGameNotSupportedException($game->getName());
+                throw new GameStatsGameNotSupportedException($game->getName());
         }
     }
 }

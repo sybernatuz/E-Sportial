@@ -12,7 +12,7 @@ namespace App\Listener;
 use App\Exceptions\GameAccount\GameAccountNotFoundException;
 use App\Exceptions\GameStat\GameStatsFortniteDataNotFoundException;
 use App\Exceptions\GameStat\GameStatsFortniteEpicNameUnknownException;
-use App\Exceptions\GameStat\GameStatGameNotSupportedException;
+use App\Exceptions\GameStat\GameStatsGameNotSupportedException;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpKernel\Event\GetResponseForExceptionEvent;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
@@ -54,7 +54,7 @@ class AjaxExceptionListener
         if(
             $exception instanceof NotFoundHttpException ||
             $exception instanceof GameAccountNotFoundException ||
-            $exception instanceof GameStatGameNotSupportedException ||
+            $exception instanceof GameStatsGameNotSupportedException ||
             $exception instanceof GameStatsFortniteDataNotFoundException ||
             $exception instanceof GameStatsFortniteEpicNameUnknownException
         ) {
