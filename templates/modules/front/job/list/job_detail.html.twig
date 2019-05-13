@@ -25,7 +25,9 @@
         </ul>
         <p class="job-description">{{ jobDetail.description }}</p>
         {% if app.user %}
-            <button id="{{ jobDetail.id }}" class="btn apply">Apply</button>
+            <button id="{{ jobDetail.id }}" class="btn apply">
+                {{ isApplied ? '<i class="material-icons">done</i>' : "Apply" }}
+            </button>
         {% endif %}
     {% endif %}
 </div>

@@ -9,6 +9,8 @@ Table Type externalisée car utiliée dans les select avec des valeurs que nous 
 
 Files twig / js / scss : snake_case
 
+Files php : camelCase
+
 Structure of twig / js / scss files :
 
     - 1 folder back and front

@@ -37,22 +37,23 @@ class SubscriptionHandler
      */
     public function subscribe($subscriber, $member)
     {
-        if ($subscriber && $subscriber !== $member) {
-            $subscription = $this->subscriptionRepository->findBySubscriberAndMember($subscriber, $member);
-            if (!$subscription) {
-                $subscription = new Subscription();
-                $subscription->setSubscriber($subscriber);
-                if (get_class($member) == User::class) {
-                    $subscription->setUser($member);
-                } else {
-                    $subscription->setOrganization($member);
-                }
-                $this->entityManager->persist($subscription);
-                $this->entityManager->flush();
-                return $this->getDataToReturn(true, $this->getSubscriptionCounter($member));
-            }
+        if (!$subscriber || $subscriber === $member)
+            return $this->getDataToReturn(false, null);
+
+        $subscription = $this->subscriptionRepository->findBySubscriberAndMember($subscriber, $member);
+        if ($subscription)
+            return $this->getDataToReturn(false, null);
+
+        $subscription = new Subscription();
+        $subscription->setSubscriber($subscriber);
+        if (get_class($member) == User::class) {
+            $subscription->setUser($member);
+        } else {
+            $subscription->setOrganization($member);
         }
-        return $this->getDataToReturn(false, null);
+        $this->entityManager->persist($subscription);
+        $this->entityManager->flush();
+        return $this->getDataToReturn(true, $this->getSubscriptionCounter($member));
     }
 
     /**
@@ -62,15 +63,17 @@ class SubscriptionHandler
      */
     public function unsubscribe($subscriber, $member)
     {
-        if($subscriber && $subscriber !== $member) {
-            $subscription = $this->subscriptionRepository->findBySubscriberAndMember($subscriber, $member);
-            if ($subscription) {
-                $this->entityManager->remove($subscription);
-                $this->entityManager->flush();
-                return $this->getDataToReturn(true, $this->getSubscriptionCounter($member));
-            }
-        }
-        return $this->getDataToReturn(false, null);
+        if(!$subscriber || $subscriber === $member)
+            return $this->getDataToReturn(false, null);
+
+        $subscription = $this->subscriptionRepository->findBySubscriberAndMember($subscriber, $member);
+        if (!$subscription)
+            return $this->getDataToReturn(false, null);
+
+        $this->entityManager->remove($subscription);
+        $this->entityManager->flush();
+        return $this->getDataToReturn(true, $this->getSubscriptionCounter($member));
+
     }
 
     /**

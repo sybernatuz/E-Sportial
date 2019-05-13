@@ -9,12 +9,14 @@
 namespace App\Controller\Ajax;
 
 use App\Entity\Job;
-use App\Mapper\Mapper;
+use App\Entity\User;
 use App\Repository\JobRepository;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 use Symfony\Component\Serializer\SerializerInterface;
 
 /**
@@ -27,24 +29,33 @@ class JobAjaxController extends AbstractController
 
     private $jobRepository;
     private $serializer;
-    private $mapper;
+    private $token;
 
-    public function __construct(SerializerInterface $serializer, JobRepository $jobRepository, Mapper $mapper)
+    public function __construct(SerializerInterface $serializer, JobRepository $jobRepository, TokenStorageInterface $token)
     {
         $this->jobRepository = $jobRepository;
         $this->serializer = $serializer;
-        $this->mapper = $mapper;
+        $this->token = $token;
     }
 
     /**
      * @Route(name="get_detail", path="/get/detail/{id}")
      * @param Job $job
-     * @return JsonResponse
+     * @return Response
      */
-    public function getJob(Job $job) : JsonResponse
+    public function getJob(Job $job) : Response
     {
-        $jobDetailOut = $this->mapper->jobEntityToJobDetailOut($job);
-        return new JsonResponse($this->serializer->normalize($jobDetailOut, 'json'));
+        if($this->isGranted('ROLE_USER')) {
+            $user = $this->token->getToken()->getUser();
+            if ($user instanceof User) {
+                $applicant = $this->jobRepository->findByUserApplied($job->getId(), $user);
+            }
+            $isApplied = isset($applicant) && $applicant != null ? true : false;
+        }
+        return $this->render("modules/front/job/list/job_detail.html.twig", [
+            'jobDetail' => $job,
+            'isApplied' => $isApplied ?? false
+        ]);
     }
 
     /**

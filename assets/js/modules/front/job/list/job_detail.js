@@ -1,4 +1,5 @@
 $(function applyToJob() {
+    const loading = $('#loading').data("prototype");
     $(document).on('click', '.apply', function () {
         $.ajax({
             url: "/ajax/job/apply/" + $(this).attr('id'),
