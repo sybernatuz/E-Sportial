@@ -6,6 +6,7 @@ use App\Entity\Search\MemberSearch;
 use App\Entity\User;
 use App\Form\Front\User\EditFormType;
 use App\Form\Search\MemberSearchType;
+use App\Repository\SubscriptionRepository;
 use App\Repository\UserRepository;
 use App\Services\layout\FooterService;
 use Knp\Component\Pager\PaginatorInterface;
@@ -60,13 +61,15 @@ class UserController extends AbstractController
     /**
      * @Route(path="/user/{slug}", name="show")
      * @param User $user
+     * @param SubscriptionRepository $subscriptionRepository
      * @return \Symfony\Component\HttpFoundation\Response
      */
-    public function show(User $user)
+    public function show(User $user, SubscriptionRepository $subscriptionRepository)
     {
-        // Form game
+        $followers = $subscriptionRepository->getListOfSubscriber($user);
         return $this->render('pages/front/user/show.html.twig', [
             'user' => $user,
+            'followers' => $followers,
         ] + $this->footerService->process());
     }
 

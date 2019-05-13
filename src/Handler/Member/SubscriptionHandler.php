@@ -13,36 +13,39 @@ use App\Entity\Subscription;
 use App\Entity\User;
 use App\Repository\SubscriptionRepository;
 use Doctrine\ORM\EntityManagerInterface;
+use Symfony\Bundle\FrameworkBundle\Templating\EngineInterface;
 
 class SubscriptionHandler
 {
     private $entityManager;
     private $subscriptionRepository;
+    private $templating;
 
     /**
      * SubscriptionHandler constructor.
      * @param EntityManagerInterface $entityManager
      * @param SubscriptionRepository $subscriptionRepository
      */
-    public function __construct(EntityManagerInterface $entityManager, SubscriptionRepository $subscriptionRepository)
+    public function __construct(EntityManagerInterface $entityManager, SubscriptionRepository $subscriptionRepository, EngineInterface $templating)
     {
         $this->entityManager = $entityManager;
         $this->subscriptionRepository = $subscriptionRepository;
+        $this->templating = $templating;
     }
 
     /**
      * @param User|null $subscriber
      * @param User|Organization $member
-     * @return array
+     * @return array | bool
      */
     public function subscribe($subscriber, $member)
     {
         if (!$subscriber || $subscriber === $member)
-            return $this->getDataToReturn(false, null);
+            return $this->getDataToReturn(false);
 
         $subscription = $this->subscriptionRepository->findBySubscriberAndMember($subscriber, $member);
-        if ($subscription)
-            return $this->getDataToReturn(false, null);
+        if($subscription)
+            return $this->getDataToReturn(false);
 
         $subscription = new Subscription();
         $subscription->setSubscriber($subscriber);
@@ -53,45 +56,43 @@ class SubscriptionHandler
         }
         $this->entityManager->persist($subscription);
         $this->entityManager->flush();
-        return $this->getDataToReturn(true, $this->getSubscriptionCounter($member));
+        return $this->getDataToReturn(true, $member);
     }
 
     /**
      * @param User|null $subscriber
      * @param User|Organization $member
-     * @return array
+     * @return array|bool
      */
     public function unsubscribe($subscriber, $member)
     {
         if(!$subscriber || $subscriber === $member)
-            return $this->getDataToReturn(false, null);
+            return $this->getDataToReturn(false);
 
         $subscription = $this->subscriptionRepository->findBySubscriberAndMember($subscriber, $member);
-        if (!$subscription)
-            return $this->getDataToReturn(false, null);
+        if(!$subscription)
+            return $this->getDataToReturn(false);
 
         $this->entityManager->remove($subscription);
         $this->entityManager->flush();
-        return $this->getDataToReturn(true, $this->getSubscriptionCounter($member));
-
-    }
-
-    /**
-     * @param $member
-     * @return mixed
-     */
-    private function getSubscriptionCounter($member)
-    {
-        return $member->getSubscriptions()->count();
+        return $this->getDataToReturn(true, $member);
     }
 
     /**
      * @param $state
-     * @param $counter
-     * @return array
+     * @param $member
+     * @return array | bool
      */
-    private function getDataToReturn($state, $counter)
+    private function getDataToReturn($state, $member = null)
     {
-        return $object = ["state" => $state, "counter" => $counter];
+        if(!$state || !$member) {
+            return false;
+        }
+
+        $followersHtml = $this->templating->render('modules/front/common/modal/followers_list.html.twig', [
+            "followers" => $this->subscriptionRepository->getListOfSubscriber($member)
+        ]);
+        $countFollowers = $member->getSubscriptions()->count();
+        return ["state" => $state, "counter" => $countFollowers, "followersHtml" => $followersHtml];
     }
 }

@@ -32,7 +32,11 @@
 
     <div class="row">
         <div class="col s12 m12 l12 xl12 mt2">
-            <span id="subscription-counter">{{ user.subscriptions|length }}</span> Followers
+            <a href="#followers-list" class="modal-trigger">
+                <span id="subscription-counter">{{ followers|length }}</span> Followers
+            </a>
         </div>
     </div>
 </div>
+
+{% include 'modules/front/common/modal/followers_list.html.twig' %}

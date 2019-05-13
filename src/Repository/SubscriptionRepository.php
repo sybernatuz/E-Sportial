@@ -40,7 +40,7 @@ class SubscriptionRepository extends ServiceEntityRepository
      */
     public function getListOfSubscriber(User $user) {
         return $this->createQueryBuilder('s')
-            ->select('u')
+            ->select('u.username, u.avatar, u.slug')
             ->join(User::class, 'u', 'WITH', 's.subscriber = u.id')
             ->where("s.user = :user")
             ->setParameter("user", $user)
@@ -50,7 +50,7 @@ class SubscriptionRepository extends ServiceEntityRepository
     /**
      * @param User $subscriber
      * @param $member
-     * @return mixed|null |null
+     * @return mixed|null
      */
     public function findBySubscriberAndMember(User $subscriber, $member) {
         $query = $this->createQueryBuilder('s');

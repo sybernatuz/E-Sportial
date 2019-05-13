@@ -1,0 +1,19 @@
+<div id="followers-list" class="modal">
+    <div class="modal-header">
+        <h4>Followers</h4>
+    </div>
+    <div class="modal-content">
+        <div class="container-fluid">
+            <div class="collection">
+                {% for follower in followers %}
+                <li class="collection-item avatar">
+                    <a href="{{ path("app_user_show", { "slug": follower.slug }) }}">
+                        <img src="{{ asset(follower.avatar) }}" alt="avatar " class="circle">
+                        <span class="title">{{ follower.username }}</span>
+                    </a>
+                </li>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+</div>

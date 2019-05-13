@@ -39,7 +39,7 @@ class UserAjaxController extends AbstractController
     }
 
     /**
-     * @Route(path="/{id}/subscribe", name="subscribe")
+     * @Route(path="/{id}/subscribe", name="subscribe", options={"expose"=true})
      * @param User $member
      * @return JsonResponse
      */
@@ -49,7 +49,7 @@ class UserAjaxController extends AbstractController
     }
 
     /**
-     * @Route(path="/{id}/unsubscribe", name="unsubscribe")
+     * @Route(path="/{id}/unsubscribe", name="unsubscribe", options={"expose"=true})
      * @param User $member
      * @return JsonResponse
      */
@@ -63,7 +63,7 @@ class UserAjaxController extends AbstractController
      * @param User $user
      * @param Request $request
      * @param GameRepository $gameRepository
-     * @return JsonResponse
+     * @return \Symfony\Component\HttpFoundation\Response
      */
     public function gameTab(User $user, Request $request, GameRepository $gameRepository) {
         if(!$user) {
@@ -79,25 +79,23 @@ class UserAjaxController extends AbstractController
         if($addGameForm->isSubmitted() && $addGameForm->isValid()) {
             $this->em->persist($gameAccount);
             $this->em->flush();
-            $html = $this->renderView('modules/front/game/list/games_list.html.twig', [
+            return $this->render('modules/front/game/list/games_list.html.twig', [
                 "games" => $gameRepository->findUserGames($user)
             ]);
-            return new JsonResponse($html);
         }
 
-        $html = $this->renderView('modules/front/user/show/tab/game/game_tab.html.twig', [
+        return $this->render('modules/front/user/show/tab/game/game_tab.html.twig', [
             "form" => $addGameForm->createView(),
             "user" => $user,
             "games" => $gameRepository->findUserGames($user)
         ]);
 
-        return new JsonResponse($html);
     }
 
     /**
      * @Route(path="/{id}/stat_tab", name="stat_tab", options={"expose"=true}, methods={"POST", "GET"})
      * @param User $user
-     * @return JsonResponse
+     * @return \Symfony\Component\HttpFoundation\Response
      */
     public function statTab(User $user) {
         if(!$user) {
@@ -108,11 +106,9 @@ class UserAjaxController extends AbstractController
             'user' => $user
         ]);
 
-        $html = $this->renderView('modules/front/user/show/tab/stat/stat_tab.html.twig', [
+        return $this->render('modules/front/user/show/tab/stat/stat_tab.html.twig', [
             "form" => $selectGameForm->createView()
         ]);
-
-        return new JsonResponse($html);
     }
 
     /**
@@ -123,7 +119,7 @@ class UserAjaxController extends AbstractController
      * @param Game $game
      * @param GameStatsFactory $gameStatsFactory
      * @param GameAccountRepository $gameAccountRepository
-     * @return JsonResponse
+     * @return string
      */
     public function renderGameStats(User $user, Game $game, GameStatsFactory $gameStatsFactory, GameAccountRepository $gameAccountRepository) {
         if(!$user || !$game) {
@@ -139,9 +135,8 @@ class UserAjaxController extends AbstractController
         $data = $gameStatService->getUserStats($game->getApiUrl(), $gameAccount->getPseudo());
         $template = $gameStatService->getStatsTemplate();
 
-        $html = $this->renderView($template, [
+        return $this->renderView($template, [
             "data" => $data
         ]);
-        return new JsonResponse($html);
     }
 }
