@@ -13,10 +13,10 @@ use App\Entity\User;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
 use Symfony\Component\Security\Core\Authorization\Voter\Voter;
 
-class ProfileEditVoter extends Voter
+class UserVoter extends Voter
 {
 
-    const EDIT_PROFILE = 'editProfile';
+    const EDIT = 'editUser';
 
     /**
      * Determines if the attribute and subject are supported by this voter.
@@ -28,7 +28,7 @@ class ProfileEditVoter extends Voter
      */
     protected function supports($attribute, $subject) : bool
     {
-        if (!in_array($attribute, [self::EDIT_PROFILE]))
+        if (!in_array($attribute, [self::EDIT]))
             return false;
 
         if (!$subject instanceof User)
@@ -50,13 +50,13 @@ class ProfileEditVoter extends Voter
     protected function voteOnAttribute($attribute, $subject, TokenInterface $token) : bool
     {
         switch ($attribute) {
-            case self::EDIT_PROFILE:
-                return $this->canEditProfile($token, $subject);
+            case self::EDIT:
+                return $this->canEdit($token, $subject);
         }
         return false;
     }
 
-    private function canEditProfile(TokenInterface $token, User $user) : bool
+    private function canEdit(TokenInterface $token, User $user) : bool
     {
         $loggedUser = $token->getUser();
         if (!$loggedUser instanceof User) {

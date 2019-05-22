@@ -1,0 +1,15 @@
+{% extends 'base.html.twig' %}
+
+{% block stylesheets %}
+    {{ encore_entry_link_tags('job_show') }}
+{% endblock %}
+
+{% block body %}
+    <div class="row">
+        {% include 'modules/front/job/show/user_list.html.twig' %}
+    </div>
+{% endblock %}
+
+{% block javascripts %}
+    {{ encore_entry_script_tags('job_show') }}
+{% endblock %}

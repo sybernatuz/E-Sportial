@@ -45,6 +45,20 @@ class JobFixtures extends Fixture implements DependentFixtureInterface, FixtureG
             $this->setUserOrOrganization($faker, $job, $users, $organizations);
             $manager->persist($job);
         }
+
+        $user = $manager->getRepository(User::class)->findOneBy(['username' => 'user']);
+        for ($i = 0; $i < 20; $i++) {
+            $job = (new Job())
+                ->setDescription($faker->text(1000))
+                ->setTitle($faker->jobTitle)
+                ->setCreatedAt($faker->dateTime)
+                ->setDuration($faker->numberBetween(1, 365))
+                ->setSalary($faker->randomFloat(2, 10, 1000))
+                ->setLocation($faker->city)
+                ->setUser($user);
+            $this->setGameIfTypeCoaching($faker, $job, $games, $types);
+            $manager->persist($job);
+        }
         $manager->flush();
     }
 

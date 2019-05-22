@@ -1,0 +1,64 @@
+<div id="edit-form-job">
+    {{ form_start(editForm) }}
+    <div class="row">
+        <div class="col s12 m4 l4 xl4">
+            <div class="input-field col s12">
+                {{ form_label(editForm.location) }}
+                {{ form_widget(editForm.location) }}
+                <div class="form-errors">
+                    {{ form_errors(editForm.location) }}
+                </div>
+            </div>
+            <div class="input-field col s12">
+                {{ form_widget(editForm.title) }}
+                {{ form_label(editForm.title) }}
+                <div class="form-errors">
+                    {{ form_errors(editForm.title) }}
+                </div>
+            </div>
+            <div class="input-field col s12">
+                {{ form_widget(editForm.duration) }}
+                {{ form_label(editForm.duration) }}
+                <div class="form-errors">
+                    {{ form_errors(editForm.duration) }}
+                </div>
+            </div>
+            <div class="input-field col s12">
+                {{ form_widget(editForm.type) }}
+                {{ form_label(editForm.type) }}
+                <div class="form-errors">
+                    {{ form_errors(editForm.type) }}
+                </div>
+            </div>
+            <div class="input-field col s12">
+                {{ form_widget(editForm.game) }}
+                {{ form_label(editForm.game) }}
+                <div class="form-errors">
+                    {{ form_errors(editForm.game) }}
+                </div>
+            </div>
+            <div class="input-field col s12">
+                {{ form_widget(editForm.salary) }}
+                {{ form_label(editForm.salary) }}
+                <div class="form-errors">
+                    {{ form_errors(editForm.salary) }}
+                </div>
+            </div>
+        </div>
+        <div class="col s12 m8 l8 xl8">
+            <div class="input-field">
+                {{ form_widget(editForm.description) }}
+                {{ form_label(editForm.description) }}
+                <div class="form-errors">
+                    {{ form_errors(editForm.description) }}
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col s3 offset-s5">
+            {{ form_widget(editForm.edit) }}
+        </div>
+    </div>
+    {{ form_end(editForm) }}
+</div>

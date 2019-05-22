@@ -9,6 +9,7 @@ use App\Form\Search\MemberSearchType;
 use App\Repository\SubscriptionRepository;
 use App\Repository\UserRepository;
 use App\Services\layout\FooterService;
+use App\Voter\UserVoter;
 use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -81,7 +82,7 @@ class UserController extends AbstractController
      */
     public function edit(User $user, Request $request)
     {
-        $this->denyAccessUnlessGranted('editProfile', $user);
+        $this->denyAccessUnlessGranted(UserVoter::EDIT, $user);
         $form = $this->createForm(EditFormType::class, $user);
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {

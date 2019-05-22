@@ -74,4 +74,16 @@ class JobRepository extends ServiceEntityRepository
             ->getQuery()
             ->getResult();
     }
+
+    public function findByCreatorAndType(User $user, string $type)
+    {
+        return $this->createQueryBuilder('j')
+            ->leftJoin('j.type', 't')
+            ->where('t.name = :type')
+            ->setParameter(':type', $type)
+            ->andWhere('j.user = :user')
+            ->setParameter(':user', $user)
+            ->getQuery()
+            ->getResult();
+    }
 }

@@ -67,9 +67,11 @@ class JobAjaxController extends AbstractController
     public function apply(Job $job) : JsonResponse
     {
         $user = $this->getUser();
+        if ($applicant = $this->jobRepository->findByUserApplied($job->getId(), $user))
+            return new JsonResponse($this->serializer->normalize(false, 'json'));
+
         $job->addApplicant($user);
         $this->getDoctrine()->getManager()->flush();
-
         return new JsonResponse($this->serializer->normalize(true, 'json'));
     }
 }

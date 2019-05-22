@@ -26,6 +26,9 @@ Encore
 
 
     .addEntry('job_list', './assets/js/pages/front/job/list.js')
+    .addEntry('job_manage', './assets/js/pages/front/job/manage.js')
+    .addEntry('job_edit', './assets/js/pages/front/job/edit.js')
+    .addEntry('job_show', './assets/js/pages/front/job/show.js')
 
     .addEntry('event_list', './assets/js/pages/front/event/list.js')
     .addEntry('event_show', './assets/js/pages/front/event/show.js')
