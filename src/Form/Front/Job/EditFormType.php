@@ -12,10 +12,8 @@ namespace App\Form\Front\Job;
 use App\Entity\Game;
 use App\Entity\Job;
 use App\Entity\Type;
-use App\Entity\User;
 use App\Repository\GameRepository;
 use App\Repository\TypeRepository;
-use App\Repository\UserRepository;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\NumberType;
@@ -84,7 +82,7 @@ class EditFormType extends AbstractType
                 'choice_label' => 'name',
                 'choice_value' => 'id',
                 'choice_attr' => function(Type $entity) {
-                    return ['data-icon' => $entity->getName()];
+                    return ['data' => $entity->getName()];
                 }
             ])
             ->add('game', EntityType::class, [
@@ -96,7 +94,7 @@ class EditFormType extends AbstractType
                 'choice_label' => 'name',
                 'choice_value' => 'id',
                 'choice_attr' => function(Game $entity) {
-                    return ['data-icon' => $entity->getName()];
+                    return ['data' => $entity->getName()];
                 }
             ])
             ->add('edit', SubmitType::class, [
