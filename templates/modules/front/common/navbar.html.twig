@@ -3,6 +3,10 @@
     <li><a href="{{ path('app_user_show', {'slug': app.user.slug}) }}">{% trans %}Profile{% endtrans %}</a></li>
     <li><a href="{{ path('app_security_logout') }}">{% trans %}Logout{% endtrans %}</a></li>
 </ul>
+<ul id="dropdown-job" class="dropdown-content">
+    <li><a href="{{ path('app_job_manage') }}">{% trans %}My jobs{% endtrans %}</a></li>
+    <li><a href="{{ path('app_job_list') }}">{% trans %}Find job{% endtrans %}</a></li>
+</ul>
 {% endif %}
 
 <ul id="dropdown-members" class="dropdown-content">
@@ -21,7 +25,13 @@
         <ul id="nav-mobile" class="left hide-on-med-and-down">
             <li><a href="{{ path('app_home_index') }}">{% trans %}Home{% endtrans %}</a></li>
             <li><a class="dropdown-trigger" data-target="dropdown-members">Members<i class="material-icons right">arrow_drop_down</i></a></li>
-            <li><a href="{{ path('app_job_list') }}">{% trans %}Jobs{% endtrans %}</a></li>
+
+            {% if not app.user %}
+                <li><a href="{{ path('app_job_list') }}">{% trans %}Jobs{% endtrans %}</a></li>
+            {% else %}
+                <li  class="dropdown-trigger"  data-target="dropdown-job"><a>Jobs<i class="material-icons right">arrow_drop_down</i></a></li>
+            {% endif %}
+
             <li><a href="{{ path('app_event_list') }}">{% trans %}Events{% endtrans %}</a></li>
             <li><a href="{{ path('app_game_list') }}">{% trans %}Games{% endtrans %}</a></li>
             <li><a href="">{% trans %}Recruitment{% endtrans %}</a></li>
@@ -33,7 +43,7 @@
                 <li><a href="{{ path('app_security_login') }}">{% trans %}Login{% endtrans %}</a></li>
                 <li><a href="{{ path('app_registration_register') }}">{% trans %}Sign in{% endtrans %}</a></li>
             {% else %}
-                <li  class="dropdown-trigger"  data-target="dropdown-user"><a>{{app.user.username}}</a></li>
+                <li  class="dropdown-trigger"  data-target="dropdown-user"><a>{{app.user.username}}<i class="material-icons right">arrow_drop_down</i></a></li>
             {% endif %}
         </ul>
     </div>

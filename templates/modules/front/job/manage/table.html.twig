@@ -5,12 +5,15 @@
         <th>Created At</th>
         <th>Location</th>
         <th>Applicants</th>
+        <th>View</th>
+        <th>Edit</th>
+        <th>Delete</th>
     </tr>
     </thead>
 
     <tbody>
     {% for job in jobs %}
-        <tr onclick="document.location = '/job/{{ job.id }}/edit'">
+        <tr>
             <td>{{ job.title }}</td>
             <td>{{ job.createdAt|date('Y-m-d') }}</td>
             <td>{{ job.location }}</td>
