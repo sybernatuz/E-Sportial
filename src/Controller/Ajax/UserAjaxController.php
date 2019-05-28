@@ -13,6 +13,7 @@ use App\Repository\GameAccountRepository;
 use App\Repository\GameRepository;
 use App\Services\Game\GameStats\GameStatsFactory;
 use Doctrine\ORM\EntityManagerInterface;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -39,6 +40,7 @@ class UserAjaxController extends AbstractController
     }
 
     /**
+     * @IsGranted("ROLE_USER")
      * @Route(path="/{id}/subscribe", name="subscribe", options={"expose"=true})
      * @param User $member
      * @return JsonResponse
@@ -49,6 +51,7 @@ class UserAjaxController extends AbstractController
     }
 
     /**
+     * @IsGranted("ROLE_USER")
      * @Route(path="/{id}/unsubscribe", name="unsubscribe", options={"expose"=true})
      * @param User $member
      * @return JsonResponse

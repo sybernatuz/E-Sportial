@@ -25,6 +25,7 @@ class SubscriptionHandler
      * SubscriptionHandler constructor.
      * @param EntityManagerInterface $entityManager
      * @param SubscriptionRepository $subscriptionRepository
+     * @param EngineInterface $templating
      */
     public function __construct(EntityManagerInterface $entityManager, SubscriptionRepository $subscriptionRepository, EngineInterface $templating)
     {
@@ -41,11 +42,11 @@ class SubscriptionHandler
     public function subscribe($subscriber, $member)
     {
         if (!$subscriber || $subscriber === $member)
-            return $this->getDataToReturn(false);
+            return false;
 
         $subscription = $this->subscriptionRepository->findBySubscriberAndMember($subscriber, $member);
         if($subscription)
-            return $this->getDataToReturn(false);
+            return false;
 
         $subscription = new Subscription();
         $subscription->setSubscriber($subscriber);
@@ -56,7 +57,7 @@ class SubscriptionHandler
         }
         $this->entityManager->persist($subscription);
         $this->entityManager->flush();
-        return $this->getDataToReturn(true, $member);
+        return $this->getDataToReturn($member);
     }
 
     /**
@@ -67,25 +68,24 @@ class SubscriptionHandler
     public function unsubscribe($subscriber, $member)
     {
         if(!$subscriber || $subscriber === $member)
-            return $this->getDataToReturn(false);
+            return false;
 
         $subscription = $this->subscriptionRepository->findBySubscriberAndMember($subscriber, $member);
         if(!$subscription)
-            return $this->getDataToReturn(false);
+            return false;
 
         $this->entityManager->remove($subscription);
         $this->entityManager->flush();
-        return $this->getDataToReturn(true, $member);
+        return $this->getDataToReturn($member);
     }
 
     /**
-     * @param $state
      * @param $member
      * @return array | bool
      */
-    private function getDataToReturn($state, $member = null)
+    private function getDataToReturn($member = null)
     {
-        if(!$state || !$member) {
+        if(!$member) {
             return false;
         }
 
@@ -93,6 +93,6 @@ class SubscriptionHandler
             "followers" => $this->subscriptionRepository->getListOfSubscriber($member)
         ]);
         $countFollowers = $member->getSubscriptions()->count();
-        return ["state" => $state, "counter" => $countFollowers, "followersHtml" => $followersHtml];
+        return ["state" => true, "counter" => $countFollowers, "followersHtml" => $followersHtml];
     }
 }

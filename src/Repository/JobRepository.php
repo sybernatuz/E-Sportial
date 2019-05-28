@@ -9,6 +9,7 @@ use App\Enums\type\JobTypeEnum;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\ORM\Query;
 use Symfony\Bridge\Doctrine\RegistryInterface;
+use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 
 /**
  * @method Job|null find($id, $lockMode = null, $lockVersion = null)
@@ -18,9 +19,12 @@ use Symfony\Bridge\Doctrine\RegistryInterface;
  */
 class JobRepository extends ServiceEntityRepository
 {
-    public function __construct(RegistryInterface $registry)
+    private $token;
+
+    public function __construct(RegistryInterface $registry, TokenStorageInterface $token)
     {
         parent::__construct($registry, Job::class);
+        $this->token = $token;
     }
 
     /**
@@ -43,10 +47,16 @@ class JobRepository extends ServiceEntityRepository
                 ->setParameter('location', '%' . $location . '%');
         }
 
+        if ($this->token->getToken()->getUser() instanceof User && $this->token->getToken()->getUser()->getId() != null) {
+            $query->leftJoin('j.user', 'u')
+                ->andWhere('u.id != :id')
+                ->setParameter('id', $this->token->getToken()->getUser()->getId());
+        }
+
         $type = $search->getType() != null ? $search->getType()->getName() : JobTypeEnum::WORK;
         $query->leftJoin('j.type', 't')
-            ->where('t.name = :type')
-            ->setParameter(':type', $type);
+            ->andWhere('t.name = :type')
+            ->setParameter('type', $type);
 
         return $query->getQuery();
     }

@@ -43,7 +43,8 @@
                 <li><a href="{{ path('app_security_login') }}">{% trans %}Login{% endtrans %}</a></li>
                 <li><a href="{{ path('app_registration_register') }}">{% trans %}Sign in{% endtrans %}</a></li>
             {% else %}
-                <li  class="dropdown-trigger"  data-target="dropdown-user"><a>{{app.user.username}}<i class="material-icons right">arrow_drop_down</i></a></li>
+                <li><a id="messages" href="{{ path('app_message_list') }}">Messages</a></li>
+                <li class="dropdown-trigger" data-target="dropdown-user"><a>{{app.user.username}}<i class="material-icons right">arrow_drop_down</i></a></li>
             {% endif %}
         </ul>
     </div>

@@ -39,9 +39,13 @@ Encore
     .addEntry('game_admin_edit', './assets/js/pages/back/game/edit.js')
     .addEntry('game_admin_new', './assets/js/pages/back/game/new.js')
 
+    .addEntry('message_list', './assets/js/pages/front/message/list.js')
+
     .addEntry('team_list', './assets/js/pages/front/team/list.js')
 
     .addEntry('register', './assets/js/pages/front/security/register.js')
+
+
 
 
     // will require an extra script tag for runtime.js

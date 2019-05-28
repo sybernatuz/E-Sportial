@@ -1,0 +1,22 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Messages{% endblock %}
+
+{% block stylesheets %}
+    {{ encore_entry_link_tags('message_list') }}
+{% endblock %}
+
+{% block body %}
+    <div class="row">
+        {% include "modules/front/message/list/messages.html.twig" %}
+        <input type="hidden" id="pagination" value="1">
+
+        {% if messages|length == 30 %}
+            {% include "modules/front/common/loading.html.twig" %}
+        {% endif %}
+    </div>
+{% endblock %}
+
+{% block javascripts %}
+    {{ encore_entry_script_tags('message_list') }}
+{% endblock %}
