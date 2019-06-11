@@ -9,6 +9,7 @@
 namespace App\DataFixtures\dev;
 
 
+use App\Entity\DiscussionGroup;
 use App\Entity\Message;
 use App\Entity\User;
 use Doctrine\Bundle\FixturesBundle\Fixture;
@@ -29,14 +30,16 @@ class MessageFixtures extends Fixture implements DependentFixtureInterface, Fixt
     {
         $faker = Factory::create();
         $users = $manager->getRepository(User::class)->findAll();
+        $discussionGroups = $manager->getRepository(DiscussionGroup::class)->findAll();
         for ($i = 0; $i < 100; $i++) {
-            $job = (new Message())
+            $message = (new Message())
                 ->setContent($faker->text(1000))
                 ->setCreateAt($faker->dateTime)
                 ->setIsRead($faker->boolean)
                 ->setReceiver($faker->randomElement($users))
+                ->setDiscussionGroup($faker->randomElement($discussionGroups))
                 ->setTransmitter($faker->randomElement($users));
-            $manager->persist($job);
+            $manager->persist($message);
         }
         $manager->flush();
     }
@@ -44,7 +47,8 @@ class MessageFixtures extends Fixture implements DependentFixtureInterface, Fixt
     public function getDependencies()
     {
         return [
-            UserFixtures::class
+            UserFixtures::class,
+            DiscussionGroupFixtures::class
         ];
     }
 

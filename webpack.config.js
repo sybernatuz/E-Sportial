@@ -1,4 +1,4 @@
-var Encore = require('@symfony/webpack-encore');
+let Encore = require('@symfony/webpack-encore');
 Encore
 // directory where compiled assets will be stored
     .setOutputPath('public/build/')
@@ -39,14 +39,16 @@ Encore
     .addEntry('game_admin_edit', './assets/js/pages/back/game/edit.js')
     .addEntry('game_admin_new', './assets/js/pages/back/game/new.js')
 
-    .addEntry('message_list', './assets/js/pages/front/message/list.js')
+    .addEntry('message_index', './assets/js/pages/front/message/index.js')
 
     .addEntry('team_list', './assets/js/pages/front/team/list.js')
 
     .addEntry('register', './assets/js/pages/front/security/register.js')
 
 
-
+    .addAliases({
+        handlebars: 'handlebars/dist/handlebars.min.js'
+    })
 
     // will require an extra script tag for runtime.js
     // but, you probably want this, unless you're building a single-page app

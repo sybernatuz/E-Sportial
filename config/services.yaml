@@ -38,3 +38,8 @@ services:
         tags:
             - {name: kernel.event_listener, event: kernel.exception, method: onKernelResponse }
         arguments: ['@router']
+
+    twig.extension.sortbyfield:
+        class: Snilius\Twig\SortByFieldExtension
+        tags:
+            - { name: twig.extension }

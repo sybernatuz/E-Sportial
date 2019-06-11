@@ -3,6 +3,7 @@
 namespace App\Repository;
 
 use App\Entity\DiscussionGroup;
+use App\Entity\User;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Symfony\Bridge\Doctrine\RegistryInterface;
 
@@ -19,22 +20,21 @@ class DiscussionGroupRepository extends ServiceEntityRepository
         parent::__construct($registry, DiscussionGroup::class);
     }
 
-    // /**
-    //  * @return DiscussionGroup[] Returns an array of DiscussionGroup objects
-    //  */
-    /*
-    public function findByExampleField($value)
+    /**
+     * @param User $user
+     * @return DiscussionGroup[] Returns an array of DiscussionGroup objects
+     */
+    public function findByUser(User $user)
     {
-        return $this->createQueryBuilder('g')
-            ->andWhere('g.exampleField = :val')
-            ->setParameter('val', $value)
-            ->orderBy('g.id', 'ASC')
-            ->setMaxResults(10)
+        return $this->createQueryBuilder('d')
+            ->join("d.users", "user")
+            ->where('user = :user')
+            ->setParameter('user', $user)
             ->getQuery()
             ->getResult()
         ;
     }
-    */
+
 
     /*
     public function findOneBySomeField($value): ?DiscussionGroup

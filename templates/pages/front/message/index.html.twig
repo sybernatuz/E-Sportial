@@ -1,0 +1,20 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Messages{% endblock %}
+
+{% block stylesheets %}
+    {{ encore_entry_link_tags('message_index') }}
+{% endblock %}
+
+{% block body %}
+    <div id="chat">
+        <div class="row">
+            {% include "modules/front/message/index/peopleList.html.twig" %}
+            {% include "modules/front/message/index/discussion.html.twig" %}
+        </div>
+    </div>
+{% endblock %}
+
+{% block javascripts %}
+    {{ encore_entry_script_tags('message_index') }}
+{% endblock %}

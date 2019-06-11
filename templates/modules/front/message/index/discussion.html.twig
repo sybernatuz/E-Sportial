@@ -1,0 +1,55 @@
+<div class="chat col m9">
+    {% if discussion is not null %}
+        <div class="chat-header row">
+            <div class="chat-about col m11">
+                <div class="chat-with">{{ discussion.name }}</div>
+                <div class="chat-num-messages">
+                    {% for user in discussion.users %}
+                        {{ user.username }} /
+                    {% endfor %}
+                </div>
+            </div>
+            <i class="material-icons col m1 refresh">refresh</i>
+        </div> <!-- end chat-header -->
+
+        <div class="chat-history">
+            <ul>
+                {% for message in discussion.messages|sortbyfield('createAt', 'asc') %}
+                    {% if message.receiver.username == app.user.username %}
+                        <li class="clearfix">
+                            <div class="message-data align-right">
+                                <span class="message-data-time" >{{ message.createAt|date('H:i:s/Y-m-d') }}</span> &nbsp; &nbsp;
+                                <span class="message-data-name" >{{ message.receiver.username }}</span> <i class="fa fa-circle me"></i>
+
+                            </div>
+                            <div class="message other-message float-right">
+                                {{ message.content }}
+                            </div>
+                        </li>
+                    {% else %}
+                        <li>
+                            <div class="message-data">
+                                <span class="message-data-name"><i class="fa fa-circle"></i> {{ message.transmitter.username }}</span>
+                                <span class="message-data-time">{{ message.createAt|date('H:i:s/Y-m-d') }}</span>
+                            </div>
+                            <div class="message my-message">
+                                {{ message.content }}
+                            </div>
+                        </li>
+                    {% endif %}
+                {% endfor %}
+            </ul>
+
+        </div> <!-- end chat-history -->
+
+        <div class="chat-message clearfix">
+            <textarea name="message-to-send" id="message-to-send" placeholder ="Type your message" rows="3"></textarea>
+
+            <i class="fa fa-file-o"></i> &nbsp;&nbsp;&nbsp;
+            <i class="fa fa-file-image-o"></i>
+
+            <button class="send-button">Send</button>
+
+        </div> <!-- end chat-message -->
+    {% endif %}
+</div> <!-- end chat -->

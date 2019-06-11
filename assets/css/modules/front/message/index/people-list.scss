@@ -1,0 +1,75 @@
+.people-list {
+
+  min-height: 300px !important;
+
+  .add {
+    font-size: 48px;
+  }
+
+  .add:hover {
+    color: $purple-color;
+    cursor: pointer;
+  }
+
+  .transmitter:hover, .active {
+    border: 1px solid $purple-color;
+    border-radius: 10px;
+  }
+
+  .online, .offline, .me {
+    margin-right: 3px;
+    font-size: 10px;
+  }
+
+  .online {
+    color: $green;
+  }
+
+  .offline {
+    color: $orange;
+  }
+
+  .circle {
+    height: 50px;
+    width: 50px;
+  }
+
+  .search {
+    padding: 20px;
+  }
+
+  input {
+    border-radius: 3px;
+    border: none;
+    padding: 14px;
+    background: #6A6C75;
+    width: 80% !important;
+    font-size: 14px;
+  }
+
+  ul {
+    padding: 20px;
+
+
+    li {
+      padding-bottom: 20px;
+    }
+  }
+
+  img {
+    float: left;
+  }
+
+  .about {
+    float: left;
+    margin-top: 8px;
+  }
+
+  .about {
+    padding-left: 8px;
+  }
+
+  .status {
+    color: $gray;
+  }
+}

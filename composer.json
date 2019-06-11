@@ -11,6 +11,7 @@
         "mashape/unirest-php": "^3.0",
         "ramsey/uuid": "^3.8",
         "sensio/framework-extra-bundle": "^5.1",
+        "snilius/twig-sort-by-field": "^0.1.5",
         "stof/doctrine-extensions-bundle": "dev-master",
         "symfony/asset": "*",
         "symfony/console": "*",
@@ -31,7 +32,8 @@
         "symfony/validator": "*",
         "symfony/web-link": "*",
         "symfony/webpack-encore-bundle": "^1.1",
-        "symfony/yaml": "*"
+        "symfony/yaml": "*",
+        "twig/extensions": "^1.5"
     },
     "require-dev": {
         "doctrine/doctrine-fixtures-bundle": "^3.1",

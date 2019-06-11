@@ -9,9 +9,12 @@
 namespace App\Controller\Front;
 
 
+use App\Entity\Message;
+use App\Repository\DiscussionGroupRepository;
 use App\Repository\MessageRepository;
 use App\Services\layout\FooterService;
 use Knp\Component\Pager\PaginatorInterface;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -40,23 +43,26 @@ class MessageController extends AbstractController
         $this->footerService = $footerService;
     }
 
-
     /**
-     * @Route(name="list", path="/messages")
+     * @Route(name="index", path="/messages/t")
+     * @IsGranted("ROLE_USER")
      * @param PaginatorInterface $paginator
      * @param Request $request
+     * @param DiscussionGroupRepository $discussionGroupRepository
      * @return \Symfony\Component\HttpFoundation\Response
      */
-    public function list(PaginatorInterface $paginator, Request $request) : Response
+    public function index(PaginatorInterface $paginator, Request $request, DiscussionGroupRepository $discussionGroupRepository) : Response
     {
-        $messages = $paginator->paginate(
-            $this->messageRepository->findByReceiverOrTransmitterOrderByDate($this->getUser()),
+        $discussions = $paginator->paginate(
+            $discussionGroupRepository->findByUser($this->getUser()),
             $request->query->getInt('page', 1),
             self::MESSAGES_NUMBER
         );
 
-        return $this->render("pages/front/message/list.html.twig", [
-                'messages' => $messages
+        return $this->render("pages/front/message/index.html.twig", [
+                'discussions' => $discussions,
+                'discussion' => $discussions[0] ?? null
             ] + $this->footerService->process());
     }
+
 }

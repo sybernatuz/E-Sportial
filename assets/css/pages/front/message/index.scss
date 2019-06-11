@@ -1,0 +1,29 @@
+@import "../../../variables";
+$green: #86BB71;
+$blue: #94C2ED;
+$orange: #E38968;
+$gray: #92959E;
+@import url(https://fonts.googleapis.com/css?family=Lato:400,700);
+#chat {
+
+  margin: 0 auto;
+  border-radius: 5px;
+  border: 1px solid $gray;
+
+
+  *, *:before, *:after {
+    box-sizing: border-box;
+  }
+
+  .clearfix:after {
+    visibility: hidden;
+    display: block;
+    font-size: 0;
+    content: " ";
+    clear: both;
+    height: 0;
+  }
+}
+
+@import "../../../modules/front/message/index/people-list";
+@import "../../../modules/front/message/index/discussion";

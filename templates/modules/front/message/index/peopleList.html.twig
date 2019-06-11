@@ -1,0 +1,24 @@
+<div class="people-list col m3" id="people-list">
+    <i class="material-icons add">add_circle_outline</i>
+    <div class="search">
+        <i class="fa fa-search"></i>
+        <input type="text" placeholder="search" />
+    </div>
+    <ul class="list">
+        {% for discussion in discussions %}
+            <li class="clearfix transmitter" id="{{ discussion.id }}">
+                <img src="{{ discussion.messages[0].transmitter.avatar }}" alt="avatar" class="circle" />
+                <div class="about">
+                    <div class="name">{{ discussion.name }}</div>
+                    <div class="status">
+                        {% if discussion.messages[0].transmitter.online %}
+                            <i class="fa fa-circle online"></i> online
+                        {% else %}
+                            <i class="fa fa-circle offline"></i> offline
+                        {% endif %}
+                    </div>
+                </div>
+            </li>
+        {% endfor %}
+    </ul>
+</div>

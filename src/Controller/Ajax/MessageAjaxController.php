@@ -9,7 +9,10 @@
 namespace App\Controller\Ajax;
 
 
+use App\Entity\DiscussionGroup;
+use App\Entity\Message;
 use App\Mapper\NewMessagesMapper;
+use App\Repository\DiscussionGroupRepository;
 use App\Repository\MessageRepository;
 use Knp\Component\Pager\PaginatorInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
@@ -53,20 +56,52 @@ class MessageAjaxController extends AbstractController
     }
 
     /**
-     * @Route(name="get_pagination", path="/pagination")
-     * @param PaginatorInterface $paginator
-     * @param Request $request
+     * @Route(name="get_discussion", path="/get/discussion/{id}")
+     * @IsGranted("ROLE_USER")
+     * @param DiscussionGroup $discussionGroup
      * @return \Symfony\Component\HttpFoundation\Response
      */
-    public function list(PaginatorInterface $paginator, Request $request) : Response
+    public function discussion(DiscussionGroup $discussionGroup) : Response
     {
-        $messages = $paginator->paginate(
-            $this->messageRepository->findByReceiverOrTransmitterOrderByDate($this->getUser()),
-            $request->query->getInt('page', 1),
-            self::MESSAGES_NUMBER
-        );
-        return $this->render("modules/front/message/list/messages.html.twig", [
-            "messages" => $messages
+        $discussionGroup->getMessages()->forAll(function (Message $message) {$message->setIsRead(true);});
+        $this->getDoctrine()->getManager()->flush();
+        return $this->render("modules/front/message/index/discussion.html.twig", [
+            "discussion" => $discussionGroup
         ]);
     }
+
+    /**
+     * @Route(name="insert", path="/insert")
+     * @IsGranted("ROLE_USER")
+     * @param DiscussionGroupRepository $discussionGroupRepository
+     * @param Request $request
+     * @return JsonResponse
+     */
+    public function insert(DiscussionGroupRepository $discussionGroupRepository, Request $request)
+    {
+        $discussion = $discussionGroupRepository->find($request->get('discussion'));
+        $message = new Message();
+        $message->setContent($request->get('content'));
+        $message->setDiscussionGroup($discussion);
+        $message->setTransmitter($this->getUser());
+        $message->setReceiver($discussion->getUsers()[0] ?? null);
+        $message->setIsRead(false);
+        $manager = $this->getDoctrine()->getManager();
+        $manager->persist($message);
+        $manager->flush();
+        return new JsonResponse($this->serializer->normalize(true, 'json'));
+    }
+
+//    /**
+//     * @Route(name="get_new_form", path="/get/new-form")
+//     * @IsGranted("ROLE_USER")
+//     * @param DiscussionGroupRepository $discussionGroupRepository
+//     * @param Request $request
+//     * @return JsonResponse
+//     */
+//    public function getNewForm(DiscussionGroupRepository $discussionGroupRepository, Request $request)
+//    {
+//
+//        return $this->render();
+//    }
 }

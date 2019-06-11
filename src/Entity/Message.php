@@ -2,6 +2,7 @@
 
 namespace App\Entity;
 
+use DateTime;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
@@ -76,6 +77,10 @@ class Message
 
     public function __construct()
     {
+        try {
+            $this->createAt = new DateTime();
+        } catch (\Exception $e) {
+        }
         $this->messages = new ArrayCollection();
         $this->files = new ArrayCollection();
     }
