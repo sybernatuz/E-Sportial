@@ -44,7 +44,7 @@ class MessageController extends AbstractController
     }
 
     /**
-     * @Route(name="index", path="/messages/t")
+     * @Route(name="index", path="/messages")
      * @IsGranted("ROLE_USER")
      * @param PaginatorInterface $paginator
      * @param Request $request

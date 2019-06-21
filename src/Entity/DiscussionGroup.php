@@ -29,12 +29,12 @@ class DiscussionGroup
     private $createdAt;
 
     /**
-     * @ORM\ManyToMany(targetEntity="App\Entity\User", inversedBy="groups")
+     * @ORM\ManyToMany(targetEntity="App\Entity\User", inversedBy="groups", cascade={"persist"})
      */
     private $users;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Message", mappedBy="discussionGroup")
+     * @ORM\OneToMany(targetEntity="App\Entity\Message", mappedBy="discussionGroup", cascade={"persist", "remove", "merge", "refresh"})
      */
     private $messages;
 

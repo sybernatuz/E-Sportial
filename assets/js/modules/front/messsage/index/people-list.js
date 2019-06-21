@@ -20,6 +20,25 @@ $(document).on('click', '.transmitter', function () {
     let id = $(this).attr('id');
     changeActiveDiscussion(id);
     refreshChat(id);
+
+});
+
+$(document).on('click', '.add', function () {
+    const loading = $('#loading').data("prototype");
+    $.ajax({
+        url: "/ajax/message/get/new-form",
+        beforeSend: function() {
+            let chat = $('.chat');
+            chat.find('.chat-history').html(loading);
+        },
+        success: function(data) {
+            let chat = $('.chat');
+            chat.replaceWith(data);
+        }
+    });
+    changeActiveDiscussion(id);
+    refreshChat(id);
+
 });
 
 function changeActiveDiscussion(id) {
@@ -38,7 +57,15 @@ function refreshChat(id) {
         success: function(data) {
             let chat = $('.chat');
             chat.replaceWith(data);
+            scrollChatToTheBottom();
         }
     });
+}
+
+function scrollChatToTheBottom() {
+    let chatHistory = $('.chat-history');
+    chatHistory.animate({
+        scrollTop: chatHistory.get(0).scrollHeight
+    }, 2000);
 }
 
