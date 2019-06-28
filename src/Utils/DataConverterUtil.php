@@ -16,6 +16,6 @@ class DataConverterUtil
      * @return mixed
      */
     public static function stdClassToArray($object) {
-        return json_decode(json_encode($object, true));
+        return json_decode(json_encode($object), true);
     }
 }

@@ -23,12 +23,13 @@ class FortniteGameStatsService implements GameStatsInterface
     public function getUserStats(string $apiUrl, string $pseudo)
     {
         $uid = $this->getUid($apiUrl, $pseudo);
+
         if(!$uid) {
             throw new GameStatsFortniteEpicNameUnknownException($pseudo);
         }
 
         $headers = array('Accept' => 'application/json');
-        $queryStats = array('user_id' => $uid);
+        $queryStats = array('user_id' => $uid, 'authorization' => '4635ae6ff6ddd205cc301e4ff3b81d24');
         $result = Request::get($apiUrl . self::USER_STATS_ROUTE, $headers, $queryStats)->body;
 
         if(property_exists($result, 'success') && !$result->success) {
@@ -36,7 +37,6 @@ class FortniteGameStatsService implements GameStatsInterface
         }
 
         $data = DataConverterUtil::stdClassToArray($result);
-
         if(!$data) {
             throw new DataConverterJsonDecodeException();
         }
@@ -60,13 +60,13 @@ class FortniteGameStatsService implements GameStatsInterface
     private function getUid(string $apiUrl, string $pseudo) {
         $headers = array('Accept' => 'application/json');
 
-        $queryUid = array('username' => $pseudo);
+        $queryUid = array('username' => $pseudo, 'authorization' => '4635ae6ff6ddd205cc301e4ff3b81d24');
         $result = Request::get($apiUrl . self::USER_ID_ROUTE, $headers, $queryUid)->body;
 
         if(property_exists($result, 'success') && !$result->success) {
             return false;
         }
 
-        return $result->uid;
+        return $result->data->uid;
     }
 }
