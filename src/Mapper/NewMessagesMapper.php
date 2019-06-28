@@ -22,7 +22,7 @@ class NewMessagesMapper
      * @param Message[] $messages
      * @return NewMessagesDto
      */
-    public function mapNewMessages($messages) : NewMessagesDto
+    public function mapNewMessages(array $messages) : NewMessagesDto
     {
         $newMessages = new NewMessagesDto();
         $newMessages->setNewMessages($this->mapNewMessagesItems($messages));
@@ -33,12 +33,11 @@ class NewMessagesMapper
      * @param Message[] $messages
      * @return array
      */
-    private function mapNewMessagesItems($messages) : array
+    private function mapNewMessagesItems(array $messages) : array
     {
         $messageItems = [];
         foreach ($messages as $message) {
             $messageItem = new NewMessageItemDto();
-            $messageItem->setReceiver($this->mapUser($message->getReceiver()));
             $messageItem->setTransmitter($this->mapUser($message->getTransmitter()));
             $messageItem->setCreatedAt($message->getCreateAt());
             $messageItem->setContent($message->getContent());

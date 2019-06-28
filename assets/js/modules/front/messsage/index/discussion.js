@@ -6,11 +6,13 @@ $(document).ready(function () {
 $(document).on('click', '.send-button', function () {
     let id = $('li.active').attr('id');
     insertMessage(id);
+    scrollChatToTheBottom();
 });
 
 $(document).on('click', '.refresh', function () {
     let id = $('li.active').attr('id');
     refreshChat(id);
+    scrollChatToTheBottom();
 });
 
 function refreshChat(id) {

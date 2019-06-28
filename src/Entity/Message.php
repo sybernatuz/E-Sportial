@@ -46,12 +46,12 @@ class Message
 
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\User", inversedBy="receivedMessages")
+     * @ORM\JoinColumn(nullable=true)
      */
     private $receiver;
 
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\User", inversedBy="transmittedMessages")
-     * @ORM\JoinColumn(nullable=false)
      */
     private $transmitter;
 
@@ -77,10 +77,8 @@ class Message
 
     public function __construct()
     {
-        try {
-            $this->createAt = new DateTime();
-        } catch (\Exception $e) {
-        }
+        $this->isRead = false;
+        $this->createAt = new DateTime();
         $this->messages = new ArrayCollection();
         $this->files = new ArrayCollection();
     }

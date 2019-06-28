@@ -6,6 +6,7 @@ use App\Entity\Search\Admin\UserSearchAdmin;
 use App\Entity\Search\MemberSearch;
 use App\Entity\User;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\ORM\NonUniqueResultException;
 use Doctrine\ORM\Query;
 use Symfony\Bridge\Doctrine\RegistryInterface;
 
@@ -94,7 +95,7 @@ class UserRepository extends ServiceEntityRepository
      * Used for the front authentification
      * @param string $username
      * @return User
-     * @throws \Doctrine\ORM\NonUniqueResultException
+     * @throws NonUniqueResultException
      */
     public function findByUsernameOrEmail(string $username): ?User
     {
@@ -110,7 +111,7 @@ class UserRepository extends ServiceEntityRepository
      * Used for the back authentification
      * @param string $username
      * @return User
-     * @throws \Doctrine\ORM\NonUniqueResultException
+     * @throws NonUniqueResultException
      */
     public function findByUsernameOrEmailAdmin(string $username): ?User
     {

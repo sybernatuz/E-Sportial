@@ -2,6 +2,7 @@
 
 namespace App\Entity;
 
+use DateTime;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
@@ -34,7 +35,7 @@ class DiscussionGroup
     private $users;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Message", mappedBy="discussionGroup", cascade={"persist", "remove", "merge", "refresh"})
+     * @ORM\OneToMany(targetEntity="App\Entity\Message", mappedBy="discussionGroup", cascade={"persist", "remove"})
      */
     private $messages;
 
@@ -42,6 +43,7 @@ class DiscussionGroup
     {
         $this->users = new ArrayCollection();
         $this->messages = new ArrayCollection();
+        $this->createdAt = new DateTime();
     }
 
     public function getId(): ?int
