@@ -1,0 +1,31 @@
+<div class="col s12 m2 l2 xl2">
+    <img alt="Avatar" id="avatar" class="circle" src="{{ team.logoPath }}">
+</div>
+<div class="col s12 m10 l10 xl10">
+    <div class="row mb0">
+        <div class="col s12 m12 l12 xl12 flex-align-items-center">
+            <span class="username">{{ team.name }}</span>
+            <img alt="Country flag" class="image-small" src="{{ team.country.flagPath }}">
+        </div>
+    </div>
+
+    {% if team.description %}
+        <div class="row mb0">
+            <div class="col s12 m12 l12 xl12 ">
+                <p>
+                    {{ team.description }}
+                </p>
+            </div>
+        </div>
+    {% endif %}
+
+    <div class="row">
+        <div class="col s12 m12 l12 xl12 mt2">
+            <a href="#followers-list" class="modal-trigger">
+                <span id="subscription-counter">{{ followers|length }}</span> Followers
+            </a>
+        </div>
+    </div>
+</div>
+
+{% include 'modules/front/common/modal/followers_list.html.twig' %}

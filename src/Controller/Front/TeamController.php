@@ -6,6 +6,7 @@ use App\Entity\Organization;
 use App\Entity\Search\MemberSearch;
 use App\Form\Search\MemberSearchType;
 use App\Repository\OrganizationRepository;
+use App\Repository\SubscriptionRepository;
 use App\Services\layout\FooterService;
 use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -60,9 +61,11 @@ class TeamController extends AbstractController
      * @param Organization $team
      * @return \Symfony\Component\HttpFoundation\Response
      */
-    public function show(Organization $team) {
+    public function show(Organization $team, SubscriptionRepository $subscriptionRepository) {
+        $followers = $subscriptionRepository->getListOfSubscriber($team);
         return $this->render('pages/front/team/show.html.twig', [
                 'team' => $team,
+                'followers' => $followers
             ] + $this->footerService->process());
     }
 }

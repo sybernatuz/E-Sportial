@@ -35,15 +35,21 @@ class SubscriptionRepository extends ServiceEntityRepository
     }
 
     /**
-     * @param User $user
+     * @param $member
      * @return mixed
      */
-    public function getListOfSubscriber(User $user) {
-        return $this->createQueryBuilder('s')
+    public function getListOfSubscriber($member) {
+        $query = $this->createQueryBuilder('s')
             ->select('u.username, u.avatar, u.slug')
-            ->join(User::class, 'u', 'WITH', 's.subscriber = u.id')
-            ->where("s.user = :user")
-            ->setParameter("user", $user)
+            ->join(User::class, 'u', 'WITH', 's.subscriber = u.id');
+
+        if(get_class($member) == User::class) {
+            $query->where("s.user = :member");
+        } else {
+            $query->where("s.organization = :member");
+        }
+
+        return $query->setParameter("member", $member)
             ->getQuery()->getResult();
     }
 

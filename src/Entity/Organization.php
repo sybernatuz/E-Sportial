@@ -75,6 +75,7 @@ class Organization
      */
     private $wall;
 
+
     /**
      * @ORM\OneToMany(targetEntity="App\Entity\Job", mappedBy="organization")
      */
@@ -567,5 +568,7 @@ class Organization
 
         return $this;
     }
+
+
 
 }

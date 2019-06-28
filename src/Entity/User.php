@@ -197,6 +197,11 @@ class User implements UserInterface
      */
     private $gameAccounts;
 
+    /**
+     * @ORM\Column(type="boolean")
+     */
+    private $teamOwner;
+
 
     public function __construct()
     {
@@ -1032,4 +1037,24 @@ class User implements UserInterface
 
         return $this;
     }
+
+    /**
+     * @return mixed
+     */
+    public function getTeamOwner() : bool
+    {
+        return $this->teamOwner;
+    }
+
+    /**
+     * @param $teamOwner
+     * @return User
+     */
+    public function setTeamOwner($teamOwner): self
+    {
+        $this->teamOwner = $teamOwner;
+        return $this;
+    }
+
+
 }

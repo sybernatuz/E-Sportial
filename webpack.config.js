@@ -42,6 +42,7 @@ Encore
     .addEntry('message_index', './assets/js/pages/front/message/index.js')
 
     .addEntry('team_list', './assets/js/pages/front/team/list.js')
+    .addEntry('team_show', './assets/js/pages/front/team/show.js')
 
     .addEntry('register', './assets/js/pages/front/security/register.js')
 
