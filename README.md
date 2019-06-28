@@ -40,4 +40,10 @@ Structure of twig / js / scss files :
                             -> user_detail.html.twig
                             -> history.html.twig
                             -> games_played.html.twig
-                           
+                            
+Soutenance :
+    enlever mode dev
+    Buissness plan : profit avec une taxe sur les jobs
+    presentation
+    concurrence
+    

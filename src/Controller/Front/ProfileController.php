@@ -15,6 +15,7 @@ use App\Services\layout\FooterService;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 /**
@@ -37,7 +38,7 @@ class ProfileController extends AbstractController
      * @Route(name="index", path="/{slug}")
      * @param User $user
      * @param Request $request
-     * @return \Symfony\Component\HttpFoundation\Response
+     * @return Response
      */
     public function index(User $user, Request $request)
     {

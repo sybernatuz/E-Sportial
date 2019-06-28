@@ -50,7 +50,8 @@ class OrganizationFixtures extends Fixture implements DependentFixtureInterface,
     {
         return [
             CountryFixtures::class,
-            TypeFixtures::class
+            TypeFixtures::class,
+            UserFixtures::class
         ];
     }
 

@@ -36,7 +36,6 @@ class MessageFixtures extends Fixture implements DependentFixtureInterface, Fixt
                 ->setContent($faker->text(1000))
                 ->setCreateAt($faker->dateTime)
                 ->setIsRead($faker->boolean)
-                ->setReceiver($faker->randomElement($users))
                 ->setDiscussionGroup($faker->randomElement($discussionGroups))
                 ->setTransmitter($faker->randomElement($users));
             $manager->persist($message);

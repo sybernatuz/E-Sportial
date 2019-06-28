@@ -15,11 +15,11 @@
         <div class="chat-history">
             <ul>
                 {% for message in discussion.messages|sortbyfield('createAt', 'asc') %}
-                    {% if message.receiver.username == app.user.username %}
+                    {% if message.transmitter.username == app.user.username %}
                         <li class="clearfix">
                             <div class="message-data align-right">
                                 <span class="message-data-time" >{{ message.createAt|date('H:i:s/Y-m-d') }}</span> &nbsp; &nbsp;
-                                <span class="message-data-name" >{{ message.receiver.username }}</span> <i class="fa fa-circle me"></i>
+                                <span class="message-data-name" >{{ message.transmitter.username }}</span> <i class="fa fa-circle me"></i>
 
                             </div>
                             <div class="message other-message float-right">

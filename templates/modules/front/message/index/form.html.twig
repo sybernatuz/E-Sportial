@@ -1,5 +1,5 @@
 {% import "modules/macro/flash_message.html.twig" as flashes %}
-<div class="col l8 m8 s8">
+<div class="chat col l8 m8 s8">
     {{ flashes.get_messages() }}
     <div class="row">
         {{ form_start(form) }}
@@ -13,44 +13,22 @@
             </div>
         </div>
         <div class="row">
-            {#<div class="input-field col s12">#}
-                {{ form_label(form.users) }}
-                {{ form_errors(form.users) }}
-                <ul>
-                    {% for user in form.users %}
-                        <li>
-                            {{ form_errors(user) }}
-                            {{ form_widget(user) }}
-                        </li>
-                    {% endfor %}
-                </ul>
-            {#</div>#}
-                {#{{ form_label(form.users) }}#}
-                {#{{ form_widget(form.users) }}#}
-                {#<div class="form-errors">#}
-                    {#{{ form_errors(form.users) }}#}
-                {#</div>#}
+            <ul id="user-fields-list"
+                data-prototype="{{ form_widget(form.users.vars.prototype)|e }}"
+                data-widget-tags="{{ '<li></li>'|e }}"
+                data-widget-counter="{{ form.children|length }}">
+                {% for userField in form.users %}
+                    <li>
+                        {{ form_errors(userField) }}
+                        {{ form_widget(userField) }}
+                    </li>
+                {% endfor %}
+            </ul>
+            <button type="button" class="btn add-collection-item" data-list-selector="#user-fields-list">Add user</button>
         </div>
         <div class="row">
-            {#<div class="input-field col s12">#}
-                {{ form_errors(form.messages) }}
-                {{ form_widget(form.messages.vars.prototype)|raw }}
-                {#<ul data-prototype="{{ form_widget(form.messages.vars.prototype)|e }}">#}
-                    {#{% for message in form.messages %}#}
-                        {#<li>#}
-                            {#{{ form_errors(message.content) }}#}
-                            {#{{ form_widget(message.content) }}#}
-                        {#</li>#}
-                    {#{% endfor %}#}
-                {#</ul>#}
-            {#</div>#}
-            {#<div class="input-field col s12">#}
-                {#{{ form_label(form.messages) }}#}
-                {#{{ form_widget(form.messages) }}#}
-                {#<div class="form-errors">#}
-                    {#{{ form_errors(form.messages) }}#}
-                {#</div>#}
-            {#</div>#}
+            {{ form_errors(form.messages) }}
+            {{ form_widget(form.messages.vars.prototype)|raw }}
         </div>
         <div class="row">
             <div class="input-field col s12">

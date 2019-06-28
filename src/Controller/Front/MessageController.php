@@ -9,7 +9,10 @@
 namespace App\Controller\Front;
 
 
+use App\Entity\DiscussionGroup;
 use App\Entity\Message;
+use App\Form\Front\Message\AddDiscussionGroupFormType;
+use App\Form\Front\Message\AddMessageFormType;
 use App\Repository\DiscussionGroupRepository;
 use App\Repository\MessageRepository;
 use App\Services\layout\FooterService;
@@ -49,7 +52,7 @@ class MessageController extends AbstractController
      * @param PaginatorInterface $paginator
      * @param Request $request
      * @param DiscussionGroupRepository $discussionGroupRepository
-     * @return \Symfony\Component\HttpFoundation\Response
+     * @return Response
      */
     public function index(PaginatorInterface $paginator, Request $request, DiscussionGroupRepository $discussionGroupRepository) : Response
     {

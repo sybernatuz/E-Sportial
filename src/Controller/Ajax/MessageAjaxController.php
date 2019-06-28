@@ -12,8 +12,8 @@ namespace App\Controller\Ajax;
 use App\Entity\DiscussionGroup;
 use App\Entity\Message;
 use App\Form\Front\Message\AddDiscussionGroupFormType;
-use App\Form\Front\Message\AddMessageFormType;
 use App\Mapper\NewMessagesMapper;
+use App\Repository\DiscussionGroupRepository;
 use App\Repository\MessageRepository;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -50,7 +50,7 @@ class MessageAjaxController extends AbstractController
      */
     public function getNewMessages(NewMessagesMapper $mapper) : JsonResponse
     {
-        $unreadMessages = $this->messageRepository->findByReceiverAndNotRead($this->getUser());
+        $unreadMessages = $this->messageRepository->findByDiscussionGroupAndNotRead($this->getUser());
         $newMessagesDto = $mapper->mapNewMessages($unreadMessages);
         return new JsonResponse($this->serializer->normalize($newMessagesDto, 'json'));
     }
@@ -59,38 +59,41 @@ class MessageAjaxController extends AbstractController
      * @Route(name="get_discussion", path="/get/discussion/{id}")
      * @IsGranted("ROLE_USER")
      * @param DiscussionGroup $discussionGroup
-     * @return \Symfony\Component\HttpFoundation\Response
+     * @return Response
      */
     public function discussion(DiscussionGroup $discussionGroup) : Response
     {
-        $discussionGroup->getMessages()->forAll(function (int $key, Message $message) {$message->setIsRead(true);});
+        $discussionGroup->getMessages()->forAll(function (int $key, Message $message) {
+            if ($message->getTransmitter() != $this->getUser())
+                $message->setIsRead(true);
+        });
         $this->getDoctrine()->getManager()->flush();
         return $this->render("modules/front/message/index/discussion.html.twig", [
             "discussion" => $discussionGroup
         ]);
     }
 
-//    /**
-//     * @Route(name="insert", path="/insert")
-//     * @IsGranted("ROLE_USER")
-//     * @param DiscussionGroupRepository $discussionGroupRepository
-//     * @param Request $request
-//     * @return JsonResponse
-//     */
-//    public function insert(DiscussionGroupRepository $discussionGroupRepository, Request $request)
-//    {
-//        $discussion = $discussionGroupRepository->find($request->get('discussion'));
-//        $message = new Message();
-//        $message->setContent($request->get('content'));
-//        $message->setDiscussionGroup($discussion);
-//        $message->setTransmitter($this->getUser());
-//        $message->setReceiver($discussion->getUsers()[0] ?? null);
-//        $message->setIsRead(false);
-//        $manager = $this->getDoctrine()->getManager();
-//        $manager->persist($message);
-//        $manager->flush();
-//        return new JsonResponse($this->serializer->normalize(true, 'json'));
-//    }
+    /**
+     * @Route(name="insert", path="/insert")
+     * @IsGranted("ROLE_USER")
+     * @param DiscussionGroupRepository $discussionGroupRepository
+     * @param Request $request
+     * @return JsonResponse
+     */
+    public function insert(DiscussionGroupRepository $discussionGroupRepository, Request $request)
+    {
+        $discussion = $discussionGroupRepository->find($request->get('discussion'));
+        $message = new Message();
+        $message->setContent($request->get('content'));
+        $message->setDiscussionGroup($discussion);
+        $message->setTransmitter($this->getUser());
+        $message->setReceiver($discussion->getUsers()[0] ?? null);
+        $message->setIsRead(false);
+        $manager = $this->getDoctrine()->getManager();
+        $manager->persist($message);
+        $manager->flush();
+        return new JsonResponse($this->serializer->normalize(true, 'json'));
+    }
 
     /**
      * @Route(name="get_new_form", path="/get/new-form")
@@ -101,17 +104,19 @@ class MessageAjaxController extends AbstractController
     public function getNewForm(Request $request)
     {
         $discussionGroup = new DiscussionGroup();
-//        $gameAccount->setGamer($user);
 
-        $addMessageForm = $this->createForm(AddDiscussionGroupFormType::class, $discussionGroup);
+        $addMessageForm = $this->createForm(AddDiscussionGroupFormType::class, $discussionGroup, [
+            'action' => $this->generateUrl('app_message_ajax_get_new_form'),
+        ]);
         $addMessageForm->handleRequest($request);
 
         if($addMessageForm->isSubmitted() && $addMessageForm->isValid()) {
+            $discussionGroup->getMessages()->first()->setTransmitter($this->getUser());
+            $discussionGroup->getMessages()->first()->setDiscussionGroup($discussionGroup);
+            $discussionGroup->addUser($this->getUser());
             $this->getDoctrine()->getManager()->persist($discussionGroup);
             $this->getDoctrine()->getManager()->flush();
-            return $this->render('modules/front/message/index/discussion.html.twig', [
-                "discussion" => $discussionGroup
-            ]);
+            return $this->redirectToRoute("app_message_index");
         }
 
         return $this->render('modules/front/message/index/form.html.twig', [

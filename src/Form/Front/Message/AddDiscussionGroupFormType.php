@@ -11,7 +11,9 @@ namespace App\Form\Front\Message;
 
 use App\Entity\DiscussionGroup;
 use App\Entity\User;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\CallbackTransformer;
 use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
@@ -21,8 +23,12 @@ use Symfony\Contracts\Translation\TranslatorInterface;
 
 class AddDiscussionGroupFormType extends AbstractType
 {
-    public function __construct(TranslatorInterface $translator)
+    private $translator;
+    private $usernameToUserTransformer;
+
+    public function __construct(TranslatorInterface $translator, UsernameToUserTransformer $usernameToUserTransformer)
     {
+        $this->usernameToUserTransformer = $usernameToUserTransformer;
         $this->translator = $translator;
     }
 
@@ -33,8 +39,8 @@ class AddDiscussionGroupFormType extends AbstractType
                 'label' => $this->translator->trans('Group name'),
             ])
             ->add('users', CollectionType::class, [
-                'label' => $this->translator->trans('Username'),
-                'entry_type' => User::class,
+                'entry_type'   => UserFormType::class,
+                'allow_add' => true
             ])
             ->add('messages', CollectionType::class, [
                 'entry_type'   => AddMessageFormType::class,
@@ -46,7 +52,8 @@ class AddDiscussionGroupFormType extends AbstractType
                     'class' => 'waves-effect waves-light btn'
                 ]
             ]);
-        ;
+
+        $builder->get('users')->addModelTransformer($this->usernameToUserTransformer);
 
     }
 

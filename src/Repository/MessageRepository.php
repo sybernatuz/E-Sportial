@@ -3,6 +3,7 @@
 namespace App\Repository;
 
 use App\Entity\Message;
+use App\Entity\User;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Symfony\Bridge\Doctrine\RegistryInterface;
 
@@ -23,17 +24,20 @@ class MessageRepository extends ServiceEntityRepository
      * @param $user
      * @return Message[]
      */
-    public function findByReceiverAndNotRead($user) : array
+    public function findByDiscussionGroupAndNotRead(User $user) : array
     {
         return $this->createQueryBuilder('m')
-            ->where('m.isRead = false')
-            ->andWhere('m.receiver = :user')
+            ->join("m.discussionGroup", "d")
+            ->join("d.users", "user")
+            ->andWhere("user = :user")
+            ->andWhere('m.transmitter != :user')
             ->setParameter('user', $user)
+            ->andwhere('m.isRead = false')
             ->getQuery()
             ->getResult();
     }
 
-    public function findByReceiverOrTransmitterOrderByDate($user) : array
+    public function findByReceiverOrTransmitterOrderByDate(User $user) : array
     {
         return $this->createQueryBuilder('m')
             ->where('m.receiver = :user')
