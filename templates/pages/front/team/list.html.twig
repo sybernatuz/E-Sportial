@@ -18,7 +18,7 @@
     </div>
     <div class="row">
         <div class="col">
-            {% if app.user.organization is null %}
+            {% if app.user and app.user.organization is null %}
                 <a class="waves-effect waves-light btn" href="{{ path('app_team_create') }}">
                     <i class="material-icons left">add</i>Create
                 </a>

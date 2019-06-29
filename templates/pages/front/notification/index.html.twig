@@ -1,0 +1,22 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Messages{% endblock %}
+
+{% block stylesheets %}
+    {{ encore_entry_link_tags('notification_index') }}
+{% endblock %}
+
+{% block body %}
+    <div class="container" id="notifications">
+        {% if recruitments is not null %}
+            <h2>Recruitments</h2>
+            {% for recruitment in recruitments %}
+                {% include "modules/front/notification/index/recruitment.html.twig" with {'recruitment': recruitment} %}
+            {% endfor %}
+        {% endif %}
+    </div>
+{% endblock %}
+
+{% block javascripts %}
+    {{ encore_entry_script_tags('notification_index') }}
+{% endblock %}

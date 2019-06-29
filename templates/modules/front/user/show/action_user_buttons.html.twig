@@ -20,5 +20,10 @@
             </a>
         {% endif %}
         </div>
+        {% if user.organization is null and app.user.organization is not null and app.user.teamOwner %}
+            <div id="recruitment-action" data-user-id="{{ user.id }}" class="row">
+
+            </div>
+        {% endif %}
     {% endif %}
 {% endif %}

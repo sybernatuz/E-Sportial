@@ -12,4 +12,12 @@ $(document).ready(function newMessagesNotification(){
             $('#messages').html(label);
         }
     });
+
+    $.ajax({
+        url:"/ajax/notification/get/notifications",
+        success: function(data) {
+            let label = 'Notifications <span class="new badge purple">' + data + '</span>';
+            $('#notifications').html(label);
+        }
+    });
 });

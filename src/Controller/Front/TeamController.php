@@ -126,6 +126,7 @@ class TeamController extends AbstractController
      * @Route(path="/team/{slug}/leave", name="leave")
      * @param Organization $team
      * @param Security $security
+     * @param EntityManagerInterface $em
      * @return \Symfony\Component\HttpFoundation\RedirectResponse
      */
     public function leave(Organization $team, Security $security, EntityManagerInterface $em) {
@@ -162,6 +163,7 @@ class TeamController extends AbstractController
 
         foreach ($team->getEvents() as $event) {
             $team->removeEvent($event);
+            $em->remove($event);
         }
 
         foreach ($team->getFiles() as $file) {

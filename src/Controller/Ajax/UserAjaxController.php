@@ -4,6 +4,7 @@ namespace App\Controller\Ajax;
 
 use App\Entity\Game;
 use App\Entity\GameAccount;
+use App\Entity\Notification;
 use App\Entity\User;
 use App\Exceptions\GameAccount\GameAccountNotFoundException;
 use App\Form\Front\User\AddGameFormType;
@@ -19,6 +20,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Security\Core\Security;
 use Symfony\Component\Serializer\SerializerInterface;
 
 /**
@@ -59,6 +61,54 @@ class UserAjaxController extends AbstractController
     public function unsubscribe(User $member) {
         $data = $this->subscriptionHandler->unsubscribe($this->getUser(), $member);
         return new JsonResponse($this->serializer->serialize($data, 'json'));
+    }
+
+    /**
+     * @IsGranted("ROLE_USER")
+     * @Route(path="/{id}/recruit", name="recruit", options={"expose"=true})
+     * @param User $member
+     * @param Security $security
+     * @return JsonResponse
+     */
+    public function recruit(User $member, Security $security) {
+        $notification = new Notification();
+        $notification->setType('recruitment');
+        $notification->setUser($member);
+        $notification->setStatus(false);
+        $notification->setAuthor($security->getUser());
+        $this->em->persist($notification);
+        $this->em->flush();
+        return new JsonResponse(true);
+    }
+
+    /**
+     * @IsGranted("ROLE_USER")
+     * @Route(path="/{id}/recruitment", name="recruitment_state", options={"expose"=true})
+     * @param User $member
+     * @param Security $security
+     * @return JsonResponse
+     */
+    public function getRecruitmentState(User $member, Security $security) {
+        $notification = $this->em->getRepository(Notification::class)->findOneBy(['author' => $security->getUser(), 'user' => $member, 'type'=>'recruitment']);
+        $result = false;
+        if($notification) {
+          $result = true;
+        }
+        return new JsonResponse($result);
+    }
+
+    /**
+     * @IsGranted("ROLE_USER")
+     * @Route(path="/{id}/recruit/cancel", name="recruit_cancel", options={"expose"=true})
+     * @param User $member
+     * @param Security $security
+     * @return JsonResponse
+     */
+    public function cancelRecruit(User $member, Security $security) {
+        $notification = $this->em->getRepository(Notification::class)->findOneBy(['author' => $security->getUser(), 'user' => $member, 'type'=>'recruitment']);
+        $this->em->remove($notification);
+        $this->em->flush();
+        return new JsonResponse(false);
     }
 
     /**

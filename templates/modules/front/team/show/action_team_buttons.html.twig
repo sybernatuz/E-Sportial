@@ -1,12 +1,12 @@
  <div class="row">
-     {% if app.user.teamOwner %}
+     {% if app.user.teamOwner and app.user.organization is not null and app.user.organization.id == team.id %}
          <a href="{{ path("app_team_delete", {slug: team.slug}) }}" class="waves-effect waves-light btn">
              <i class="material-icons left">close</i>
              Delete
          </a>
      {% endif %}
 
-     {% if not app.user.teamOwner %}
+     {% if not app.user.teamOwner and app.user.organization is not null and app.user.organization.id == team.id %}
          <a href="{{ path("app_team_leave", {slug: team.slug}) }}" class="waves-effect waves-light btn">
              <i class="material-icons left">close</i>
              Leave
