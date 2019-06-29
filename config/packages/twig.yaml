@@ -4,3 +4,4 @@ twig:
     strict_variables: '%kernel.debug%'
     globals:
         game_images_dir: 'uploads/images/games/'
+        team_images_dir: 'uploads/images/teams/'

@@ -24,7 +24,7 @@
             <div class="col s12 m12 l12 xl12 ">
                 <a href="{{ path("app_team_show", {slug: user.organization.slug}) }}">
                     <span>{{ user.organization.name }}</span>
-                    <img alt="Organization flag" class="image-small" src="{{ user.organization.logoPath }}">
+                    <img alt="Organization flag" class="image-small" src="{{ asset( team_images_dir ~ user.organization.logoPath) }}">
                 </a>
             </div>
         </div>

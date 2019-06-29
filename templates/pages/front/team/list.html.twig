@@ -1,4 +1,5 @@
 {% extends 'base.html.twig' %}
+{% import "modules/macro/flash_message.html.twig" as flashes %}
 
 {% block title %}Teams list{% endblock %}
 
@@ -9,7 +10,19 @@
 {% block body %}
     <div class="row">
         <div class="col s12 m12 l12 xl12">
-            {% include "modules/front/common/form/member_search_form.html.twig" %}
+            {{ flashes.get_messages() }}
+            <div class="col s12 m12 l12 xl12">
+                {% include "modules/front/common/form/member_search_form.html.twig" %}
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col">
+            {% if app.user.organization is null %}
+                <a class="waves-effect waves-light btn" href="{{ path('app_team_create') }}">
+                    <i class="material-icons left">add</i>Create
+                </a>
+            {% endif %}
         </div>
     </div>
     <div class="row">

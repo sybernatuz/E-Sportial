@@ -43,6 +43,7 @@ Encore
 
     .addEntry('team_list', './assets/js/pages/front/team/list.js')
     .addEntry('team_show', './assets/js/pages/front/team/show.js')
+    .addEntry('team_create', './assets/js/pages/front/team/create.js')
 
     .addEntry('register', './assets/js/pages/front/security/register.js')
 

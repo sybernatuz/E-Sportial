@@ -1,0 +1,21 @@
+{% extends 'base.html.twig' %}
+
+
+{% block title %}Create Team{% endblock %}
+
+{% block stylesheets %}
+    {{ encore_entry_link_tags('team_create') }}
+{% endblock %}
+
+
+{% block body %}
+    <h1>Create Team</h1>
+    <div class="row team-form">
+        {% include "modules/front/team/create/create_form.html.twig" %}
+    </div>
+{% endblock %}
+
+
+{% block javascripts %}
+    {{ encore_entry_script_tags('team_create') }}
+{% endblock %}

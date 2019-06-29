@@ -6,11 +6,12 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\OrganizationRepository")
  */
-class Organization
+class Organization implements \Serializable
 {
     /**
      * @ORM\Id()
@@ -33,6 +34,15 @@ class Organization
      * @ORM\Column(type="string", length=255)
      */
     private $logoPath;
+
+    /**
+     * @Assert\File(
+     *     maxSize = "1024k",
+     *     mimeTypes = {"image/png", "image/pjpeg", "image/jpeg","image/gif" },
+     *     mimeTypesMessage = "Please upload a valid image"
+     * )
+     */
+    private $logoFile;
 
     /**
      * @ORM\Column(type="datetime")
@@ -569,6 +579,45 @@ class Organization
         return $this;
     }
 
+    /**
+     * @return mixed
+     */
+    public function getLogoFile()
+    {
+        return $this->logoFile;
+    }
+
+    /**
+     * @param mixed $logoFile
+     */
+    public function setLogoFile($logoFile): void
+    {
+        $this->logoFile = $logoFile;
+    }
 
 
+    /**
+     * String representation of object
+     * @link https://php.net/manual/en/serializable.serialize.php
+     * @return string the string representation of the object or null
+     * @since 5.1.0
+     */
+    public function serialize()
+    {
+        // TODO: Implement serialize() method.
+    }
+
+    /**
+     * Constructs the object
+     * @link https://php.net/manual/en/serializable.unserialize.php
+     * @param string $serialized <p>
+     * The string representation of the object.
+     * </p>
+     * @return void
+     * @since 5.1.0
+     */
+    public function unserialize($serialized)
+    {
+        // TODO: Implement unserialize() method.
+    }
 }

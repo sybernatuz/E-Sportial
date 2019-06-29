@@ -1,26 +1,22 @@
 {{ form_start(form) }}
 <div class="row">
-    <div class="input-field col s12 m8 l8 xl8">
+    <div class="input-field col s12 m5 l5 xl5">
         {{ form_label(form.word) }}
         {{ form_widget(form.word) }}
         <div class="form-errors">
             {{ form_errors(form.word) }}
         </div>
     </div>
-    <div class="row">
-        <div class="input-field col s12 m4 l4 xl4">
-            {{ form_widget(form.country) }}
-            {{ form_label(form.country) }}
-            <div class="form-errors">
-                {{ form_errors(form.word) }}
-            </div>
-        </div>
 
+    <div class="input-field col s12 m4 l4 xl4">
+        {{ form_widget(form.country) }}
+        {{ form_label(form.country) }}
+        <div class="form-errors">
+            {{ form_errors(form.word) }}
+        </div>
     </div>
-</div>
-<div class="row">
     <div class="col s3 m3 l3 xl3">
-        <button class="btn waves-effect waves-light" type="submit">
+        <button class="btn waves-effect waves-light" style="margin-top: 20px" type="submit">
             {% trans %}Search{% endtrans %}
         </button>
     </div>
