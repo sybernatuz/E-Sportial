@@ -1,6 +1,9 @@
 <div id="user-list">
+    {% if job.applicants is null or job.applicants.empty %}
+        <h2>No applicant</h2>
+    {% endif %}
     {% for user in job.applicants %}
-        <div class="col s6 m3">
+        <div class="col s12 m4">
             <a target="_blank" rel="noopener noreferrer" href="{{ path('app_user_show', {'slug' : user.slug }) }}">
                 <div class="card horizontal">
                     <div class="col s4 m4 l4 valign-wrapper">
@@ -12,7 +15,9 @@
                                 <span>{{ user.username }}</span>
                             </div>
                             <div class="col s4 m4 l4">
-                                <i class="material-icons">email</i>
+                                <a href="{{ path('app_message_new', {'user' : user.id, 'job' : job.id}) }}">
+                                    <i class="material-icons">email</i>
+                                </a>
                                 <a href="{{ path('app_job_delete_user', {'jobId' : job.id, 'userId' : user.id}) }}">
                                     <i class="material-icons">delete</i>
                                 </a>

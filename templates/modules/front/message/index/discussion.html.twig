@@ -1,6 +1,6 @@
 <div class="chat col m9">
     {% if discussion is not null %}
-        <div class="chat-header row">
+        <div id="{{ discussion.id }}" class="chat-header row">
             <div class="chat-about col m11">
                 <div class="chat-with">{{ discussion.name }}</div>
                 <div class="chat-num-messages">

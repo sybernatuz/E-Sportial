@@ -10,9 +10,9 @@ namespace App\Controller\Front;
 
 
 use App\Entity\DiscussionGroup;
+use App\Entity\Job;
 use App\Entity\Message;
-use App\Form\Front\Message\AddDiscussionGroupFormType;
-use App\Form\Front\Message\AddMessageFormType;
+use App\Entity\User;
 use App\Repository\DiscussionGroupRepository;
 use App\Repository\MessageRepository;
 use App\Services\layout\FooterService;
@@ -65,6 +65,41 @@ class MessageController extends AbstractController
         return $this->render("pages/front/message/index.html.twig", [
                 'discussions' => $discussions,
                 'discussion' => $discussions[0] ?? null
+            ] + $this->footerService->process());
+    }
+
+    /**
+     * @Route(name="new", path="/message/{user}/{job}")
+     * @IsGranted("ROLE_USER")
+     * @param User $user
+     * @param Job $job
+     * @param PaginatorInterface $paginator
+     * @param Request $request
+     * @param DiscussionGroupRepository $discussionGroupRepository
+     * @return Response
+     */
+    public function new(User $user, Job $job, PaginatorInterface $paginator, Request $request, DiscussionGroupRepository $discussionGroupRepository)
+    {
+        $discussion = new DiscussionGroup();
+        $message = new Message();
+        $message->setTransmitter($this->getUser());
+        $message->setContent("Discussion for job :" . $job->getTitle());
+        $discussion->addMessage($message);
+        $discussion->setName($user->getUsername() . " " . $this->getUser()->getUsername());
+        $discussion->addUser($user);
+        $discussion->addUser($this->getUser());
+        $this->getDoctrine()->getManager()->persist($discussion);
+        $this->getDoctrine()->getManager()->flush();
+
+        $discussions = $paginator->paginate(
+            $discussionGroupRepository->findByUser($this->getUser()),
+            $request->query->getInt('page', 1),
+            self::MESSAGES_NUMBER
+        );
+
+        return $this->render("pages/front/message/index.html.twig", [
+                'discussions' => $discussions,
+                'discussion' => $discussion
             ] + $this->footerService->process());
     }
 

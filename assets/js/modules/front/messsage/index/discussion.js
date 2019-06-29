@@ -4,13 +4,13 @@ $(document).ready(function () {
 });
 
 $(document).on('click', '.send-button', function () {
-    let id = $('li.active').attr('id');
+    let id = $('.chat-header').attr('id');
     insertMessage(id);
     scrollChatToTheBottom();
 });
 
 $(document).on('click', '.refresh', function () {
-    let id = $('li.active').attr('id');
+    let id = $('.chat-header').attr('id');
     refreshChat(id);
     scrollChatToTheBottom();
 });

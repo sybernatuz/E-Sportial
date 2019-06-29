@@ -28,8 +28,10 @@ class DiscussionGroupRepository extends ServiceEntityRepository
     {
         return $this->createQueryBuilder('d')
             ->join("d.users", "user")
+            ->join("d.messages", "message")
             ->where('user = :user')
             ->setParameter('user', $user)
+            ->orderBy("message.createAt", "desc")
             ->getQuery()
             ->getResult()
         ;
