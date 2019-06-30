@@ -8,11 +8,8 @@
 
 {% block body %}
     <div class="container" id="notifications">
-        {% if recruitments is not null %}
-            <h2>Recruitments</h2>
-            {% for recruitment in recruitments %}
-                {% include "modules/front/notification/index/recruitment.html.twig" with {'recruitment': recruitment} %}
-            {% endfor %}
+        {% if recruitments is not null and recruitments|length > 0 %}
+            {% include "modules/front/notification/index/recruitment.html.twig" with {'recruitments': recruitments} %}
         {% endif %}
     </div>
 {% endblock %}

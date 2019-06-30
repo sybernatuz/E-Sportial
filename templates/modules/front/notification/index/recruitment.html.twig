@@ -1,3 +1,24 @@
-<div>
-    hello babe
-</div>
+<section id="recruitment-notifications">
+    {% if recruitments|length > 0 %}
+        <h4>Recruitments</h4>
+        <div>
+            {% for recruitment in recruitments %}
+                <div class="row" style="background-color: lightgrey; border-radius: 5px; height: 50px">
+                    <div class="col s10 m10 l10 xl10">
+                        <p>{{ recruitment.author.username|capitalize }} wishes to invite you to join the {{ recruitment.author.organization.name }} team, do you accept ?</p>
+                    </div>
+                    <div class="col s1 m1 l1 xl1" style="line-height: 50px">
+                        <a id="accept-recruitment" data-recruitment-id="{{ recruitment.id }}" data-organization-id="{{ recruitment.author.organization.id }}" class="waves-effect waves-light btn">
+                            <i class="material-icons">done</i>
+                        </a>
+                    </div>
+                    <div class="col s1 m1 l1 xl1" style="line-height: 50px">
+                        <a id="refuse-recruitment" data-recruitment-id="{{ recruitment.id }}"  class="waves-effect waves-light btn">
+                            <i class="material-icons">clear</i>
+                        </a>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    {% endif %}
+</section>

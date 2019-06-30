@@ -1,0 +1,1 @@
+require('../../../modules/front/notification/index/recruitments');

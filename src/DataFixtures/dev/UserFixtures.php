@@ -48,6 +48,7 @@ class UserFixtures extends Fixture implements FixtureGroupInterface, DependentFi
                 ->setLastname($faker->lastName)
                 ->setPro($faker->boolean)
                 ->setRoles(["ROLE_USER"])
+                ->setTeamOwner(false)
                 ->setCountry($faker->randomElement($countries));
             $manager->persist($user);
         }
@@ -62,6 +63,7 @@ class UserFixtures extends Fixture implements FixtureGroupInterface, DependentFi
             ->setLastname($faker->lastName)
             ->setPro($faker->boolean)
             ->setRoles(["ROLE_USER", "ROLE_ADMIN"])
+            ->setTeamOwner(false)
             ->setCountry($faker->randomElement($countries));
         $user->setPassword($this->encoder->encodePassword($user, "admin"));
         $manager->persist($user);
@@ -76,6 +78,7 @@ class UserFixtures extends Fixture implements FixtureGroupInterface, DependentFi
             ->setLastname($faker->lastName)
             ->setPro($faker->boolean)
             ->setRoles(["ROLE_USER"])
+            ->setTeamOwner(false)
             ->setCountry($faker->randomElement($countries));
         $user->setPassword($this->encoder->encodePassword($user, "user"));
         $manager->persist($user);

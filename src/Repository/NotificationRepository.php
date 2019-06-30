@@ -10,6 +10,7 @@ namespace App\Repository;
 
 
 use App\Entity\Notification;
+use App\Entity\User;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Symfony\Bridge\Doctrine\RegistryInterface;
 
@@ -20,4 +21,15 @@ class NotificationRepository extends ServiceEntityRepository
         parent::__construct($registry, Notification::class);
     }
 
+    public function findByTypeOrderByDate(string $type, User $user) : array
+    {
+        return $this->createQueryBuilder('n')
+            ->where('n.type = :type')
+            ->andWhere('n.user = :user')
+            ->setParameter('type', $type)
+            ->setParameter('user', $user)
+            ->orderBy('n.date', 'DESC')
+            ->getQuery()
+            ->getResult();
+    }
 }

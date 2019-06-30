@@ -43,6 +43,20 @@ class Notification
     private $status;
 
     /**
+     * @ORM\Column(type="datetime", nullable=false)
+     */
+    private $date;
+
+    /**
+     * Notification constructor.
+     * @throws \Exception
+     */
+    public function __construct()
+    {
+        $this->date = new \DateTime();
+    }
+
+    /**
      * @return mixed
      */
     public function getId()
@@ -121,4 +135,22 @@ class Notification
     {
         $this->author = $author;
     }
+
+    /**
+     * @return mixed
+     */
+    public function getDate()
+    {
+        return $this->date;
+    }
+
+    /**
+     * @param mixed $date
+     */
+    public function setDate($date): void
+    {
+        $this->date = $date;
+    }
+
+
 }

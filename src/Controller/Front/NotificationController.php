@@ -41,13 +41,12 @@ class NotificationController extends AbstractController
     /**
      * @Route(name="index", path="/notifications")
      * @IsGranted("ROLE_USER")
-     * @param Request $request
      * @param Security $security
      * @return Response
      */
-    public function index(Request $request, Security $security) : Response
+    public function index(Security $security) : Response
     {
-        $recruitmentNotifications = $this->notificationRepository->findBy(['user' => $security->getUser(), 'type' => 'recruitment']);
+        $recruitmentNotifications = $this->notificationRepository->findByTypeOrderByDate('recruitment', $security->getUser());
 
         return $this->render("pages/front/notification/index.html.twig", [
                 'recruitments' => $recruitmentNotifications ?? null,
