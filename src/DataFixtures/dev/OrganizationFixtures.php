@@ -38,14 +38,13 @@ class OrganizationFixtures extends Fixture implements DependentFixtureInterface,
                 ->setDescription($faker->text)
                 ->setType($faker->randomElement($types))
                 ->setVerify($faker->boolean);
-            for($y = 0; $y <= 5; $y++) {
+            for($y = 0; $y <= 10; $y++) {
                 $user = $faker->randomElement($users);
                 if($y == 0) {
                     $user->setTeamOwner(true);
                 } else {
                     $user->setTeamOwner(false);
                 }
-
                 $result->addUser($user);
             }
             $manager->persist($result);

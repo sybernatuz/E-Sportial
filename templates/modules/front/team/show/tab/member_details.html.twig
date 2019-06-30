@@ -6,12 +6,12 @@
         <div class="col s8 m8 l8 xl8">
             <div class="row">
                 <div class="row">
-                    <div class="col s12 m12 l12 xl12">
+                    <div class="col s9 m9 l9 xl9">
                         <span><strong>{{ user.username }}</strong></span>
                     </div>
                     <div class="col s3 m3 l3 xl3">
-                         {% if not user.teamOwner and app.user.teamOwner %}
-                             <a href="{{ path("app_team_ajax_remove_member", {id: team.id, userId: user.id}) }}" class="waves-effect waves-light btn">
+                         {% if not user.teamOwner and app.user and app.user.teamOwner %}
+                             <a style="font-size: 10px" data-user-id={{ user.id }} data-team-id={{ team.id }} class="waves-effect waves-light btn remove-user">
                                  <i class="material-icons left">delete</i>
                                  Remove
                              </a>
