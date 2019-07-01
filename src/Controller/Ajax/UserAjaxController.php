@@ -69,6 +69,7 @@ class UserAjaxController extends AbstractController
      * @param User $member
      * @param Security $security
      * @return JsonResponse
+     * @throws \Exception
      */
     public function recruit(User $member, Security $security) {
         $notification = new Notification();

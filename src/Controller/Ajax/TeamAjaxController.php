@@ -46,6 +46,17 @@ class TeamAjaxController extends AbstractController
     }
 
     /**
+     * @Route(path="/{id}/events", name="event_tab", options={"expose"=true})
+     * @param Organization $team
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
+    public function events(Organization $team) {
+       return $this->render('modules/front/team/show/tab/events_list.html.twig', [
+           "team" => $team
+       ]);
+    }
+
+    /**
      * @Route(path="/member/{id}/show", name="member_show", options={"expose"=true})
      * @param User $user
      * @return \Symfony\Component\HttpFoundation\Response

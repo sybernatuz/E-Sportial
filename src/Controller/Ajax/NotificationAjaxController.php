@@ -44,7 +44,7 @@ class NotificationAjaxController extends AbstractController
      */
     public function getNewMessages(Security $security) : JsonResponse
     {
-        $notificationsCounter = count($this->notificationRepository->findBy(['user' => $security->getUser()]));
+        $notificationsCounter = $this->notificationRepository->count(['user' => $security->getUser()]);
         return new JsonResponse($notificationsCounter);
     }
 
