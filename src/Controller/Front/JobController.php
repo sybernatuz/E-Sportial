@@ -14,6 +14,7 @@ use App\Entity\Search\JobSearch;
 use App\Entity\User;
 use App\Enums\type\JobTypeEnum;
 use App\Form\Front\Job\EditFormType;
+use App\Form\Front\Job\NewFormType;
 use App\Form\Search\JobSearchType;
 use App\Repository\JobRepository;
 use App\Services\layout\FooterService;
@@ -118,6 +119,26 @@ class JobController extends AbstractController
            'job' => $job,
            'editForm' => $form->createView()
         ] + $this->footerService->process());
+    }
+
+    /**
+     * @IsGranted("ROLE_USER")
+     * @Route(name="new", path="/job/new")
+     * @param Request $request
+     * @return Response
+     */
+    public function new(Request $request) : Response
+    {
+        $job = new Job();
+        $form = $this->createForm(NewFormType::class, $job);
+        $form->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid()) {
+            $this->getDoctrine()->getManager()->persist($job);
+            $this->getDoctrine()->getManager()->flush();
+        }
+        return $this->render('pages/front/job/new.html.twig', [
+                'newForm' => $form->createView()
+            ] + $this->footerService->process());
     }
 
     /**

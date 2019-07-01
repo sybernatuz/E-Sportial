@@ -1,3 +1,12 @@
 select {
   display: inline;
 }
+
+.add {
+  font-size: 48px;
+}
+
+.add:hover {
+  color: $purple-color;
+  cursor: pointer;
+}

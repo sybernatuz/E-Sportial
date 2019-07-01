@@ -1,0 +1,64 @@
+<div id="edit-form-job">
+    {{ form_start(newForm) }}
+    <div class="row">
+        <div class="col s12 m4 l4 xl4">
+            <div class="input-field col s12">
+                {{ form_label(newForm.location) }}
+                {{ form_widget(newForm.location) }}
+                <div class="form-errors">
+                    {{ form_errors(newForm.location) }}
+                </div>
+            </div>
+            <div class="input-field col s12">
+                {{ form_widget(newForm.title) }}
+                {{ form_label(newForm.title) }}
+                <div class="form-errors">
+                    {{ form_errors(newForm.title) }}
+                </div>
+            </div>
+            <div class="input-field col s12">
+                {{ form_widget(newForm.duration) }}
+                {{ form_label(newForm.duration) }}
+                <div class="form-errors">
+                    {{ form_errors(newForm.duration) }}
+                </div>
+            </div>
+            <div class="input-field col s12">
+                {{ form_widget(newForm.type) }}
+                {{ form_label(newForm.type) }}
+                <div class="form-errors">
+                    {{ form_errors(newForm.type) }}
+                </div>
+            </div>
+            <div class="input-field col s12">
+                {{ form_widget(newForm.game) }}
+                {{ form_label(newForm.game) }}
+                <div class="form-errors">
+                    {{ form_errors(newForm.game) }}
+                </div>
+            </div>
+            <div class="input-field col s12">
+                {{ form_widget(newForm.salary) }}
+                {{ form_label(newForm.salary) }}
+                <div class="form-errors">
+                    {{ form_errors(newForm.salary) }}
+                </div>
+            </div>
+        </div>
+        <div class="col s12 m8 l8 xl8">
+            <div class="input-field">
+                {{ form_widget(newForm.description) }}
+                {{ form_label(newForm.description) }}
+                <div class="form-errors">
+                    {{ form_errors(newForm.description) }}
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col s3 offset-s5">
+            {{ form_widget(newForm.add) }}
+        </div>
+    </div>
+    {{ form_end(newForm) }}
+</div>

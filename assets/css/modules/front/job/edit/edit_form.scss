@@ -1,6 +1,6 @@
 #edit-form-job {
 
-  textarea {
-    height: 100vh;
+  .ck-editor__editable {
+    min-height: 50vh;
   }
 }
