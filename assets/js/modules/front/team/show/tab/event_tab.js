@@ -1,4 +1,3 @@
-
 $(document).ready(function() {
     let teamId = $("#team-details").attr("data-team-id");
     $("#event-tab").click(function() {

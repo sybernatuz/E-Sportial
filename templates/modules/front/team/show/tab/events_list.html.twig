@@ -1,6 +1,9 @@
 <div id="event-list" class="container-fluid" style="margin-top:30px;">
     <div class="row">
         <div class="col s12" style="height: 300pt; overflow: auto">
+            {% if team.events is null or team.events.count == 0 %}
+                <h2>No event</h2>
+            {% endif %}
             {% for event in team.events %}
                 <a href="{{ path('app_event_show', {'slug' : event.slug}) }}">
                     <div class="card small horizontal">
@@ -27,8 +30,8 @@
                                         <div class="col m4">
                                             <i class="fas fa-map-marker-alt"></i>
                                             <span class="">
-                                        {{ event.location }}
-                                    </span>
+                                                {{ event.location }}
+                                            </span>
                                         </div>
                                     </div>
                                     <div class="row">

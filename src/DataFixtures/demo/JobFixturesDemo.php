@@ -9,6 +9,7 @@ use App\DataFixtures\dev\OrganizationFixtures;
 use App\DataFixtures\dev\TypeFixtures;
 use App\DataFixtures\dev\UserFixtures;
 use App\Entity\Job;
+use App\Entity\Organization;
 use App\Entity\Type;
 use App\Entity\User;
 use App\Enums\entity\EntityNameEnum;
@@ -26,21 +27,21 @@ class JobFixturesDemo extends Fixture implements DependentFixtureInterface, Fixt
     public function load(ObjectManager $manager)
     {
         $type = $manager->getRepository(Type::class)->findOneBy(["entityName" => EntityNameEnum::ENTITY_NAME_JOB, "name" => JobTypeEnum::WORK]);
-
+        $vitality = $manager->getRepository(Organization::class)->findOneBy(["name" => "Vitality"]);
         $user = $manager->getRepository(User::class)->findOneBy(["username" => "Gotaga"]);
         $job = (new Job())
-            ->setTitle("Recherche d'un joueur Fortnite")
-            ->setDescription("Je recherche actuellement un joueur experimenté de fortnite ayant un minimum de 1000 top 1")
+            ->setTitle("Looking for Fortnite player")
+            ->setDescription("The vitality team is looking for an experimented Fortnite player with 1000 top1 minimum")
             ->setCreatedAt(new DateTime())
             ->setDuration(30)
             ->setSalary(1000)
             ->setLocation("Paris")
-            ->setUser($user)
+            ->setOrganization($vitality)
             ->setType($type);
         $manager->persist($job);
         $job = (new Job())
-            ->setDescription("Recherche d'un joueur League of Legends")
-            ->setTitle("Je recherche actuellement un joueur experimenté de fortnite ayant un rang diamant")
+            ->setDescription("Looking for League of Legends player")
+            ->setTitle("I'm looking for an experimented fortnite player with a diamond rank")
             ->setCreatedAt(new DateTime())
             ->setDuration(30)
             ->setSalary(1000)
@@ -58,23 +59,6 @@ class JobFixturesDemo extends Fixture implements DependentFixtureInterface, Fixt
             UserFixtures::class,
             GameFixtures::class
         ];
-    }
-
-    private function setUserOrOrganization(Generator $faker, Job &$job, array $users, array $organizations)
-    {
-        $user = $faker->boolean;
-        if ($user)
-            $job->setUser($faker->randomElement($users));
-        else
-            $job->setOrganization($faker->randomElement($organizations));
-    }
-
-    private function setGameIfTypeCoaching(Generator $faker, Job &$job, array $games, array $types)
-    {
-        $type = $faker->randomElement($types);
-        $job->setType($type);
-        if ($type->getName() == JobTypeEnum::COACHING)
-            $job->setGame($faker->randomElement($games));
     }
 
     /**

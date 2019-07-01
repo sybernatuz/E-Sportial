@@ -4,45 +4,41 @@
 namespace App\DataFixtures\demo;
 
 
+use App\DataFixtures\dev\OrganizationFixturesDemo;
 use App\DataFixtures\dev\TypeFixtures;
 use App\Entity\Event;
 use App\Entity\Organization;
 use App\Entity\Type;
-use App\Enums\entity\EntityNameEnum;
+use App\Enums\type\EventTypeEnum;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Bundle\FixturesBundle\FixtureGroupInterface;
 use Doctrine\Common\DataFixtures\DependentFixtureInterface;
 use Doctrine\Common\Persistence\ObjectManager;
-use Faker\Factory;
 
 class EventFixturesDemo extends Fixture implements DependentFixtureInterface, FixtureGroupInterface
 {
     public function load(ObjectManager $manager)
     {
-        $faker = Factory::create();
-        $organizations = $manager->getRepository(Organization::class)->findAll();
-        $types = $manager->getRepository(Type::class)->findBy(['entityName' => EntityNameEnum::ENTITY_NAME_EVENT]);
-        for ($i = 0; $i < 20; $i++) {
-            $startDate = $faker->dateTime;
-            $event = (new Event())
-                ->setLocation($faker->streetAddress)
-                ->setStartDate($startDate)
-                ->setEndDate($faker->dateTimeBetween($startDate))
-                ->setType($faker->randomElement($types))
-                ->setCreatedAt($faker->dateTime)
-                ->setName($faker->name)
-                ->setPublished($faker->boolean)
-                ->setDescription($faker->text)
-                ->setOrganization($faker->randomElement($organizations));
-            $manager->persist($event);
-        }
+        $vitality = $manager->getRepository(Organization::class)->findOneBy(["name" => "Vitality"]);
+        $type = $manager->getRepository(Type::class)->findBy(['name' => EventTypeEnum::TOURNAMENT]);
+        $event = (new Event())
+            ->setLocation("Los Angeles Convention Center, Los Angeles, Californie, USA")
+            ->setStartDate(new DateTime("2019-08-05"))
+            ->setEndDate(new DateTime("2019-08-17"))
+            ->setType($type)
+            ->setCreatedAt(new DateTime())
+            ->setName("Tournament E3 Fortnite")
+            ->setPublished(true)
+            ->setDescription("A Fortnite tournament will begin with the Vitality team")
+            ->setOrganization($vitality);
+        $manager->persist($event);
         $manager->flush();
     }
 
     public function getDependencies()
     {
         return [
-//            OrganizationFixturesDemo::class,
+            OrganizationFixturesDemo::class,
             TypeFixtures::class
         ];
     }
