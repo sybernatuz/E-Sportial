@@ -1,16 +1,12 @@
 const Routing = require('../../../../common/router');
 
 $(document).ready(function() {
+
+
     let teamId = $("#team-details").attr("data-team-id");
+    renderMemberTab(teamId);
     $("#members-tab").on("click", function(event) {
-        if(!$("#member-list").length) {
-            $.ajax({
-                url: Routing.generate("app_team_ajax_member_tab", {id: teamId}),
-                success: function (data) {
-                    $("#members").append(data);
-                }
-            });
-        }
+        renderMemberTab(teamId);
     });
 
     $(document).on("click", ".card-member", function(event) {
@@ -34,3 +30,14 @@ $(document).ready(function() {
         });
     });
 });
+
+function renderMemberTab(teamId) {
+    if(!$("#member-list").length) {
+        $.ajax({
+            url: Routing.generate("app_team_ajax_member_tab", {id: teamId}),
+            success: function (data) {
+                $("#members").empty().append(data);
+            }
+        });
+    }
+}
