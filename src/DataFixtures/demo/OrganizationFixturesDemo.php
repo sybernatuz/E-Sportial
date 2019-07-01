@@ -6,7 +6,7 @@
  * Time: 14:39
  */
 
-namespace App\DataFixtures\dev;
+namespace App\DataFixtures\demo;
 
 
 use App\Entity\Country;
