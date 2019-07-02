@@ -4,8 +4,6 @@
 namespace App\DataFixtures\demo;
 
 
-use App\DataFixtures\dev\OrganizationFixturesDemo;
-use App\DataFixtures\dev\TypeFixtures;
 use App\Entity\Event;
 use App\Entity\Organization;
 use App\Entity\Type;
@@ -39,7 +37,7 @@ class EventFixturesDemo extends Fixture implements DependentFixtureInterface, Fi
     {
         return [
             OrganizationFixturesDemo::class,
-            TypeFixtures::class
+            TypeFixturesDemo::class
         ];
     }
 

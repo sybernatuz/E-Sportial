@@ -4,10 +4,6 @@
 namespace App\DataFixtures\demo;
 
 
-use App\DataFixtures\dev\GameFixtures;
-use App\DataFixtures\dev\OrganizationFixtures;
-use App\DataFixtures\dev\TypeFixtures;
-use App\DataFixtures\dev\UserFixtures;
 use App\Entity\Job;
 use App\Entity\Organization;
 use App\Entity\Type;
@@ -19,7 +15,6 @@ use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Bundle\FixturesBundle\FixtureGroupInterface;
 use Doctrine\Common\DataFixtures\DependentFixtureInterface;
 use Doctrine\Common\Persistence\ObjectManager;
-use Faker\Generator;
 
 class JobFixturesDemo extends Fixture implements DependentFixtureInterface, FixtureGroupInterface
 {
