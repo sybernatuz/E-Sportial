@@ -1,30 +1,29 @@
 const Routing = require('../../../../common/router');
 
 $(document).ready(function() {
-    let userId = $("#user-details").attr("data-user-id");
+    let teamId = $("#team-details").attr("data-team-id");
     // get tab content on click
-    $("#games-tab").on("click", function(event) {
-        if(!$("#user-profile-games").length) {
+    $("#rosters-tab").on("click", function(event) {
+        if(!$("#rosters-list").length) {
             $.ajax({
-                url: Routing.generate("app_user_ajax_game_tab", {id: userId}),
+                url: Routing.generate("app_team_ajax_roster_tab", {id: teamId}),
                 success: function (data) {
-                    $("#games").append(data);
+                    $("#rosters").empty().append(data);
                     $('select').formSelect();
                 }
             });
         }
     });
 
-    $(document).on("submit", "#add-game-form" ,function(event) {
+    $(document).on("submit", "#add-user-roster-form", function (event) {
         event.preventDefault();
-        $.ajax({
-            url: Routing.generate("app_user_ajax_game_tab", {id: userId}),
-            method: 'POST',
-            data: $("#add-game-form").serialize(),
-            success: function (data) {
-                $("#user-profile-games").empty().append(data);
-            }
-        });
+            alert('add user');
+        return false;
     });
 
+    $(document).on("submit", "#create-roster-form", function (event) {
+        event.preventDefault();
+        alert('create roster');
+        return false;
+    });
 });

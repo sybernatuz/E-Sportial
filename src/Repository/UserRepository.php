@@ -123,4 +123,20 @@ class UserRepository extends ServiceEntityRepository
             ->getQuery()
             ->getOneOrNullResult();
     }
+
+    /**
+     * @param $team
+     * @param $username
+     * @return mixed
+     * @throws NonUniqueResultException
+     */
+    public function findTeamMember($team, $username) {
+        return $this->createQueryBuilder('u')
+                ->where('u.username = :username')
+                ->andWhere('u.organization = :team')
+                ->setParameter('username', $username)
+                ->setParameter('team', $team)
+                ->getQuery()
+                ->getOneOrNullResult();
+    }
 }

@@ -212,6 +212,11 @@ class User implements UserInterface
      */
     private $notificationsOwned;
 
+    /**
+     * @ORM\ManyToMany(targetEntity="App\Entity\Roster", mappedBy="users")
+     */
+    private $rosters;
+
 
     public function __construct()
     {
@@ -239,6 +244,7 @@ class User implements UserInterface
         }
         $this->appliedJobs = new ArrayCollection();
         $this->gameAccounts = new ArrayCollection();
+        $this->rosters = new ArrayCollection();
     }
 
     /**
@@ -1125,6 +1131,34 @@ class User implements UserInterface
             if ($notification->getUser() === $this) {
                 $notification->setGamer(null);
             }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Roster[]
+     */
+    public function getRosters(): Collection
+    {
+        return $this->rosters;
+    }
+
+    public function addRoster(Roster $roster): self
+    {
+        if (!$this->rosters->contains($roster)) {
+            $this->rosters[] = $roster;
+            $roster->addUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeRoster(Roster $roster): self
+    {
+        if ($this->rosters->contains($roster)) {
+            $this->rosters->removeElement($roster);
+            $roster->removeUser($this);
         }
 
         return $this;

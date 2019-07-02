@@ -1,0 +1,21 @@
+{{ form_start(formAddUserToRoster) }}
+<div class="row">
+    <div class="input-field col s8 m8 l8 xl8">
+        {{ form_label(formAddUserToRoster.username) }}
+        {{ form_widget(formAddUserToRoster.username) }}
+        <div class="form-errors">
+            {{ form_errors(formAddUserToRoster.username) }}
+        </div>
+    </div>
+    <div class="input-field col s4 m4 l4 xl4">
+        {{ form_widget(formAddUserToRoster.roster) }}
+        {{ form_label(formAddUserToRoster.roster) }}
+        <div class="form-errors">
+            {{ form_errors(formAddUserToRoster.roster) }}
+        </div>
+    </div>
+    <div class="input-field col s12 m12 l12 xl12">
+        {{ form_widget(formAddUserToRoster.add) }}
+    </div>
+</div>
+{{ form_end(formAddUserToRoster) }}

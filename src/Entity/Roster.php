@@ -69,6 +69,12 @@ class Roster
      */
     private $participants;
 
+    /**
+     * @ORM\ManyToMany(targetEntity="App\Entity\User", inversedBy="rosters")
+     */
+    private $users;
+
+
     public function __construct()
     {
         $this->parties = new ArrayCollection();
@@ -76,6 +82,7 @@ class Roster
         $this->rankings = new ArrayCollection();
         $this->awards = new ArrayCollection();
         $this->participants = new ArrayCollection();
+        $this->users = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -290,6 +297,32 @@ class Roster
             if ($participant->getRoster() === $this) {
                 $participant->setRoster(null);
             }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|User[]
+     */
+    public function getUsers(): Collection
+    {
+        return $this->users;
+    }
+
+    public function addUser(User $user): self
+    {
+        if (!$this->users->contains($user)) {
+            $this->users[] = $user;
+        }
+
+        return $this;
+    }
+
+    public function removeUser(User $user): self
+    {
+        if ($this->users->contains($user)) {
+            $this->users->removeElement($user);
         }
 
         return $this;

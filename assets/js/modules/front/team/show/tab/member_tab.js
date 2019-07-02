@@ -1,8 +1,6 @@
 const Routing = require('../../../../common/router');
 
 $(document).ready(function() {
-
-
     let teamId = $("#team-details").attr("data-team-id");
     renderMemberTab(teamId);
     $("#members-tab").on("click", function(event) {

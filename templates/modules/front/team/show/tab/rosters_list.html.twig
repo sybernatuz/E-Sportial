@@ -1,0 +1,19 @@
+<div id="rosters-list" class="container-fluid" style="margin-top:30px;">
+    <div class="row">
+        <div class="col s12 m12 l12 xl12">
+            {% include "modules/front/team/show/tab/form/formCreateRoster.html.twig" with {'formCreateRoster': formCreateRoster} %}
+        </div>
+    </div>
+    {% if team.rosters|length > 0 %}
+        <div class="row">
+            <div class="col s12 m12 l12 xl12">
+                {% include "modules/front/team/show/tab/form/formAddUserToRoster.html.twig" with {'formCreateRoster': formAddUserToRoster} %}
+            </div>
+        </div>
+    {% endif %}
+    <div class="row">
+        {% for roster in rosters %}
+            {% include "modules/front/team/show/tab/roster.html.twig" with {'roster': roster} %}
+        {% endfor %}
+    </div>
+</div>

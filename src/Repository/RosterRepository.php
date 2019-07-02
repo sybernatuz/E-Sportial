@@ -2,6 +2,7 @@
 
 namespace App\Repository;
 
+use App\Entity\Organization;
 use App\Entity\Roster;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Symfony\Bridge\Doctrine\RegistryInterface;
@@ -19,32 +20,16 @@ class RosterRepository extends ServiceEntityRepository
         parent::__construct($registry, Roster::class);
     }
 
-    // /**
-    //  * @return Roster[] Returns an array of Roster objects
-    //  */
-    /*
-    public function findByExampleField($value)
+
+    public function findByTeamOrderedByName(Organization $team)
     {
         return $this->createQueryBuilder('r')
-            ->andWhere('r.exampleField = :val')
-            ->setParameter('val', $value)
-            ->orderBy('r.id', 'ASC')
-            ->setMaxResults(10)
+            ->andWhere('r.organization = :organization')
+            ->orderBy('r.name', 'ASC')
+            ->setParameter('organization', $team)
             ->getQuery()
             ->getResult()
         ;
     }
-    */
 
-    /*
-    public function findOneBySomeField($value): ?Roster
-    {
-        return $this->createQueryBuilder('r')
-            ->andWhere('r.exampleField = :val')
-            ->setParameter('val', $value)
-            ->getQuery()
-            ->getOneOrNullResult()
-        ;
-    }
-    */
 }
