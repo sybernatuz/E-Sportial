@@ -54,10 +54,10 @@ class JobFixturesDemo extends Fixture implements DependentFixtureInterface, Fixt
     public function getDependencies()
     {
         return [
-            TypeFixtures::class,
-            OrganizationFixtures::class,
-            UserFixtures::class,
-            GameFixtures::class
+            TypeFixturesDemo::class,
+            OrganizationFixturesDemo::class,
+            UserFixturesDemo::class,
+            GameFixturesDemo::class
         ];
     }
 

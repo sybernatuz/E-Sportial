@@ -49,9 +49,9 @@ class OrganizationFixturesDemo extends Fixture implements DependentFixtureInterf
     public function getDependencies()
     {
         return [
-            CountryFixtures::class,
-            TypeFixtures::class,
-            UserFixtures::class
+            CountryFixturesDemo::class,
+            TypeFixturesDemo::class,
+            UserFixturesDemo::class
         ];
     }
 
