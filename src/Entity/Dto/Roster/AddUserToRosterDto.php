@@ -14,7 +14,7 @@ use App\Validator\Constraints as CustomAssert;
 /**
  * Class AddUserToRosterDto
  * @package App\Entity\Dto\Roster
- * @CustomAssert\UserExistConstraint
+ * @CustomAssert\UserExist
  */
 class AddUserToRosterDto
 {

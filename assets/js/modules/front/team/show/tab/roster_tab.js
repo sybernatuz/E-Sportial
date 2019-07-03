@@ -15,15 +15,35 @@ $(document).ready(function() {
         }
     });
 
-    $(document).on("submit", "#add-user-roster-form", function (event) {
-        event.preventDefault();
-            alert('add user');
-        return false;
-    });
 
     $(document).on("submit", "#create-roster-form", function (event) {
         event.preventDefault();
-        alert('create roster');
+        $.ajax({
+            url: Routing.generate("app_team_ajax_roster_tab", {id: teamId}),
+            method: 'POST',
+            data: $("#create-roster-form").serialize(),
+            success: function (data) {
+                $("#rosters").empty().append(data);
+                $("#create_roster_name").attr('value', '');
+                $('select').formSelect();
+            }
+        });
+        return false;
+    });
+
+
+    $(document).on("submit", "#add-user-roster-form", function (event) {
+        event.preventDefault();
+        $.ajax({
+            url: Routing.generate("app_team_ajax_roster_tab", {id: teamId}),
+            method: 'POST',
+            data: $("#add-user-roster-form").serialize(),
+            success: function (data) {
+                $("#rosters").empty().append(data);
+                $("#add_user_to_roster_username").attr('value', '');
+                $('select').formSelect();
+            }
+        });
         return false;
     });
 });

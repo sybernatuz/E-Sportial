@@ -15,7 +15,7 @@ use Symfony\Component\Validator\Constraint;
  * @package App\Validator\Constraints
  * @Annotation
  */
-class UserExistConstraint extends Constraint
+class UserExist extends Constraint
 {
     public $message = 'Member "{{ username }}" not exist.';
 

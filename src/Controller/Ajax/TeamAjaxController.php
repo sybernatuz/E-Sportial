@@ -46,10 +46,11 @@ class TeamAjaxController extends AbstractController
      * @param Organization $team
      * @return \Symfony\Component\HttpFoundation\Response
      */
-    public function members(Organization $team) {
-       return $this->render('modules/front/team/show/tab/members_list.html.twig', [
-           "team" => $team
-       ]);
+    public function members(Organization $team)
+    {
+        return $this->render('modules/front/team/show/tab/members_list.html.twig', [
+            "team" => $team
+        ]);
     }
 
     /**
@@ -57,10 +58,11 @@ class TeamAjaxController extends AbstractController
      * @param Organization $team
      * @return \Symfony\Component\HttpFoundation\Response
      */
-    public function events(Organization $team) {
-       return $this->render('modules/front/team/show/tab/events_list.html.twig', [
-           "team" => $team
-       ]);
+    public function events(Organization $team)
+    {
+        return $this->render('modules/front/team/show/tab/events_list.html.twig', [
+            "team" => $team
+        ]);
     }
 
     /**
@@ -68,7 +70,8 @@ class TeamAjaxController extends AbstractController
      * @param User $user
      * @return \Symfony\Component\HttpFoundation\Response
      */
-    public function show(User $user) {
+    public function show(User $user)
+    {
         return $this->render('modules/front/team/show/tab/member_details.html.twig', [
             "user" => $user,
             "team" => $user->getOrganization()
@@ -84,7 +87,8 @@ class TeamAjaxController extends AbstractController
      * @param User $user
      * @return \Symfony\Component\HttpFoundation\Response
      */
-    public function remove(Organization $team, User $user) {
+    public function remove(Organization $team, User $user)
+    {
         $team->removeUser($user);
         $this->em->flush();
         return $this->render('modules/front/team/show/tab/members_list.html.twig', [
@@ -100,33 +104,34 @@ class TeamAjaxController extends AbstractController
      * @param RosterRepository $rosterRepository
      * @param UserRepository $userRepository
      * @return \Symfony\Component\HttpFoundation\Response
-     * @throws \Doctrine\ORM\NonUniqueResultException
+     * @throws \Exception
      */
-    public function rosters(Request $request, Organization $team, RosterRepository $rosterRepository, UserRepository $userRepository) {
-        $rosters = $rosterRepository->findByTeamOrderedByName($team);
-
+    public function rosters(Request $request, Organization $team, RosterRepository $rosterRepository, UserRepository $userRepository)
+    {
         $roster = new Roster();
+        $roster->setCreatedAt(new \DateTime());
+        $roster->setOrganization($team);
         $formCreateRoster = $this->createForm(CreateRosterType::class, $roster);
         $formCreateRoster->handleRequest($request);
 
-
         $addUserToRoster = new AddUserToRosterDto();
         $addUserToRoster->setTeam($team);
-        $formAddUserToRoster = $this->createForm(AddUserToRosterType::class);
+        $formAddUserToRoster = $this->createForm(AddUserToRosterType::class, $addUserToRoster);
         $formAddUserToRoster->handleRequest($request);
 
-        if($formCreateRoster->isSubmitted() && $formCreateRoster->isValid()) {
+        if ($formCreateRoster->isSubmitted() && $formCreateRoster->isValid()) {
             $this->em->persist($roster);
             $this->em->flush();
         }
 
-        if($formAddUserToRoster->isSubmitted() && $formAddUserToRoster->isValid()) {
+        if ($formAddUserToRoster->isSubmitted() && $formAddUserToRoster->isValid()) {
             $rosterSubmitted = $addUserToRoster->getRoster();
             $user = $userRepository->findTeamMember($team, $addUserToRoster->getUsername());
             $rosterSubmitted->addUser($user);
             $this->em->flush();
         }
 
+        $rosters = $rosterRepository->findByTeamOrderedByName($team);
         return $this->render('modules/front/team/show/tab/rosters_list.html.twig', [
             "team" => $team,
             "rosters" => $rosters,

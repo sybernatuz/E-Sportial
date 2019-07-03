@@ -18,14 +18,16 @@ class UserExistValidator extends ConstraintValidator
 
     public function validate($object, Constraint $constraint)
     {
-        if (!$constraint instanceof UserExistConstraint) {
-            throw new UnexpectedTypeException($constraint, UserExistConstraint::class);
+        if (!$constraint instanceof UserExist) {
+            throw new UnexpectedTypeException($constraint, UserExist::class);
         }
 
         $user = $this->userRepository->findTeamMember($object->getTeam(), $object->getUsername());
+
         if(!$user) {
             $this->context->buildViolation($constraint->message)
                 ->atPath('username')
+                ->setParameter('{{ username }}', $object->getUsername())
                 ->addViolation();
             return false;
         }

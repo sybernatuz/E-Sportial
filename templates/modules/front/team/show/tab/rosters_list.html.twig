@@ -1,19 +1,25 @@
 <div id="rosters-list" class="container-fluid" style="margin-top:30px;">
-    <div class="row">
-        <div class="col s12 m12 l12 xl12">
-            {% include "modules/front/team/show/tab/form/formCreateRoster.html.twig" with {'formCreateRoster': formCreateRoster} %}
-        </div>
-    </div>
-    {% if team.rosters|length > 0 %}
+    {% if app.user and app.user.organization.id == team.id and app.user.teamOwner %}
         <div class="row">
             <div class="col s12 m12 l12 xl12">
-                {% include "modules/front/team/show/tab/form/formAddUserToRoster.html.twig" with {'formCreateRoster': formAddUserToRoster} %}
+                {% include "modules/front/team/show/tab/form/formCreateRoster.html.twig" with {'formCreateRoster': formCreateRoster} %}
             </div>
         </div>
+        {% if team.rosters|length > 0 %}
+            <div class="row">
+                <div class="col s12 m12 l12 xl12">
+                    {% include "modules/front/team/show/tab/form/formAddUserToRoster.html.twig" with {'formCreateRoster': formAddUserToRoster} %}
+                </div>
+            </div>
+        {% endif %}
     {% endif %}
     <div class="row">
-        {% for roster in rosters %}
-            {% include "modules/front/team/show/tab/roster.html.twig" with {'roster': roster} %}
-        {% endfor %}
+        {% if rosters|length > 0 %}
+            {% for roster in rosters %}
+                {% include "modules/front/team/show/tab/roster.html.twig" with {'roster': roster} %}
+            {% endfor %}
+        {% else %}
+            <p style="text-align: center; font-size: 18px; font-weight: 700">No rosters yet !</p>
+        {% endif %}
     </div>
 </div>

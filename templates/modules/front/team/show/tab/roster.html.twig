@@ -1,21 +1,24 @@
-<div class="col s4 m4 l4 xl4">
-    <div class="row">
-        <div class="col s12 m12 l12 xl12" style="text-align: center">
-            <span>{{ roster.name|capitalize }}</span>
+{% if roster.users|length > 0 %}
+    <div class="col s3 m3 l3 xl3" style="margin-left: 40px;">
+        <div class="row" style="margin-bottom: 0">
+            <div class="col s12 m12 l12 xl12" style="text-align: center; padding-top:5px; padding-bottom:5px; border-radius: 5px 5px 0 0; background-color: #9c27b0; color:white;">
+                <img style="height: 30px; vertical-align: middle" src="{{ asset( game_images_dir ~ roster.game.posterPath) }}">
+                <span>{{ roster.name|capitalize }}</span>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col s12 l12 m12 xl12" style="background-color: #b0bec5; border-radius: 0 0 5px 5px;max-height: 100pt; overflow: auto; padding-top:5px">
+                {% for user in roster.users %}
+                    <div class="row" style="margin-bottom: 0">
+                        <div class="col s3 m3 l3 xl3">
+                            <img alt="Avatar" style="height: 20px" src="{{ asset(user.avatar) }}">
+                        </div>
+                        <div class="col s9 m9 l9 xl9">
+                            <span>{{ user.username|capitalize }}</span>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
         </div>
     </div>
-    <div class="row">
-        <div class="col s12 l12 m12 xl12">
-            {% for user in roster.user %}
-                <div class="row">
-                    <div class="col s3 m3 l3 xl3">
-                        <img alt="Avatar" style="width: 100px"  src="{{ asset(user.avatar) }}">
-                    </div>
-                    <div class="col s9 m9 l9 xl9">
-                        <span>{{ user.username|capitalize }}</span>
-                    </div>
-                </div>
-            {% endfor %}
-        </div>
-    </div>
-</div>
+{% endif %}
