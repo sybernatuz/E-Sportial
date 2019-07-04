@@ -10,7 +10,7 @@
                         <span><strong>{{ user.username }}</strong></span>
                     </div>
                     <div class="col s6 m6 l6 xl6" style="position: absolute; right: 0">
-                         {% if not user.teamOwner and app.user and app.user.teamOwner %}
+                         {% if not user.teamOwner and app.user and app.user.organization.id == team.id and app.user.teamOwner %}
                              <a style="font-size: 10px" data-user-id={{ user.id }} data-team-id={{ team.id }} class="right waves-effect waves-light btn remove-user">
                                  <i class="material-icons left">delete</i>
                                  Remove

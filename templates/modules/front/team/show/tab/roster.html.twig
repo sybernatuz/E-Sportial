@@ -7,7 +7,7 @@
             <div class="col s7 m7 l7 xl7" style="text-align: center; line-height: 30px">
                 <span>{{ roster.name|capitalize }}</span>
             </div>
-            {% if app.user.organization.id == roster.organization.id and app.user.teamOwner %}
+            {% if app.user and app.user.organization.id == roster.organization.id and app.user.teamOwner %}
                 <div class="col s2 m2 l2 xl2" style="text-align: center; line-height: 30px">
                     <a data-roster-id="{{ roster.id }}" class="remove-roster waves-effect waves-light">
                         <i class="material-icons">delete</i>
@@ -26,7 +26,7 @@
                             <div class="col s7 m7 l7 xl7" style="text-align: center; line-height: 20px">
                                 <span>{{ user.username|capitalize }}</span>
                             </div>
-                            {% if app.user.organization.id == roster.organization.id and app.user.teamOwner %}
+                            {% if app.user and app.user.organization.id == roster.organization.id and app.user.teamOwner %}
                                 <div class="col s2 m2 l2 xl2" style="text-align: center; line-height: 20px">
                                     <a data-user-id="{{ user.id }}" data-roster-id="{{ roster.id }}" class="remove-member-from-roster waves-effect waves-light">
                                         <i class="material-icons">delete</i>
