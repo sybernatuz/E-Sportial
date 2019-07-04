@@ -53,7 +53,7 @@ class AdminGameController extends AbstractController
         if ($gameForm->isSubmitted() && $gameForm->isValid()) {
             if($game->getPosterFile()) {
                 $fileName = $this->fileUploader->upload($game->getPosterFile(), "games");
-                $game->setPosterPath($fileName);
+                $game->setPosterPath($this->fileUploader->getTargetDirectory() . "/games/" . $fileName);
             }
             $this->em->persist($game);
             $this->em->flush();
@@ -82,7 +82,7 @@ class AdminGameController extends AbstractController
         if ($gameForm->isSubmitted() && $gameForm->isValid()) {
             if($game->getPosterFile()) {
                 $fileName = $this->fileUploader->upload($game->getPosterFile(), "games", true, $oldFile);
-                $game->setPosterPath($fileName);
+                $game->setPosterPath($this->fileUploader->getTargetDirectory() . "/games/" . $fileName);
             }
             $this->em->flush();
 

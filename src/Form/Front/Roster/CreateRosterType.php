@@ -4,6 +4,7 @@ namespace App\Form\Front\Roster;
 
 use App\Entity\Game;
 use App\Entity\Roster;
+use App\Repository\GameRepository;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
@@ -22,12 +23,19 @@ class CreateRosterType extends AbstractType
             ->add('game', EntityType::class, [
                 'label' => 'Game',
                 'class' => Game::class,
+                'query_builder' => function (GameRepository $gameRepository) {
+                    return $gameRepository->createQueryBuilder('g')->orderBy('g.name', 'ASC');
+                },
+                'choice_attr' => function(Game $game, $key, $value) {
+                    return ['data-icon' => $game->getPosterPath()];
+                },
                 'choice_label' => 'name',
             ])
             ->add('create', SubmitType::class, [
                 'label' => 'Create',
                 'attr' => [
-                    'class' => 'waves-effect waves-light btn'
+                    'style' => 'width: 100px',
+                    'class' => 'waves-effect waves-light btn right'
                 ]
             ]);
     }

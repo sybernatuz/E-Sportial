@@ -8,7 +8,7 @@
                 <a href="{{ path('app_event_show', {'slug' : event.slug}) }}">
                     <div class="card small horizontal">
                         <div class="card-image">
-                            <img src="{{ asset(team_images_dir ~ event.organization.logoPath) }}" alt="{{ event.organization.name }}">
+                            <img src="{{ asset(event.organization.logoPath) }}" alt="{{ event.organization.name }}">
                         </div>
                         <div class="card-stacked">
                             <div class="card-content">

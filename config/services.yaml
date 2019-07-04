@@ -7,7 +7,7 @@ parameters:
     locale: 'en'
     mailer_username: '%env(MAILER_USERNAME)%'
     project_dir: '%kernel.project_dir%'
-    images_dir: 'uploads/images'
+    images_dir: '/uploads/images'
     public_dir: '%kernel.project_dir%/public'
 
 services:
@@ -33,6 +33,7 @@ services:
     App\Services\FileUploaderService:
         arguments:
             $targetDirectory: '%images_dir%'
+            $publicDir: '%public_dir%'
 
     App\Listener\AjaxExceptionListener:
         tags:

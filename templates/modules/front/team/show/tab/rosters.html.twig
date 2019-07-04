@@ -1,0 +1,9 @@
+<div id="roster-cards" class="row" style="max-height: 350pt">
+    {% if rosters|length > 0 %}
+        {% for roster in rosters %}
+            {% include "modules/front/team/show/tab/roster.html.twig" with {'roster': roster } %}
+        {% endfor %}
+    {% else %}
+        <p style="text-align: center; font-size: 18px; font-weight: 700">No rosters yet !</p>
+    {% endif %}
+</div>

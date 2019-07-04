@@ -33,7 +33,7 @@ class GameFixtures extends Fixture implements FixtureGroupInterface
                 ->setApiUrl($faker->url)
                 ->setDescription($faker->text)
                 ->setName($faker->name)
-                ->setPosterPath('defaultPoster.jpg');
+                ->setPosterPath('/uploads/images/games/defaultPoster.jpg');
             $manager->persist($game);
         }
         $manager->flush();

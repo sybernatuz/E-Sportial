@@ -15,7 +15,7 @@
     <tbody>
     {% for game in games %}
         <tr>
-            <td><img class="game-image" src="{{ asset( game_images_dir ~ game.posterPath) }}"></td>
+            <td><img class="game-image" src="{{ asset(game.posterPath) }}"></td>
             <td>{{ game.name }}</td>
             <td>{{ game.apiUrl }}</td>
             <td>{{ gameMacro.delete_status(game.enable) }}</td>

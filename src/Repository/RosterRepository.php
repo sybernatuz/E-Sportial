@@ -32,4 +32,12 @@ class RosterRepository extends ServiceEntityRepository
         ;
     }
 
+    public function findRostersByTeamQuery(Organization $team)
+    {
+        return $this->createQueryBuilder('r')
+            ->where('r.organization = :organization')
+            ->setParameter('organization', $team)
+            ;
+    }
+
 }

@@ -17,16 +17,18 @@ class FileUploaderService
 {
     private $targetDirectory;
     private $fileSystem;
+    private $publicDir;
 
     /**
      * FileUploaderService constructor.
      * @param string $targetDirectory
      * @param Filesystem $fileSystem
      */
-    public function __construct(string $targetDirectory, Filesystem $fileSystem)
+    public function __construct(string $targetDirectory, string $publicDir, Filesystem $fileSystem)
     {
         $this->targetDirectory = $targetDirectory;
         $this->fileSystem = $fileSystem;
+        $this->publicDir = $publicDir;
     }
 
     /**
@@ -74,12 +76,12 @@ class FileUploaderService
         if(is_array($subject)) {
             foreach ($subject as $sub) {
                 $fileName = md5(uniqid()).'.'.$sub->guessExtension();
-                $sub->move($directory, $fileName);
+                $sub->move($this->getPublicDir() . $directory, $fileName);
                 $newSubject[] = $fileName;
             }
         } else {
             $fileName = md5(uniqid()).'.'.$subject->guessExtension();
-            $subject->move($directory, $fileName);
+            $subject->move($this->getPublicDir() . $directory, $fileName);
             $newSubject = $fileName;
         }
 
@@ -93,4 +95,22 @@ class FileUploaderService
     {
         return $this->targetDirectory;
     }
+
+    /**
+     * @return string
+     */
+    public function getPublicDir(): string
+    {
+        return $this->publicDir;
+    }
+
+    /**
+     * @param string $publicDir
+     */
+    public function setPublicDir(string $publicDir): void
+    {
+        $this->publicDir = $publicDir;
+    }
+
+
 }

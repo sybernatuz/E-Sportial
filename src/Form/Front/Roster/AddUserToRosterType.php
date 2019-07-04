@@ -5,9 +5,9 @@ namespace App\Form\Front\Roster;
 use App\Entity\Dto\Roster\AddUserToRosterDto;
 use App\Entity\Roster;
 
+use App\Repository\RosterRepository;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
-use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -17,6 +17,7 @@ class AddUserToRosterType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
+        $team = $builder->getData()->getTeam();
         $builder
             ->add('username', TextType::class, [
                 'label' => 'Username'
@@ -25,11 +26,18 @@ class AddUserToRosterType extends AbstractType
                 'label' => 'Roster',
                 'class' => Roster::class,
                 'choice_label' => 'name',
+                'query_builder' => function (RosterRepository $rosterRepository) use($team) {
+                    return $rosterRepository->findRostersByTeamQuery($team);
+                },
+                'choice_attr' => function(Roster $roster, $key, $value) {
+                    return ['data-icon' => $roster->getGame()->getPosterPath()];
+                },
             ])
             ->add('add', SubmitType::class, [
                 'label' => 'Add',
                 'attr' => [
-                    'class' => 'waves-effect waves-light btn'
+                    'style' => 'width: 100px',
+                    'class' => 'waves-effect waves-light btn right'
                 ]
             ])
         ;

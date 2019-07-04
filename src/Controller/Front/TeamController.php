@@ -87,7 +87,7 @@ class TeamController extends AbstractController
         if($form->isSubmitted() && $form->isValid()) {
             if($organization->getLogoFile()) {
                 $fileName = $fileUploader->upload($organization->getLogoFile(), "teams");
-                $organization->setLogoPath($fileName);
+                $organization->setLogoPath($fileUploader->getTargetDirectory() . "/teams/" . $fileName);
             }
             if(get_class($userConnected) == User::class) {
                 $userConnected->setOrganization($organization);

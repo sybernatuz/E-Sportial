@@ -15,6 +15,28 @@ $(document).ready(function() {
         }
     });
 
+    $(document).on("click", ".remove-member-from-roster", function (event) {
+        let userId = $(this).attr("data-user-id");
+        let rosterId = $(this).attr("data-roster-id");
+        $.ajax({
+            url: Routing.generate("app_team_ajax_remove_roster_member", {id: rosterId, userId: userId}),
+            method: 'POST',
+            success: function (data) {
+                $("#roster-" + rosterId).replaceWith(data);
+            }
+        });
+    });
+
+    $(document).on("click", ".remove-roster", function (event) {
+        let rosterId = $(this).attr("data-roster-id");
+        $.ajax({
+            url: Routing.generate("app_team_ajax_remove_roster", {id: rosterId}),
+            method: 'POST',
+            success: function (data) {
+                $("#roster-cards").replaceWith(data);
+            }
+        });
+    });
 
     $(document).on("submit", "#create-roster-form", function (event) {
         event.preventDefault();

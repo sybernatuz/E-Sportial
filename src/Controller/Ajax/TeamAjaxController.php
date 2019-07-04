@@ -98,6 +98,43 @@ class TeamAjaxController extends AbstractController
     }
 
     /**
+     * @IsGranted("ROLE_USER")
+     * @Route(path="/roster/{id}/member/{userId}/remove", name="remove_roster_member", options={"expose"=true})
+     * @ParamConverter("roster", options={"id" = "id"})
+     * @ParamConverter("user", options={"id" = "userId"})
+     * @param Roster $roster
+     * @param User $user
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
+    public function removeUserFromRoster(Roster $roster, User $user)
+    {
+        $roster->removeUser($user);
+        $this->em->flush();
+
+        return $this->render('modules/front/team/show/tab/roster.html.twig', [
+            "team" => $roster->getOrganization(),
+            "roster" => $roster
+        ]);
+    }
+
+    /**
+     * @IsGranted("ROLE_USER")
+     * @Route(path="/roster/{id}/remove", name="remove_roster", options={"expose"=true})
+     * @param Roster $roster
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
+    public function removeRoster(Roster $roster)
+    {
+        $this->em->remove($roster);
+        $this->em->flush();
+
+        return $this->render('modules/front/team/show/tab/rosters.html.twig', [
+            "rosters" => $roster->getOrganization()->getRosters()
+        ]);
+    }
+
+
+    /**
      * @Route(path="/{id}/rosters", name="roster_tab", options={"expose"=true})
      * @param Request $request
      * @param Organization $team
