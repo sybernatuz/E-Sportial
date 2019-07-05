@@ -32,6 +32,7 @@ Encore
 
     .addEntry('event_list', './assets/js/pages/front/event/list.js')
     .addEntry('event_show', './assets/js/pages/front/event/show.js')
+    .addEntry('event_new', './assets/js/pages/front/event/new.js')
 
     .addEntry('game_list', './assets/js/pages/front/game/list.js')
     .addEntry('game_show', './assets/js/pages/front/game/show.js')

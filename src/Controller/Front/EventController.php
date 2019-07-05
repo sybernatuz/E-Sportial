@@ -11,6 +11,7 @@ namespace App\Controller\Front;
 
 use App\Entity\Event;
 use App\Entity\Search\EventSearch;
+use App\Form\Front\Event\NewFormType;
 use App\Form\Search\EventSearchType;
 use App\Repository\EventRepository;
 use App\Services\layout\FooterService;
@@ -37,6 +38,31 @@ class EventController extends AbstractController
     {
         $this->eventRepository = $eventRepository;
         $this->footerService = $footerService;
+    }
+
+    /**
+     * @Route(path="/event/new", name="new")
+     * @param Request $request
+     * @return \Symfony\Component\HttpFoundation\Response
+     * @throws \Exception
+     */
+    public function create(Request $request) {
+        $event = new Event();
+        $form = $this->createForm(NewFormType::class, $event);
+        $form->handleRequest($request);
+
+        if($form->isSubmitted() && $form->isValid()) {
+            die();
+            $organization = $this->getUser()->getOrganization();
+            $event->setOrganization($organization);
+            $this->getDoctrine()->getManager()->persist($event);
+            $this->getDoctrine()->getManager()->flush();
+            $this->addFlash('success', 'Event created');
+            return $this->redirectToRoute('app_team_show', ['slug' => $organization->getSlug()]);
+        }
+        return $this->render('pages/front/event/new.html.twig', [
+                'newForm' => $form->createView()
+            ] + $this->footerService->process());
     }
 
     /**
@@ -74,4 +100,6 @@ class EventController extends AbstractController
                 'searchForm' => $searchForm->createView()
             ] + $this->footerService->process());
     }
+
+
 }
