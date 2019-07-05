@@ -64,6 +64,8 @@ class JobVoter extends Voter
             return false;
         }
 
-        return $loggedUser->getId() == $job->getUser()->getId();
+        if ($job->getUser() != null)
+            return $loggedUser->getId() == $job->getUser()->getId();
+        return $loggedUser->getOrganization() === $job->getOrganization() && $loggedUser->getTeamOwner();
     }
 }
