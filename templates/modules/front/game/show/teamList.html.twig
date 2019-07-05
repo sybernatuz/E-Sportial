@@ -1,13 +1,19 @@
-<div class="team-list col l6 m6 s6">
-    <div class="scoll-teams">
-        <ul class="collection with-header">
-            <li class="collection-header center-align"><h5>Teams</h5></li>
-            {% for roster in game.rosters %}
-                <li class="collection-item avatar valign-wrapper">
-                    <img class="circle" src="{{ roster.organization.logoPath }}">
-                    <span class="title">{{ roster.organization.name }}</span>
-                </li>
-            {% endfor %}
-        </ul>
-    </div>
+<div class="team-list">
+    <h2>Teams</h2>
+    {% for roster in game.rosters %}
+        <div class="col s12 m6 l3">
+            <a href="{{ path('app_team_show', {"slug": roster.organization.slug}) }}">
+                <div class="card">
+                    <div class="card-image">
+                        <img src="{{ roster.organization.logoPath }}" alt="{{ roster.organization.name }}">
+                    </div>
+                    <div class="card-content">
+                        <div class="center-align">
+                            <span>{{ roster.organization.name }}</span>
+                        </div>
+                    </div>
+                </div>
+            </a>
+        </div>
+    {% endfor %}
 </div>
