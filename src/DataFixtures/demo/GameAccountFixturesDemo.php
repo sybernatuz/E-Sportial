@@ -15,7 +15,7 @@ class GameAccountFixturesDemo extends Fixture implements DependentFixtureInterfa
 {
     public function load(ObjectManager $manager)
     {
-        $user = $manager->getRepository(User::class)->findByUsernameOrEmail("Gotaga");
+        $user = $manager->getRepository(User::class)->findOneBy(["username" => "Gotaga"]);
         $fortnite = $manager->getRepository(Game::class)->findOneBy(["name" => "Fortnite"]);
         $lol = $manager->getRepository(Game::class)->findOneBy(["name" => "League of Legends"]);
 
@@ -30,6 +30,7 @@ class GameAccountFixturesDemo extends Fixture implements DependentFixtureInterfa
             ->setPseudo("Gotaga")
             ->setGame($lol);
         $manager->persist($gameAccount);
+
         $manager->flush();
     }
 

@@ -22,17 +22,17 @@ class CountryFixturesDemo extends Fixture implements FixtureGroupInterface
     {
         $france = (new Country())
             ->setName("France")
-            ->setFlagPath("");
+            ->setFlagPath("https://i.ebayimg.com/images/g/oakAAOSwXSJXOyQ~/s-l300.jpg");
         $manager->persist($france);
 
         $usa = (new Country())
             ->setName("USA")
-            ->setFlagPath("");
+            ->setFlagPath("https://upload.wikimedia.org/wikipedia/en/thumb/a/a4/Flag_of_the_United_States.svg/1280px-Flag_of_the_United_States.svg.png");
         $manager->persist($usa);
 
         $china = (new Country())
             ->setName("China")
-            ->setFlagPath("");
+            ->setFlagPath("https://upload.wikimedia.org/wikipedia/commons/f/fa/Flag_of_the_People%27s_Republic_of_China.svg");
         $manager->persist($china);
 
         $manager->flush();

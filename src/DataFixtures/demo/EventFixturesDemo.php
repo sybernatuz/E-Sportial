@@ -8,6 +8,7 @@ use App\Entity\Event;
 use App\Entity\Organization;
 use App\Entity\Type;
 use App\Enums\type\EventTypeEnum;
+use DateTime;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Bundle\FixturesBundle\FixtureGroupInterface;
 use Doctrine\Common\DataFixtures\DependentFixtureInterface;
@@ -18,7 +19,7 @@ class EventFixturesDemo extends Fixture implements DependentFixtureInterface, Fi
     public function load(ObjectManager $manager)
     {
         $vitality = $manager->getRepository(Organization::class)->findOneBy(["name" => "Vitality"]);
-        $type = $manager->getRepository(Type::class)->findBy(['name' => EventTypeEnum::TOURNAMENT]);
+        $type = $manager->getRepository(Type::class)->findOneBy(['name' => EventTypeEnum::TOURNAMENT]);
         $event = (new Event())
             ->setLocation("Los Angeles Convention Center, Los Angeles, Californie, USA")
             ->setStartDate(new DateTime("2019-08-05"))

@@ -41,7 +41,8 @@ class JobFixturesDemo extends Fixture implements DependentFixtureInterface, Fixt
             ->setDuration(30)
             ->setSalary(1000)
             ->setLocation("Paris")
-            ->setUser($user);
+            ->setUser($user)
+            ->setType($type);
         $manager->persist($job);
         $manager->flush();
     }

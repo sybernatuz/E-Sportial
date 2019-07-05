@@ -28,22 +28,68 @@ class UserFixturesDemo extends Fixture implements FixtureGroupInterface, Depende
 
     public function load(ObjectManager $manager)
     {
-        $france = $manager->getRepository(Country::class)->findBy(['name' => 'France']);
+        $france = $manager->getRepository(Country::class)->findOneBy(['name' => 'France']);
         $gotaga = (new User())
             ->setEmail("gotaga@gmail.com")
             ->setUsername("Gotaga")
             ->setAge(25)
             ->setOnline(false)
-            ->setAvatar("https://gotaga.tv/img/seo-social.png")
+            ->setAvatar("https://erwan.bjsolutions.fr/wp-content/uploads/2019/01/gotaga-profil.png")
             ->setFirstname("Corentin")
             ->setLastname("Houssein")
             ->setPro(true)
             ->setRoles(["ROLE_USER"])
-            ->setCountry($france);
+            ->setCountry($france)
+            ->setTeamOwner(true);
         $gotaga->setPassword($this->encoder->encodePassword($gotaga, "gotaga"));
         $manager->persist($gotaga);
 
-        $usa = $manager->getRepository(Country::class)->findBy(['name' => 'USA']);
+        $mickalow = (new User())
+            ->setEmail("mickalow@gmail.com")
+            ->setUsername("Mickalow")
+            ->setAge(26)
+            ->setOnline(false)
+            ->setAvatar("https://proconfig.fr/wp-content/uploads/2018/12/Mickalow.jpg")
+            ->setFirstname("Mickaël")
+            ->setLastname("Maruin")
+            ->setPro(true)
+            ->setRoles(["ROLE_USER"])
+            ->setCountry($france)
+            ->setTeamOwner(false);
+        $mickalow->setPassword($this->encoder->encodePassword($gotaga, "mickalow"));
+        $manager->persist($mickalow);
+
+        $robi = (new User())
+            ->setEmail("robi@gmail.com")
+            ->setUsername("Robi")
+            ->setAge(30)
+            ->setOnline(false)
+            ->setAvatar("https://gamepedia.cursecdn.com/fortnite_esports_gamepedia_en/3/34/Robi.png")
+            ->setFirstname("Maxime")
+            ->setLastname("Dambrine")
+            ->setPro(true)
+            ->setRoles(["ROLE_USER"])
+            ->setCountry($france)
+            ->setTeamOwner(false);
+        $robi->setPassword($this->encoder->encodePassword($robi, "robi"));
+        $manager->persist($robi);
+
+        $jacquie = (new User())
+            ->setEmail("jacquie@gmail.com")
+            ->setUsername("Jacquie")
+            ->setAge(30)
+            ->setOnline(false)
+            ->setAvatar("https://banner2.kisspng.com/20180716/lra/kisspng-logo-person-user-person-icon-5b4d2bd2236ca6.6010202115317841461451.jpg")
+            ->setFirstname("Jacquie")
+            ->setLastname("La Fripouille")
+            ->setPro(true)
+            ->setRoles(["ROLE_USER"])
+            ->setCountry($france)
+            ->setTeamOwner(false);
+        $jacquie->setPassword($this->encoder->encodePassword($jacquie, "jacquie"));
+        $manager->persist($jacquie);
+
+        $usa = $manager->getRepository(Country::class)->findOneBy(['name' => 'USA']);
         $ninja = (new User())
             ->setEmail("ninja@gmail.com")
             ->setUsername("Ninja")
@@ -54,7 +100,8 @@ class UserFixturesDemo extends Fixture implements FixtureGroupInterface, Depende
             ->setLastname("Blevins")
             ->setPro(true)
             ->setRoles(["ROLE_USER"])
-            ->setCountry($usa);
+            ->setCountry($usa)
+            ->setTeamOwner(false);
         $ninja->setPassword($this->encoder->encodePassword($ninja, "ninja"));
         $manager->persist($ninja);
 
@@ -63,12 +110,13 @@ class UserFixturesDemo extends Fixture implements FixtureGroupInterface, Depende
             ->setUsername("admin")
             ->setAge(30)
             ->setOnline(false)
-            ->setAvatar('')
+            ->setAvatar('https://banner2.kisspng.com/20180716/lra/kisspng-logo-person-user-person-icon-5b4d2bd2236ca6.6010202115317841461451.jpg')
             ->setFirstname('Jean')
             ->setLastname('Charles')
             ->setPro(false)
             ->setRoles(["ROLE_USER", "ROLE_ADMIN"])
-            ->setCountry($france);
+            ->setCountry($france)
+            ->setTeamOwner(false);
         $admin->setPassword($this->encoder->encodePassword($admin, "admin"));
         $manager->persist($admin);
 

@@ -27,6 +27,8 @@ class OrganizationFixturesDemo extends Fixture implements DependentFixtureInterf
     {
         $france = $manager->getRepository(Country::class)->findOneBy(["name" => "France"]);
         $gotaga = $manager->getRepository(User::class)->findOneBy(["username" => "Gotaga"]);
+        $mickalow = $manager->getRepository(User::class)->findOneBy(["username" => "Mickalow"]);
+        $robi = $manager->getRepository(User::class)->findOneBy(["username" => "Robi"]);
         $type = $manager->getRepository(Type::class)->findOneBy(["name" => OrganizationTypeEnum::TEAM]);
 
         $vitality = (new Organization())
@@ -38,8 +40,9 @@ class OrganizationFixturesDemo extends Fixture implements DependentFixtureInterf
             ->setType($type)
             ->setVerify(true);
 
-        $gotaga->setTeamOwner(true);
         $vitality->addUser($gotaga);
+        $vitality->addUser($mickalow);
+        $vitality->addUser($robi);
         $manager->persist($vitality);
         $manager->flush();
     }
