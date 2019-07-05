@@ -49,9 +49,12 @@ class JobRepository extends ServiceEntityRepository
 
         if ($this->token->getToken()->getUser() instanceof User && $this->token->getToken()->getUser()->getId() != null) {
             $query->leftJoin('j.user', 'u')
+                ->leftJoin('j.organization', 'organization')
                 ->andWhere('u.id != :id')
+                ->setParameter('id', $this->token->getToken()->getUser()->getId())
                 ->orWhere('u IS NULL')
-                ->setParameter('id', $this->token->getToken()->getUser()->getId());
+                ->andWhere(':user NOT MEMBER OF organization.users')
+                ->setParameter('user', $this->token->getToken()->getUser());
         }
 
         $type = $search->getType() != null ? $search->getType()->getName() : JobTypeEnum::WORK;

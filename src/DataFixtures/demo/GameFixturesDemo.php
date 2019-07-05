@@ -23,7 +23,7 @@ class GameFixturesDemo extends Fixture implements FixtureGroupInterface
     public function load(ObjectManager $manager)
     {
         $fortnite = (new Game())
-            ->setApiUrl("https://fortnite-api.theapinetwork.com/")
+            ->setApiUrl("https://fortnite-api.theapinetwork.com")
             ->setDescription("Fortnite est un jeu en ligne développé par Epic Games qui a été publié sous la forme de différents progiciels proposant différents modes de jeu qui partagent le même gameplay général et le même moteur de jeu.")
             ->setName("Fortnite")
             ->setPosterPath('https://cdn03.nintendo-europe.com/media/images/10_share_images/games_15/nintendo_switch_download_software_1/H2x1_NSwitchDS_Fortnite_image1600w.jpg');
