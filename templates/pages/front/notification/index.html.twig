@@ -10,6 +10,8 @@
     <div class="container" id="notifications">
         {% if recruitments is not null and recruitments|length > 0 %}
             {% include "modules/front/notification/index/recruitment.html.twig" with {'recruitments': recruitments} %}
+        {% else %}
+            <h2>No Notifications</h2>
         {% endif %}
     </div>
 {% endblock %}

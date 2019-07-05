@@ -50,6 +50,7 @@ class JobRepository extends ServiceEntityRepository
         if ($this->token->getToken()->getUser() instanceof User && $this->token->getToken()->getUser()->getId() != null) {
             $query->leftJoin('j.user', 'u')
                 ->andWhere('u.id != :id')
+                ->orWhere('u IS NULL')
                 ->setParameter('id', $this->token->getToken()->getUser()->getId());
         }
 

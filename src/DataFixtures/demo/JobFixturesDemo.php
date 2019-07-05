@@ -35,8 +35,8 @@ class JobFixturesDemo extends Fixture implements DependentFixtureInterface, Fixt
             ->setType($type);
         $manager->persist($job);
         $job = (new Job())
-            ->setDescription("Looking for League of Legends player")
-            ->setTitle("I'm looking for an experimented fortnite player with a diamond rank")
+            ->setTitle("Looking for League of Legends player")
+            ->setDescription("I'm looking for an experimented fortnite player with a diamond rank")
             ->setCreatedAt(new DateTime())
             ->setDuration(30)
             ->setSalary(1000)
