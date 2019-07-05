@@ -11,13 +11,14 @@
         {% endblock %}
     </head>
     <body>
-        {% include 'modules/front/common/navbar.html.twig' %}
+        <main>
+            {% include 'modules/front/common/navbar.html.twig' %}
 
-        <div class="container-fluid pl2 pr2">
-            {% block body %}
-            {% endblock %}
-        </div>
-
+            <div class="container-fluid pl2 pr2">
+                {% block body %}
+                {% endblock %}
+            </div>
+        </main>
         {% include 'modules/front/common/footer.html.twig' %}
 
         <script id="loading" data-prototype="{% include 'modules/front/common/loading.html.twig' %}"></script>

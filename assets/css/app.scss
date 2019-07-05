@@ -1,4 +1,15 @@
 @import "_variables";
+
+body {
+  display: flex;
+  min-height: 100vh;
+  flex-direction: column;
+}
+
+main {
+  flex: 1 0 auto;
+}
+
 @import "modules/front/common/navbar";
 @import "modules/front/common/container";
 @import "modules/front/common/footer";
