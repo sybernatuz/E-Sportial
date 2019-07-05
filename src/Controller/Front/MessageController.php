@@ -83,7 +83,7 @@ class MessageController extends AbstractController
         $discussion = new DiscussionGroup();
         $message = new Message();
         $message->setTransmitter($this->getUser());
-        $message->setContent("Discussion for job :" . $job->getTitle());
+        $message->setContent("Discussion for job : " . $job->getTitle());
         $discussion->addMessage($message);
         $discussion->setName($user->getUsername() . " " . $this->getUser()->getUsername());
         $discussion->addUser($user);

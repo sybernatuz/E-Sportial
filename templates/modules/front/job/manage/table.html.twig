@@ -3,6 +3,7 @@
     <thead>
     <tr>
         <th>Title</th>
+        <th>Type</th>
         <th>Created By</th>
         <th>Created At</th>
         <th>Location</th>
@@ -17,6 +18,7 @@
     {% for job in jobs %}
         <tr>
             <td>{{ job.title }}</td>
+            <td>{{ job.type.name }}</td>
             <td>{{ job.user != null ? job.user.username : job.organization.name }}</td>
             <td>{{ job.createdAt|date('Y-m-d') }}</td>
             <td>{{ job.location }}</td>

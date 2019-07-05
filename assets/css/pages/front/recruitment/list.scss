@@ -1,0 +1,19 @@
+@import "../../../_variables";
+
+.recruitment-item {
+  border-bottom: none;
+}
+
+.name {
+  font-weight: bold;
+}
+
+.circle {
+  position: static !important;
+  width: 42px;
+  height: 42px;
+}
+
+.avatar {
+  padding-left: 0 !important;
+}

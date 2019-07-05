@@ -64,7 +64,7 @@ class MessageAjaxController extends AbstractController
     public function discussion(DiscussionGroup $discussionGroup) : Response
     {
         $discussionGroup->getMessages()->forAll(function (int $key, Message $message) {
-            if ($message->getTransmitter()->getUsername() != $this->getUser()->getUsername())
+            if ($message->getTransmitter()->getId() != $this->getUser()->getId())
                 $message->setIsRead(true);
         });
         $this->getDoctrine()->getManager()->flush();

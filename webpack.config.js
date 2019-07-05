@@ -44,6 +44,8 @@ Encore
 
     .addEntry('notification_index', './assets/js/pages/front/notification/index.js')
 
+    .addEntry('recruitment_list', './assets/js/pages/front/recruitment/list.js')
+
     .addEntry('team_list', './assets/js/pages/front/team/list.js')
     .addEntry('team_show', './assets/js/pages/front/team/show.js')
     .addEntry('team_create', './assets/js/pages/front/team/create.js')
