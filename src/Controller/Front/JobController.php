@@ -12,7 +12,6 @@ namespace App\Controller\Front;
 use App\Entity\Job;
 use App\Entity\Search\JobSearch;
 use App\Entity\User;
-use App\Enums\type\JobTypeEnum;
 use App\Form\Front\Job\EditFormType;
 use App\Form\Front\Job\NewFormType;
 use App\Form\Search\JobSearchType;
@@ -75,7 +74,7 @@ class JobController extends AbstractController
      */
     public function manage() : Response
     {
-        $jobs = $this->jobRepository->findByCreatorAndType($this->getUser(), JobTypeEnum::WORK);
+        $jobs = $this->jobRepository->findByCreator($this->getUser());
         return $this->render('pages/front/job/manage.html.twig', [
            'jobs' => $jobs
         ] + $this->footerService->process());

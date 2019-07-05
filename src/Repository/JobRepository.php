@@ -85,15 +85,16 @@ class JobRepository extends ServiceEntityRepository
             ->getResult();
     }
 
-    public function findByCreatorAndType(User $user, string $type)
+    public function findByCreator(User $user)
     {
-        return $this->createQueryBuilder('j')
-            ->leftJoin('j.type', 't')
-            ->where('t.name = :type')
-            ->setParameter(':type', $type)
+        $query = $this->createQueryBuilder('j')
             ->andWhere('j.user = :user')
-            ->setParameter(':user', $user)
-            ->getQuery()
-            ->getResult();
+            ->setParameter(':user', $user);
+
+        if ($user->getTeamOwner())
+            $query->orWhere("j.organization = :organisation")
+                ->setParameter(':organisation', $user->getOrganization());
+
+        return $query->getQuery()->getResult();
     }
 }
