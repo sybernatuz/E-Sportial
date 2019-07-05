@@ -8,7 +8,6 @@ use App\Entity\Game;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Bundle\FixturesBundle\FixtureGroupInterface;
 use Doctrine\Common\Persistence\ObjectManager;
-use Faker\Factory;
 use Symfony\Component\Asset\Packages;
 
 class GameFixturesDemo extends Fixture implements FixtureGroupInterface

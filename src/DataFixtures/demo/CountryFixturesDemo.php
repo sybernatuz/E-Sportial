@@ -13,7 +13,6 @@ use App\Entity\Country;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Bundle\FixturesBundle\FixtureGroupInterface;
 use Doctrine\Common\Persistence\ObjectManager;
-use Faker\Factory;
 
 class CountryFixturesDemo extends Fixture implements FixtureGroupInterface
 {
