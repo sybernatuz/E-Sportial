@@ -55,19 +55,14 @@ class EventRepository extends ServiceEntityRepository
 
     /**
      * @param int $eventsNumber
-     * @param string $type
      * @return Event[] Returns an array of Recruitment objects
      */
-    public function findByLastDateAndType(int $eventsNumber, string $type)
+    public function findByLastDate(int $eventsNumber)
     {
         return $this->createQueryBuilder('e')
-            ->leftJoin('e.type', 't')
-            ->where('t.name LIKE :type')
-            ->setParameter(':type', '%'.$type.'%')
             ->orderBy('e.startDate', 'DESC')
             ->setMaxResults($eventsNumber)
-            ->getQuery()
-            ->getResult();
+            ->getQuery()->getResult();
     }
 
     public function findByLastDateAndGame(Game $game)

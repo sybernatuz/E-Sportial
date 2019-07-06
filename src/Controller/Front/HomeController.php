@@ -9,7 +9,6 @@
 namespace App\Controller\Front;
 
 
-use App\Enums\type\EventTypeEnum;
 use App\Enums\type\JobTypeEnum;
 use App\Repository\EventRepository;
 use App\Repository\JobRepository;
@@ -54,7 +53,7 @@ class HomeController extends AbstractController
     public function index() : Response
     {
         return $this->render("pages/front/home.html.twig", [
-            'lastEvents' => $this->eventRepository->findByLastDateAndType(self::LAST_EVENTS_NUMBER, EventTypeEnum::ALL),
+            'lastEvents' => $this->eventRepository->findByLastDate(self::LAST_EVENTS_NUMBER),
             'lastRecruitments' => $this->recruitmentRepository->findByLastDate(self::LAST_RECUITMENTS_NUMBER),
             'lastJobs' => $this->jobRepository->findByLastDateAndType(self::LAST_JOBS_NUMBER, JobTypeEnum::WORK),
             'lastCoachings' => $this->jobRepository->findByLastDateAndType(self::LAST_COACHINGS_NUMBER, JobTypeEnum::COACHING)

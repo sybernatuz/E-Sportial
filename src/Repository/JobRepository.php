@@ -68,7 +68,7 @@ class JobRepository extends ServiceEntityRepository
     public function findByLastDateAndType(int $jobsNumber, string $type)
     {
         return $this->createQueryBuilder('j')
-            ->leftJoin('j.type', 't')
+            ->join('j.type', 't')
             ->where('t.name = :type')
             ->setParameter(':type', $type)
             ->orderBy('j.createdAt', 'DESC')
