@@ -32,7 +32,7 @@ class FortniteGameStatsService implements GameStatsInterface
         $queryStats = array('user_id' => $uid, 'authorization' => '4635ae6ff6ddd205cc301e4ff3b81d24');
         $result = Request::get($apiUrl . self::USER_STATS_ROUTE, $headers, $queryStats)->body;
 
-        if(property_exists($result, 'success') && !$result->success) {
+        if(isset($result->success) && !$result->success) {
             throw new GameStatsFortniteDataNotFoundException($pseudo);
         }
 
@@ -40,6 +40,7 @@ class FortniteGameStatsService implements GameStatsInterface
         if(!$data) {
             throw new DataConverterJsonDecodeException();
         }
+
 
         return $data;
     }
@@ -63,10 +64,10 @@ class FortniteGameStatsService implements GameStatsInterface
         $queryUid = array('username' => $pseudo, 'authorization' => '4635ae6ff6ddd205cc301e4ff3b81d24');
         $result = Request::get($apiUrl . self::USER_ID_ROUTE, $headers, $queryUid)->body;
 
-        if(property_exists($result, 'success') && !$result->success) {
+        if(isset($result->success) && !$result->success) {
             return false;
         }
 
-        return $result->data->uid;
+        return $result->uid;
     }
 }
