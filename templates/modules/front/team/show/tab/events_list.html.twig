@@ -1,7 +1,7 @@
 <div id="event-list" class="container-fluid" style="margin-top:30px;">
     <div class="row">
         <div class="col s12" style="height: 300pt; overflow: auto">
-            {% if app.user and app.user.organization.id == roster.organization.id and app.user.teamOwner %}
+            {% if app.user and app.user.organization.id == team.id and app.user.teamOwner %}
                 <a class="waves-effect waves-light btn" href="{{ path('app_event_new') }}">
                     <i class="material-icons left">add</i>Create
                 </a>

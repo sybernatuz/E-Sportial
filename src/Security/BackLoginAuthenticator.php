@@ -76,7 +76,7 @@ class BackLoginAuthenticator extends LoginAuthenticator
      */
     protected function getRedirectionResponse()
     {
-        return new RedirectResponse($this->router->generate('app_admin_statistic_index'));
+        return new RedirectResponse($this->router->generate('app_admin_user_list'));
     }
 
     /**

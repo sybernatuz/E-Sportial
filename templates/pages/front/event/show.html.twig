@@ -1,12 +1,13 @@
 {% extends 'base.html.twig' %}
 
 {% block stylesheets %}
-    {{ encore_entry_link_tags('event_list') }}
+    {{ encore_entry_link_tags('event_show') }}
 {% endblock %}
 
 {% block body %}
+    {% include 'modules/front/event/show/details.html.twig' %}
 {% endblock %}
 
 {% block javascripts %}
-    {{ encore_entry_script_tags('event_list') }}
+    {{ encore_entry_script_tags('event_show') }}
 {% endblock %}

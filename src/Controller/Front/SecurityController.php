@@ -10,6 +10,7 @@ use App\Repository\UserRepository;
 use App\Services\FormService;
 use App\Services\layout\FooterService;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -73,7 +74,7 @@ class SecurityController extends AbstractController
     /**
      * @Route("/forgot-password", name="forgot_password")
      * @param Request $request
-     * @return \Symfony\Component\HttpFoundation\RedirectResponse|Response
+     * @return RedirectResponse|Response
      */
     public function retrieveForgotPasswordAction(Request $request)
     {
@@ -104,7 +105,7 @@ class SecurityController extends AbstractController
      * @param Request $request
      * @param User $user
      * @param string $resetPasswordToken
-     * @return \Symfony\Component\HttpFoundation\RedirectResponse|Response
+     * @return RedirectResponse|Response
      */
     public function resetPassword(Request $request, User $user, string $resetPasswordToken) {
         if($this->getUser()) {

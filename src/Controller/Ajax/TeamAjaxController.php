@@ -22,6 +22,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Serializer\SerializerInterface;
 
@@ -44,7 +45,7 @@ class TeamAjaxController extends AbstractController
     /**
      * @Route(path="/{id}/members", name="member_tab", options={"expose"=true})
      * @param Organization $team
-     * @return \Symfony\Component\HttpFoundation\Response
+     * @return Response
      */
     public function members(Organization $team)
     {
@@ -56,7 +57,7 @@ class TeamAjaxController extends AbstractController
     /**
      * @Route(path="/{id}/events", name="event_tab", options={"expose"=true})
      * @param Organization $team
-     * @return \Symfony\Component\HttpFoundation\Response
+     * @return Response
      */
     public function events(Organization $team)
     {
@@ -68,7 +69,7 @@ class TeamAjaxController extends AbstractController
     /**
      * @Route(path="/member/{id}/show", name="member_show", options={"expose"=true})
      * @param User $user
-     * @return \Symfony\Component\HttpFoundation\Response
+     * @return Response
      */
     public function show(User $user)
     {
@@ -85,7 +86,7 @@ class TeamAjaxController extends AbstractController
      * @ParamConverter("user", options={"id" = "userId"})
      * @param Organization $team
      * @param User $user
-     * @return \Symfony\Component\HttpFoundation\Response
+     * @return Response
      */
     public function remove(Organization $team, User $user)
     {
@@ -104,7 +105,7 @@ class TeamAjaxController extends AbstractController
      * @ParamConverter("user", options={"id" = "userId"})
      * @param Roster $roster
      * @param User $user
-     * @return \Symfony\Component\HttpFoundation\Response
+     * @return Response
      */
     public function removeUserFromRoster(Roster $roster, User $user)
     {
@@ -121,7 +122,7 @@ class TeamAjaxController extends AbstractController
      * @IsGranted("ROLE_USER")
      * @Route(path="/roster/{id}/remove", name="remove_roster", options={"expose"=true})
      * @param Roster $roster
-     * @return \Symfony\Component\HttpFoundation\Response
+     * @return Response
      */
     public function removeRoster(Roster $roster)
     {
@@ -140,7 +141,7 @@ class TeamAjaxController extends AbstractController
      * @param Organization $team
      * @param RosterRepository $rosterRepository
      * @param UserRepository $userRepository
-     * @return \Symfony\Component\HttpFoundation\Response
+     * @return Response
      * @throws \Exception
      */
     public function rosters(Request $request, Organization $team, RosterRepository $rosterRepository, UserRepository $userRepository)

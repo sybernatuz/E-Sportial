@@ -15,6 +15,7 @@ use App\Repository\UserRepository;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 /**
@@ -34,7 +35,7 @@ class AdminUserController extends AbstractController
 
     /**
      * @Route(name="list", path="/users")
-     * @return \Symfony\Component\HttpFoundation\Response
+     * @return Response
      */
     public function list()
     {
@@ -47,7 +48,7 @@ class AdminUserController extends AbstractController
      * @Route(name="edit", path="/user/{slug}/edit")
      * @param User $user
      * @param Request $request
-     * @return \Symfony\Component\HttpFoundation\Response
+     * @return Response
      */
     public function edit(User $user, Request $request)
     {
@@ -69,7 +70,7 @@ class AdminUserController extends AbstractController
     /**
      * @Route(name="delete", path="/user/{id}/delete")
      * @param User $user
-     * @return \Symfony\Component\HttpFoundation\Response
+     * @return Response
      */
     public function delete(User $user)
     {

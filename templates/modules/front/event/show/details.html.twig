@@ -1,0 +1,44 @@
+<div id="event-details">
+    <div class="card small horizontal">
+        <div class="card-image">
+            <img src="{{ event.organization.logoPath }}" alt="{{ event.organization.name }}">
+        </div>
+        <div class="card-stacked">
+            <div class="card-content">
+                <div class="row">
+                    <div class="col m4">
+                        <span class="title">{{ event.name }}</span>
+                    </div>
+                    <div class="col m4 offset-m4 right-align">
+                        <span>{{ event.startDate|date('Y-m-d') }}</span>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col m12">
+                        <p>{{ event.description }}</p>
+                    </div>
+                </div>
+                <div class="infos">
+                    <div class="row">
+                        <div class="col m4">
+                            <i class="fas fa-map-marker-alt"></i>
+                            <span class="">
+                                {{ event.location }}
+                            </span>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col m4 left-align">
+                            <i class="fas fa-users"></i>
+                            {{ event.participants|length }}
+                        </div>
+                        <div class="col m5 offset-m3 right-align">
+                            <i class="far fa-building"></i>
+                            Organized by {{ event.organization.name }}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

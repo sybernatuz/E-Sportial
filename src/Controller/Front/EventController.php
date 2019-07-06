@@ -15,6 +15,7 @@ use App\Form\Front\Event\NewFormType;
 use App\Form\Search\EventSearchType;
 use App\Repository\EventRepository;
 use App\Services\layout\FooterService;
+use Exception;
 use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -43,8 +44,8 @@ class EventController extends AbstractController
     /**
      * @Route(path="/event/new", name="new")
      * @param Request $request
-     * @return \Symfony\Component\HttpFoundation\Response
-     * @throws \Exception
+     * @return Response
+     * @throws Exception
      */
     public function create(Request $request) {
         $event = new Event();
@@ -52,7 +53,6 @@ class EventController extends AbstractController
         $form->handleRequest($request);
 
         if($form->isSubmitted() && $form->isValid()) {
-            die();
             $organization = $this->getUser()->getOrganization();
             $event->setOrganization($organization);
             $this->getDoctrine()->getManager()->persist($event);
@@ -81,7 +81,7 @@ class EventController extends AbstractController
      * @Route(name="list", path="/events")
      * @param PaginatorInterface $paginator
      * @param Request $request
-     * @return \Symfony\Component\HttpFoundation\Response
+     * @return Response
      */
     public function list(PaginatorInterface $paginator, Request $request) : Response
     {

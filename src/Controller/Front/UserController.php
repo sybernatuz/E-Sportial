@@ -10,9 +10,11 @@ use App\Repository\SubscriptionRepository;
 use App\Repository\UserRepository;
 use App\Services\layout\FooterService;
 use App\Voter\UserVoter;
+use Exception;
 use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 /**
@@ -38,7 +40,7 @@ class UserController extends AbstractController
      * @Route(path="/users", name="list")
      * @param PaginatorInterface $paginator
      * @param Request $request
-     * @return \Symfony\Component\HttpFoundation\Response
+     * @return Response
      */
     public function list(PaginatorInterface $paginator, Request $request)
     {
@@ -63,7 +65,7 @@ class UserController extends AbstractController
      * @Route(path="/user/{slug}", name="show")
      * @param User $user
      * @param SubscriptionRepository $subscriptionRepository
-     * @return \Symfony\Component\HttpFoundation\Response
+     * @return Response
      */
     public function show(User $user, SubscriptionRepository $subscriptionRepository)
     {
@@ -78,7 +80,7 @@ class UserController extends AbstractController
      * @Route(path="user/{slug}/edit", name="edit")
      * @param User $user
      * @param Request $request
-     * @return \Symfony\Component\HttpFoundation\Response
+     * @return Response
      */
     public function edit(User $user, Request $request)
     {
@@ -90,7 +92,7 @@ class UserController extends AbstractController
                 $this->getDoctrine()->getManager()->persist($user);
                 $this->getDoctrine()->getManager()->flush();
                 $this->addFlash('success', 'Profile edited successfully');
-            } catch (\Exception $e) {
+            } catch (Exception $e) {
                 $this->addFlash('error', 'An error occurred');
             }
         }
