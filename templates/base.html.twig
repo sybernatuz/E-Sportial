@@ -12,16 +12,16 @@
     </head>
     <body>
         <main>
-            {% include 'modules/front/common/navbar.html.twig' only %}
+            {% include 'modules/front/common/navbar.html.twig' %}
 
             <div class="container-fluid pl2 pr2">
                 {% block body %}
                 {% endblock %}
             </div>
         </main>
-        {% include 'modules/front/common/footer.html.twig' only %}
+        {% include 'modules/front/common/footer.html.twig' %}
 
-        <script id="loading" data-prototype="{% include 'modules/front/common/loading.html.twig' only %}"></script>
+        <script id="loading" data-prototype="{% include 'modules/front/common/loading.html.twig' %}"></script>
         {{ encore_entry_script_tags('app') }}
         {% block javascripts %}
         {% endblock %}
