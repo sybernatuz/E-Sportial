@@ -113,7 +113,10 @@ class NewFormType extends AbstractType
             'data_class' => Job::class,
             'method' => 'post',
             'csrf_protection' => true,
-            'allow_extra_fields' => true
+            'allow_extra_fields' => true,
+            'attr' => [
+                'novalidate' => "true"
+            ]
         ]);
     }
 }

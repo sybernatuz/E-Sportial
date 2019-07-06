@@ -1,44 +1,44 @@
 <div id="new-form-event">
     {{ form_start(newForm) }}
-    <div class="row">
-        <div class="input-field col s12">
-            {{ form_label(newForm.name) }}
-            {{ form_widget(newForm.name) }}
-            <div class="form-errors">
-                {{ form_errors(newForm.name) }}
+        <div class="row">
+            <div class="input-field col s12">
+                {{ form_label(newForm.name) }}
+                {{ form_widget(newForm.name) }}
+                <div class="form-errors">
+                    {{ form_errors(newForm.name) }}
+                </div>
+            </div>
+            <div class="input-field col s12">
+                {{ form_label(newForm.description) }}
+                {{ form_widget(newForm.description) }}
+                <div class="form-errors">
+                    {{ form_errors(newForm.description) }}
+                </div>
+            </div>
+            <div class="input-field col s12 m6">
+                {{ form_widget(newForm.startDate) }}
+                {{ form_label(newForm.startDate) }}
+                <div class="form-errors">
+                    {{ form_errors(newForm.startDate) }}
+                </div>
+            </div>
+            <div class="input-field col s12 m6">
+                {{ form_widget(newForm.endDate) }}
+                {{ form_label(newForm.endDate) }}
+                <div class="form-errors">
+                    {{ form_errors(newForm.endDate) }}
+                </div>
+            </div>
+            <div class="input-field col s12">
+                {{ form_widget(newForm.location) }}
+                {{ form_label(newForm.location) }}
+                <div class="form-errors">
+                    {{ form_errors(newForm.location) }}
+                </div>
+            </div>
+            <div class="col s3 offset-s5">
+                {{ form_widget(newForm.add) }}
             </div>
         </div>
-        <div class="input-field col s12">
-            {{ form_label(newForm.description) }}
-            {{ form_widget(newForm.description) }}
-            <div class="form-errors">
-                {{ form_errors(newForm.description) }}
-            </div>
-        </div>
-        <div class="input-field col s12 m6">
-            {{ form_widget(newForm.startDate) }}
-            {{ form_label(newForm.startDate) }}
-            <div class="form-errors">
-                {{ form_errors(newForm.startDate) }}
-            </div>
-        </div>
-        <div class="input-field col s12 m6">
-            {{ form_widget(newForm.endDate) }}
-            {{ form_label(newForm.endDate) }}
-            <div class="form-errors">
-                {{ form_errors(newForm.endDate) }}
-            </div>
-        </div>
-        <div class="input-field col s12">
-            {{ form_widget(newForm.location) }}
-            {{ form_label(newForm.location) }}
-            <div class="form-errors">
-                {{ form_errors(newForm.location) }}
-            </div>
-        </div>
-        <div class="col s3 offset-s5">
-            {{ form_widget(newForm.add) }}
-        </div>
-    </div>
     {{ form_end(newForm) }}
 </div>

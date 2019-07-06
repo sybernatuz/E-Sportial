@@ -36,11 +36,7 @@ class NewFormType extends AbstractType
                 'required' => true
             ])
             ->add('description', TextareaType::class, [
-                'label' => $this->translator->trans('Description'),
-                'attr' => [
-                    'rows' => 8
-                ],
-                'required' => true
+                'label' => $this->translator->trans('Description')
             ])
             ->add('startDate', DateType::class, [
                 'widget' => "single_text",
@@ -70,7 +66,10 @@ class NewFormType extends AbstractType
             'data_class' => Event::class,
             'method' => 'post',
             'csrf_protection' => true,
-            'allow_extra_fields' => true
+            'allow_extra_fields' => true,
+            'attr' => [
+                'novalidate' => "true"
+            ]
         ]);
     }
 }

@@ -23,7 +23,7 @@
                 </p>
             </li>
         </ul>
-        <p class="job-description">{{ jobDetail.description }}</p>
+        <p class="job-description">{{ jobDetail.description|raw }}</p>
         {% if app.user %}
             <button id="{{ jobDetail.id }}" class="btn apply">
                 {{ isApplied ? '<i class="material-icons">done</i>' : "Apply" }}
