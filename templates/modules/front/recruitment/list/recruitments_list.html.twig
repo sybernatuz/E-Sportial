@@ -6,10 +6,10 @@
             {% for recruitment in recruitments %}
                 <li class="collection-item avatar recruitment-item valign-wrapper">
                     <div class="col s3 m3 l3 center-align">
-                        <span>{{ recruitment.startDate|date }}</span>
+                        <span>{{ recruitment.startDate|date("M d, Y") }}</span>
                     </div>
                     <div class="col s3 m3 l3 center-align">
-                        <a href="{{ path('app_user_show', {"slug" : recruitment.user.username}) }}">
+                        <a href="{{ path('app_user_show', {"slug" : recruitment.user.slug}) }}">
                             <img class="circle" src="{{ recruitment.user.avatar }}" alt=""{{ recruitment.user.username }}>
                         </a>
                     </div>
@@ -19,7 +19,7 @@
                         <span class="name">{{ recruitment.organization.name }}</span>
                     </div>
                     <div class="col s3 m3 l3 center-align">
-                        <a href="{{ path('app_team_show', {"slug" : recruitment.organization.name}) }}">
+                        <a href="{{ path('app_team_show', {"slug" : recruitment.organization.slug}) }}">
                             <img class="circle" src="{{ recruitment.organization.logoPath }}" alt="{{ recruitment.organization.name }}">
                         </a>
                     </div>

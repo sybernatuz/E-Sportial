@@ -17,6 +17,8 @@ $(document).ready(function() {
 
 function getGameSelectedStats(userId) {
     let gameIdSelected = $("#select_game_user_game").val();
+    if (gameIdSelected == null)
+        return;
     $.ajax({
         url: Routing.generate("app_user_ajax_game_stats", {userId: userId, gameId: gameIdSelected}),
         success: function (data) {

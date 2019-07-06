@@ -11,12 +11,14 @@ namespace App\Controller\Ajax;
 
 use App\Entity\Dto\Roster\AddUserToRosterDto;
 use App\Entity\Organization;
+use App\Entity\Recruitment;
 use App\Entity\Roster;
 use App\Entity\User;
 use App\Form\Front\Roster\AddUserToRosterType;
 use App\Form\Front\Roster\CreateRosterType;
 use App\Repository\RosterRepository;
 use App\Repository\UserRepository;
+use DateTime;
 use Doctrine\ORM\EntityManagerInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
@@ -166,6 +168,11 @@ class TeamAjaxController extends AbstractController
             $rosterSubmitted = $addUserToRoster->getRoster();
             $user = $userRepository->findTeamMember($team, $addUserToRoster->getUsername());
             $rosterSubmitted->addUser($user);
+            $recruitment = new Recruitment();
+            $recruitment->setStartDate(new DateTime());
+            $recruitment->setUser($user);
+            $recruitment->setOrganization($team);
+            $this->em->persist($recruitment);
             $this->em->flush();
         }
 
