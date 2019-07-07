@@ -21,7 +21,7 @@ class GameAccountFixturesDemo extends Fixture implements DependentFixtureInterfa
 
         $gameAccount = (new GameAccount())
             ->setGamer($user)
-            ->setPseudo("Gotaga")
+            ->setPseudo("GotagaTV")
             ->setGame($fortnite);
         $manager->persist($gameAccount);
 

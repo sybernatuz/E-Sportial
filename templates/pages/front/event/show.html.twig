@@ -5,7 +5,19 @@
 {% endblock %}
 
 {% block body %}
-    {% include 'modules/front/event/show/details.html.twig' %}
+    <div class="row">
+        {% include 'modules/front/event/show/details.html.twig' %}
+    </div>
+    {% if app.user %}
+        <div class="row">
+            <button id="{{ event.id }}" class="btn join">
+                {{ isJoined ? '<i class="material-icons">done</i>' : "Join" }}
+            </button>
+        </div>
+    {% endif %}
+    <div class="row">
+        {% include 'modules/front/event/show/participants.html.twig' %}
+    </div>
 {% endblock %}
 
 {% block javascripts %}

@@ -5,6 +5,7 @@ namespace App\Repository;
 use App\Entity\Event;
 use App\Entity\Game;
 use App\Entity\Search\EventSearch;
+use App\Entity\User;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\ORM\Query;
 use Doctrine\ORM\Query\Expr\Join;
@@ -72,6 +73,18 @@ class EventRepository extends ServiceEntityRepository
             ->where('p.game = :game')
             ->setParameter(':game', $game)
             ->orderBy('e.startDate', 'DESC')
+            ->getQuery()
+            ->getResult();
+    }
+
+    public function findByParticipant(User $user, int $eventId)
+    {
+        return $this->createQueryBuilder('e')
+            ->leftJoin('e.participants', 'p')
+            ->where('p.user = :user')
+            ->setParameter(':user', $user)
+            ->andwhere('e.id = :id')
+            ->setParameter(':id', $eventId)
             ->getQuery()
             ->getResult();
     }

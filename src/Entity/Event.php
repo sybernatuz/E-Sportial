@@ -76,7 +76,7 @@ class Event
     private $files;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Participant", mappedBy="event")
+     * @ORM\OneToMany(targetEntity="App\Entity\Participant", mappedBy="event", cascade={"persist"})
      */
     private $participants;
 

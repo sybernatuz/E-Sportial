@@ -1,0 +1,25 @@
+<div id="participants">
+    <h2>Participants</h2>
+    {% if event.participants is null or event.participants.empty %}
+        <h3>No Participant</h3>
+    {% endif %}
+    {% for participant in event.participants %}
+        <div class="col s12 m4">
+            <a target="_blank" rel="noopener noreferrer" href="{{ path('app_user_show', {'slug' : participant.user.slug }) }}">
+                <div class="card horizontal">
+                    <div class="col s4 m4 l4 valign-wrapper">
+                        <img class="circle" src="{{ participant.user.avatar }}">
+                    </div>
+                    <div class="card-stacked col s8 m8 l8">
+                        <div class="card-content">
+                            <div class="col s8 m8 l8">
+                                <span>{{ participant.user.username }}</span>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </a>
+        </div>
+    {% endfor %}
+</div>

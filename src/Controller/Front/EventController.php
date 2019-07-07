@@ -11,6 +11,7 @@ namespace App\Controller\Front;
 
 use App\Entity\Event;
 use App\Entity\Search\EventSearch;
+use App\Entity\User;
 use App\Form\Front\Event\NewFormType;
 use App\Form\Search\EventSearchType;
 use App\Repository\EventRepository;
@@ -72,7 +73,15 @@ class EventController extends AbstractController
      */
     public function show(Event $event) : Response
     {
+        if($this->isGranted('ROLE_USER')) {
+            $user = $this->getUser();
+            if ($user instanceof User) {
+                $eventJoined = $this->eventRepository->findByParticipant($user, $event->getId());
+            }
+            $isJoined = isset($eventJoined) && $eventJoined != null ? true : false;
+        }
         return $this->render('pages/front/event/show.html.twig', [
+            'isJoined' => $isJoined ?? false,
             'event' => $event
         ] + $this->footerService->process());
     }

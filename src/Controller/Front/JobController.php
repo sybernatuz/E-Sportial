@@ -47,7 +47,7 @@ class JobController extends AbstractController
      * @Route(name="list", path="/jobs")
      * @param PaginatorInterface $paginator
      * @param Request $request
-     * @return \Symfony\Component\HttpFoundation\Response
+     * @return Response
      */
     public function list(PaginatorInterface $paginator, Request $request) : Response
     {
@@ -143,7 +143,7 @@ class JobController extends AbstractController
     /**
      * @Route(name="delete", path="/job/{id}/delete")
      * @param Job $job
-     * @return \Symfony\Component\HttpFoundation\Response
+     * @return Response
      */
     public function delete(Job $job)
     {
