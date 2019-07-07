@@ -281,11 +281,23 @@
                                 <div class="col s12 m12 l12 xl12">
                                     <span>
                                         {% if i == 0 %}
-                                            {{ data.data.keyboardmouse.defaultsolo.default.score }}
+                                            {% if data.data.keyboardmouse.defaultsolo.default.score is defined %}
+                                                    {{ data.data.keyboardmouse.defaultsolo.default.score }}
+                                            {% else %}
+                                                    NO DATA
+                                            {% endif %}
                                         {% elseif i == 1 %}
-                                            {{ data.data.keyboardmouse.defaultduo.default.score }}
+                                            {% if data.data.keyboardmouse.defaultduo.default.score is defined %}
+                                                {{ data.data.keyboardmouse.defaultduo.default.score }}
+                                            {% else %}
+                                                NO DATA
+                                            {% endif %}
                                         {% else %}
-                                            {{ data.data.keyboardmouse.defaultsquad.default.score }}
+                                            {% if data.data.keyboardmouse.defaultsquad.default.score is defined %}
+                                               {{ data.data.keyboardmouse.defaultsquad.default.score }}
+                                            {% else %}
+                                                NO DATA
+                                            {% endif %}
                                         {% endif %}
                                     </span>
                                 </div>
@@ -303,11 +315,23 @@
                                 <div class="col s12 m12 l12 xl12">
                                     <span>
                                         {% if i == 0 %}
-                                            {{ data.data.keyboardmouse.defaultsolo.default.minutesplayed }}
+                                            {% if data.data.keyboardmouse.defaultsolo.default.minutesplayed is defined %}
+                                                {{ data.data.keyboardmouse.defaultsolo.default.minutesplayed }}
+                                            {% else %}
+                                                NO DATA
+                                            {% endif %}
                                         {% elseif i == 1 %}
-                                            {{ data.data.keyboardmouse.defaultduo.default.minutesplayed }}
+                                            {% if data.data.keyboardmouse.defaultduo.default.minutesplayed is defined %}
+                                                {{ data.data.keyboardmouse.defaultduo.default.minutesplayed }}
+                                            {% else %}
+                                                NO DATA
+                                            {% endif %}
                                         {% else %}
-                                            {{ data.data.keyboardmouse.defaultsquad.default.minutesplayed }}
+                                            {% if data.data.keyboardmouse.defaultsquad.default.minutesplayed is defined %}
+                                                {{ data.data.keyboardmouse.defaultsquad.default.minutesplayed }}
+                                            {% else %}
+                                                NO DATA
+                                            {% endif %}
                                         {% endif %}
                                     </span>
                                 </div>
