@@ -6,8 +6,10 @@ $('.join').click(function () {
             $('.join').html(loading);
         },
         success: function (data) {
-            if (data === true)
+            if (data === true) {
                 $('.join').html('<i class="material-icons">done</i>');
+                location.reload();
+            }
             else
                 $('.join').html('<i class="material-icons">clear</i>');
         }

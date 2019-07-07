@@ -6,6 +6,8 @@ namespace App\Controller\Ajax;
 
 use App\Entity\Event;
 use App\Entity\Participant;
+use App\Entity\User;
+use App\Repository\EventRepository;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -22,10 +24,12 @@ class EventAjaxController extends AbstractController
 {
 
     private $serializer;
+    private $eventRepository;
 
-    public function __construct(SerializerInterface $serializer)
+    public function __construct(SerializerInterface $serializer, EventRepository $eventRepository)
     {
         $this->serializer = $serializer;
+        $this->eventRepository = $eventRepository;
     }
 
     /**
@@ -36,6 +40,14 @@ class EventAjaxController extends AbstractController
      */
     public function join(Event $event)
     {
+        $user = $this->getUser();
+        if ($user instanceof User) {
+            $eventJoined = $this->eventRepository->findByParticipant($user, $event->getId());
+        }
+        $isJoined = isset($eventJoined) && $eventJoined != null ? true : false;
+        if ($isJoined)
+            return new JsonResponse($this->serializer->normalize(true, 'json'));
+        
         $participant = (new Participant())
             ->setUser($this->getUser())
             ->setEvent($event);
