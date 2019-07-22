@@ -41,7 +41,6 @@ class FortniteGameStatsService implements GameStatsInterface
             throw new DataConverterJsonDecodeException();
         }
 
-
         return $data;
     }
 
@@ -59,15 +58,13 @@ class FortniteGameStatsService implements GameStatsInterface
      * @return string | boolean
      */
     private function getUid(string $apiUrl, string $pseudo) {
-        $headers = array('Accept' => 'application/json');
+        $headers = array('Accept' => 'application/json', 'TRN-Api-Key' => 'a53b609a-7d69-4dee-8606-89013671b412');
 
-        $queryUid = array('username' => $pseudo, 'authorization' => '4635ae6ff6ddd205cc301e4ff3b81d24');
-        $result = Request::get($apiUrl . self::USER_ID_ROUTE, $headers, $queryUid)->body;
-
-        if(isset($result->success) && !$result->success) {
+        $apiUrl = "https://api.fortnitetracker.com/v1/profile/pc/$pseudo";
+        $result = Request::get($apiUrl, $headers)->body;
+        if($result->error) {
             return false;
         }
-
-        return $result->uid;
+        return str_replace("-", "", $result->accountId);
     }
 }
