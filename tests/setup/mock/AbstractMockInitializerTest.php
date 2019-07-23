@@ -15,7 +15,6 @@ abstract class AbstractMockInitializerTest extends KernelTestCase
 {
     public static function setUpBeforeClass()
     {
-        parent::setUpBeforeClass();
         UserMock::init();
         GameMock::init();
         CountryMock::init();

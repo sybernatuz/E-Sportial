@@ -61,7 +61,12 @@ class MessageController extends AbstractController
             $request->query->getInt('page', 1),
             self::MESSAGES_NUMBER
         );
-
+        if ($discussions[0] != null) {
+            $discussions[0]->getMessages()->forAll(function (int $key, Message $message) {
+                if ($message->getTransmitter()->getId() != $this->getUser()->getId())
+                    $message->setIsRead(true);
+            });
+        }
         return $this->render("pages/front/message/index.html.twig", [
                 'discussions' => $discussions,
                 'discussion' => $discussions[0] ?? null

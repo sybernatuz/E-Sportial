@@ -282,9 +282,9 @@
                                     <span>
                                         {% if i == 0 %}
                                             {% if data.data.keyboardmouse.defaultsolo.default.score is defined %}
-                                                    {{ data.data.keyboardmouse.defaultsolo.default.score }}
+                                                {{ data.data.keyboardmouse.defaultsolo.default.score }}
                                             {% else %}
-                                                    NO DATA
+                                                NO DATA
                                             {% endif %}
                                         {% elseif i == 1 %}
                                             {% if data.data.keyboardmouse.defaultduo.default.score is defined %}
@@ -347,11 +347,23 @@
                                 <div class="col s12 m12 l12 xl12">
                                     <span>
                                         {% if i == 0 %}
-                                            {{ (data.data.keyboardmouse.defaultsolo.default.score / data.data.keyboardmouse.defaultsolo.default.matchesplayed) | round(2, 'floor') }}
+                                            {% if data.data.keyboardmouse.defaultsolo.default.minutesplayed is defined %}
+                                                {{ (data.data.keyboardmouse.defaultsolo.default.score / data.data.keyboardmouse.defaultsolo.default.matchesplayed) | round(2, 'floor') }}
+                                            {% else %}
+                                                NO DATA
+                                            {% endif %}
                                         {% elseif i == 1 %}
-                                            {{ (data.data.keyboardmouse.defaultduo.default.score / data.data.keyboardmouse.defaultduo.default.matchesplayed) | round(2, 'floor') }}
+                                            {% if data.data.keyboardmouse.defaultduo.default.minutesplayed is defined %}
+                                                {{ (data.data.keyboardmouse.defaultduo.default.score / data.data.keyboardmouse.defaultduo.default.matchesplayed) | round(2, 'floor') }}
+                                            {% else %}
+                                                NO DATA
+                                            {% endif %}
                                         {% else %}
-                                            {{ (data.data.keyboardmouse.defaultsquad.default.score / data.data.keyboardmouse.defaultsquad.default.matchesplayed) | round(2, 'floor') }}
+                                            {% if data.data.keyboardmouse.defaultsquad.default.minutesplayed is defined %}
+                                                {{ (data.data.keyboardmouse.defaultsquad.default.score / data.data.keyboardmouse.defaultsquad.default.matchesplayed) | round(2, 'floor') }}
+                                            {% else %}
+                                                NO DATA
+                                            {% endif %}
                                         {% endif %}
                                     </span>
                                 </div>

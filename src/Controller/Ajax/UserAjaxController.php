@@ -188,7 +188,6 @@ class UserAjaxController extends AbstractController
         $gameStatService = $gameStatsFactory->create($game);
         $data = $gameStatService->getUserStats($game->getApiUrl(), $gameAccount->getPseudo());
         $template = $gameStatService->getStatsTemplate();
-
         return $this->render($template, [
             "data" => $data
         ]);

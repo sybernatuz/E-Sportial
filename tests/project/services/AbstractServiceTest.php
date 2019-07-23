@@ -1,25 +1,23 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: Louis
- * Date: 27/01/2019
- * Time: 01:31
- */
+
 
 namespace App\Tests\project\services;
 
 
-use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
+use App\Tests\setup\mock\AbstractMockInitializerTest;
 
-abstract class AbstractServiceTest extends KernelTestCase
+abstract class AbstractServiceTest extends AbstractMockInitializerTest
 {
-    protected static $service;
 
-    public static function setUpBeforeClass()
-    {
-        parent::setUpBeforeClass();
-        self::$container->get(self::getServiceClass());
+    protected $service;
+
+    public function setUp() {
+        $this->service = self::bootKernel()
+            ->getContainer()
+            ->get('doctrine')
+            ->getManager()
+            ->getRepository($this->getServiceClass());
     }
 
-    protected abstract static function getServiceClass();
+    protected abstract function getServiceClass() : string ;
 }
